@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.breworks.dreamy.model.dreamyAccount;
 
 
-public class signUp extends Activity{
+public class signUp extends Activity {
     Button createAccount;
     EditText usernameInput, emailInput, passwordInput, passwordConfInput;
     String username, email, password, passwordConf;
@@ -32,19 +32,27 @@ public class signUp extends Activity{
     }
 
 
-    public void createAccount(View v){
+    public void createAccount(View v) {
         username = usernameInput.getText().toString();
         email = emailInput.getText().toString();
         password = passwordInput.getText().toString();
         passwordConf = passwordConfInput.getText().toString();
 
-        if(!password.equals(passwordConf))
-            Toast.makeText(getApplicationContext(), "Password and password confirmation did not match!", Toast.LENGTH_SHORT).show();
-        else {
-            dreamyAccount account = new dreamyAccount(email, username, password);
-            Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this, logIn.class);
+        if (dreamyAccount.findByUsername("username") != null) {
+            Toast.makeText(getApplicationContext(), "Username is already taken.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, signUp.class);
             startActivity(intent);
+        } else {
+            if (!password.equals(passwordConf)) {
+                Toast.makeText(getApplicationContext(), "Password and password confirmation did not match!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, signUp.class);
+                startActivity(intent);
+            } else {
+                dreamyAccount.createAccount(email, username, password);
+                Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, logIn.class);
+                startActivity(intent);
+            }
         }
         finish();
     }
