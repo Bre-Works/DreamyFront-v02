@@ -7,35 +7,43 @@ import com.orm.SugarRecord;
  */
 public class Todo extends SugarRecord<Todo>{
 
-        String name;
-        int status;
+        String todoName;
+        boolean todoStatus;
 
         //build relationship
-        long miles_id;
+        Milestone miles;
 
         // constructors
         public Todo() {
         }
 
-        public Todo(String name, int status) {
-            this.name = name;
-            this.status = status;
-            this.miles_id = 0;
-        }
-
-        public Todo(String name, int status, long mil) {
-            this.name = name;
-            this.status = status;
-            this.miles_id = mil;
+        public Todo(String name, boolean status, Milestone mil) {
+            this.todoName = name;
+            this.todoStatus = status;
+            this.miles = mil;
             this.save();
         }
 
         public String getName(){
-            return this.name;
+            return this.todoName;
         }
 
-        public int getStatus(){
-            return this.status;
+        public boolean getStatus(){
+            return this.todoStatus;
+        }
+
+        public static Todo createMilestone(String name, boolean status, Milestone miles){
+            Todo todo = new Todo(name,status,miles);
+            todo.save();
+            return todo;
+        }
+
+        public void setName(String todoName){
+            this.todoName = todoName;
+        }
+
+        public void setStatus(boolean status) {
+            this.todoStatus = status;
         }
 
 }

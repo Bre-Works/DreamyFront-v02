@@ -28,7 +28,7 @@ public class signUp extends Activity{
         passwordInput = (EditText) findViewById(R.id.password);
         passwordConfInput = (EditText) findViewById(R.id.passwordConf);
         //createAccount = (Button) findViewById(R.id.createAccount);
-        finish();
+
     }
 
 
@@ -46,5 +46,6 @@ public class signUp extends Activity{
             Intent intent = new Intent(this, logIn.class);
             startActivity(intent);
         }
+        finish();
     }
 }

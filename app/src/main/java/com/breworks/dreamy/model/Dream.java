@@ -7,33 +7,44 @@ import com.orm.SugarRecord;
  */
 public class Dream extends SugarRecord<Dream>{
 
-    String name;
-    int status;
+    String dreamName;
+    boolean dreamStatus;
 
     //build the relationship
-    long account_id;
+    dreamyAccount account;
 
     // constructors
     public Dream() {
     }
 
-    public Dream(String name, int status) {
-        this.name = name;
-        this.status = status;
-        this.account_id = 0;
-    }
-
-    public Dream(String name, int status,long acc) {
-        this.name = name;
-        this.status = status;
-        this.account_id = acc;
+    public Dream(String name, boolean status,dreamyAccount acc) {
+        this.dreamName = name;
+        this.dreamStatus = status;
+        this.account = acc;
     }
 
     public String getName(){
-        return this.name;
+        return this.dreamName;
     }
 
-    public int getStatus(){
-        return this.status;
+    public boolean getStatus(){
+        return this.dreamStatus;
     }
+
+    public static Dream createDream(String name, boolean status, dreamyAccount acc){
+        Dream dream = new Dream(name,status,acc);
+        dream.save();
+        return dream;
+    }
+
+    public void setName(String dreamName){
+        this.dreamName = dreamName;
+    }
+
+    public void setStatus(boolean status) {
+        this.dreamStatus = status;
+    }
+
+
 }
+

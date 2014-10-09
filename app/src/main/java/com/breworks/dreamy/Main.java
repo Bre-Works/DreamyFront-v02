@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.breworks.dreamy.model.Dream;
-import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.tabpanel.MyTabHostProvider;
 import com.breworks.dreamy.tabpanel.TabHostProvider;
 import com.breworks.dreamy.tabpanel.TabView;
@@ -29,6 +28,7 @@ public class Main extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         TabHostProvider tabProvider = new MyTabHostProvider(Main.this);
         TabView tabView = tabProvider.getTabHost("Home");
@@ -36,29 +36,13 @@ public class Main extends Activity {
         setContentView(tabView.render(0));
         linearView = (LinearLayout) findViewById(R.id.linearView);
 
-        // Inserting Contacts
-            Log.d("Insert: ", "Inserting ..");
-            if(Dream.listAll(Dream.class) == null) {
-                Dream dr1 = new Dream("Conquer The World", 0);
-                Dream dr2 = new Dream("Make a Homunculus", 0);
-                Dream dr3 = (new Dream("IT PRO gets A", 1));
-                Dream dr4 = (new Dream("Accepted at UI", 1));
-                Dream dr5 = new Dream("Around the World", 1);
-
-                Milestone a = new Milestone("Finish Database", 1, dr1.getId());
-                Milestone b = new Milestone("Finish UI", 1, dr1.getId());
-                Milestone c = new Milestone("Finish BackEnd", 1, dr1.getId());
-                Milestone d = new Milestone("Finish FrontEnd", 1, dr1.getId());
-
-            }
-        // Reading all contacts
-
         Log.d("Reading: ", "Reading all contacts..");
         List<Dream> dreams = Dream.listAll(Dream.class);
 
         for (final Dream dr : dreams) {
             TextView Dc = new TextView(this);
-            if(dr.getStatus() == 0) {
+            Log.e("lol",dr.getName());
+            if(!dr.getStatus()) {
                 Dc.setText(dr.getName() + " - ONGOING " );
             }
             else{
