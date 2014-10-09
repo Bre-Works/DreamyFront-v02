@@ -1,0 +1,63 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".Main"
+    android:clickable="false"
+    android:focusableInTouchMode="false"
+    android:focusable="false"
+    android:longClickable="false">
+
+    <TextView
+        android:text="Dreamy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textSize="50sp"
+        android:textColor="#ff69aaff"
+        android:id="@+id/textAdd"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/adddreamButton">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrolled"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:paddingTop="5dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:weightSum="1"
+                android:id="@+id/linearView"
+                android:layout_below="@+id/adddreamButton">
+
+
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/adddreamButton"
+        android:layout_toEndOf="@+id/textAdd"
+        android:background="@drawable/adddream"
+        android:onClick="gotoDreamyForm"
+        android:layout_below="@+id/textAdd"
+        android:layout_toRightOf="@+id/textAdd" />
+
+</RelativeLayout>
