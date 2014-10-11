@@ -14,8 +14,11 @@ import android.widget.Toast;
 
 import com.breworks.dreamy.model.dreamyAccount;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
-public class signUp extends Activity{
+
+public class signUp extends Activity {
     Button createAccount;
     EditText usernameInput, emailInput, passwordInput, passwordConfInput;
     String username, email, password, passwordConf;
@@ -27,25 +30,28 @@ public class signUp extends Activity{
         emailInput = (EditText) findViewById(R.id.email);
         passwordInput = (EditText) findViewById(R.id.password);
         passwordConfInput = (EditText) findViewById(R.id.passwordConf);
-        //createAccount = (Button) findViewById(R.id.createAccount);
-
     }
 
 
-    public void createAccount(View v){
+    public void createAccount(View v) throws InvalidKeySpecException, NoSuchAlgorithmException {
         username = usernameInput.getText().toString();
         email = emailInput.getText().toString();
         password = passwordInput.getText().toString();
         passwordConf = passwordConfInput.getText().toString();
 
-        if(!password.equals(passwordConf))
-            Toast.makeText(getApplicationContext(), "Password and password confirmation did not match!", Toast.LENGTH_SHORT).show();
-        else {
-            dreamyAccount account = new dreamyAccount(email, username, password);
-            Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this, logIn.class);
-            startActivity(intent);
+        if (dreamyAccount.findByUsername(username) != null) {
+            Toast.makeText(getApplicationContext(), "Username is already taken.", Toast.LENGTH_SHORT).show();
+        } else {
+            if (!password.equals(passwordConf)) {
+                Toast.makeText(getApplicationContext(), "Password and password confirmation did not match!", Toast.LENGTH_SHORT).show();
+            } else {
+                dreamyAccount.createAccount(email, username, password);
+                Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, logIn.class);
+                startActivity(intent);
+            }
         }
         finish();
     }
+
 }
