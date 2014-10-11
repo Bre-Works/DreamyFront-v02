@@ -15,6 +15,9 @@ import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.dreamyAccount;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 public class logIn extends Activity {
     EditText usernameInput, passwordInput;
     String username, password;
@@ -24,61 +27,84 @@ public class logIn extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_in);
-        Log.e("pol","TEST");
+        Log.e("pol", "TEST");
 
         //Populate Data
-            dreamyAccount.deleteAll(dreamyAccount.class);
-            dreamyAccount ac1 = dreamyAccount.createAccount("om@om.com", "OM", "123456");
-            dreamyAccount ac2 = dreamyAccount.createAccount("om@omi.com", "OMi", "123456");
-            dreamyAccount ac3 = dreamyAccount.createAccount("om@omu.com", "OMu", "123456");
+        dreamyAccount.deleteAll(dreamyAccount.class);
 
-            Dream.deleteAll(Dream.class);
-            Dream dr1 = Dream.createDream("Conquer The World", false, ac1);
-            Log.e("lol", dr1.getName());
-            Dream dr2 = Dream.createDream("Make a Homunculus", false,ac2);
-            Log.e("pop", dr2.getName());
-            Dream.createDream("IT PRO gets A", true,ac3);
-            Dream.createDream("Accepted at UI", true,ac2);
-            Dream.createDream("Around the World", true,ac1);
+        dreamyAccount ac1 = null;
+        dreamyAccount ac2 = null;
+        dreamyAccount ac3 = null;
+        try {
+            ac1 = dreamyAccount.createAccount("om@om.com", "OM", "123456");
+            ac2 = dreamyAccount.createAccount("om@omi.com", "OMi", "123456");
+            ac3 = dreamyAccount.createAccount("om@omu.com", "OMu", "123456");
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
 
-            Milestone.deleteAll(Milestone.class);
-            Milestone a = new Milestone("Finish Database", true, dr1);
-            Milestone b = new Milestone("Finish UI", true, dr1);
-            Milestone c = new Milestone("Finish BackEnd", true, dr1);
-            Milestone d = new Milestone("Finish FrontEnd", true, dr1);
+
+        Dream.deleteAll(Dream.class);
+        Dream dr1 = Dream.createDream("Conquer The World", false, ac1);
+        Log.e("lol", dr1.getName());
+        Dream dr2 = Dream.createDream("Make a Homunculus", false, ac2);
+        Log.e("pop", dr2.getName());
+        Dream.createDream("IT PRO gets A", true, ac3);
+        Dream.createDream("Accepted at UI", true, ac2);
+        Dream.createDream("Around the World", true, ac1);
+
+        Milestone.deleteAll(Milestone.class);
+        Milestone a = new Milestone("Finish Database", true, dr1);
+        Milestone b = new Milestone("Finish UI", true, dr1);
+        Milestone c = new Milestone("Finish BackEnd", true, dr1);
+        Milestone d = new Milestone("Finish FrontEnd", true, dr1);
 
 
         usernameInput = (EditText) findViewById(R.id.usernameInput);
         passwordInput = (EditText) findViewById(R.id.passwordInput);
     }
 
-    public void loginAccount (View vi){
+    public void loginAccount(View vi) throws InvalidKeySpecException, NoSuchAlgorithmException {
         username = usernameInput.getText().toString();
         password = passwordInput.getText().toString();
-        Log.e("pip",username);
+        Log.e("pip", username);
         Log.e("pop", password);
-        try{
-        if(dreamyAccount.find(dreamyAccount.class,"username = ?",username) != null){
-            dreamyAccount acc = dreamyAccount.findByUsername(username);
-            Log.e("lol",acc.getUsername());
-            Log.e("pop", password);
-            if(password.equals(acc.getPassword())){
-                Intent intent = new Intent(this, Main.class);
-                startActivity(intent);
+
+
+        try {
+            if (dreamyAccount.find(dreamyAccount.class, "username = ?", username) != null) {
+                dreamyAccount acc = dreamyAccount.findByUsername(username);
+
+                String userPass = acc.getPassword();
+
+
+                Log.e("lol", acc.getUsername());
+                Log.e("pass", password);
+                Log.e("encpass", acc.getPassword());
+
+                if (authentication(password, userPass) == true) {
+                    Intent intent = new Intent(this, Main.class);
+                    startActivity(intent);
+                }
             }
-        }}
-        catch (Exception e){
+        } catch (Exception e) {
             Log.e("error", String.valueOf(e));
         }
     }
 
-    public void goToMain(View vi){
+    public static boolean authentication(String password, String userPass) throws InvalidKeySpecException, NoSuchAlgorithmException {
+        return PasswordHash.validatePassword(password, userPass);
+    }
+
+    public void goToMain(View vi) {
         Intent intent = new Intent(this, Main.class);
         startActivity(intent);
         finish();
     }
 
-    public void goToSignUp(View vi){
+    public void goToSignUp(View vi) {
         Intent intent = new Intent(this, signUp.class);
         startActivity(intent);
         finish();
