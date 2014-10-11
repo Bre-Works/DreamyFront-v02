@@ -1,7 +1,12 @@
 package com.breworks.dreamy.model;
 
+import com.breworks.dreamy.PasswordHash;
 import com.orm.SugarRecord;
+import com.orm.query.Condition;
+import com.orm.query.Select;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 
 /**
@@ -18,9 +23,9 @@ public class dreamyAccount extends SugarRecord<dreamyAccount> {
         public dreamyAccount() {
         }
 
-        public dreamyAccount(String email, String username ,String password) {
+        public dreamyAccount(String email, String username ,String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
             this.email = email;
-            this.password = password;
+            this.password = PasswordHash.createHash(password);
             this.username = username;
         }
 
@@ -36,7 +41,7 @@ public class dreamyAccount extends SugarRecord<dreamyAccount> {
             return this.username;
         }
 
-        public static dreamyAccount createAccount(String email, String username, String password){
+        public static dreamyAccount createAccount(String email, String username, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
             dreamyAccount account = new dreamyAccount(email, username, password);
             account.save();
             return account;

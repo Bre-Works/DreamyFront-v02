@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import com.breworks.dreamy.model.dreamyAccount;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 
 public class signUp extends Activity {
     Button createAccount;
@@ -27,12 +30,10 @@ public class signUp extends Activity {
         emailInput = (EditText) findViewById(R.id.email);
         passwordInput = (EditText) findViewById(R.id.password);
         passwordConfInput = (EditText) findViewById(R.id.passwordConf);
-        //createAccount = (Button) findViewById(R.id.createAccount);
-
     }
 
 
-    public void createAccount(View v) {
+    public void createAccount(View v) throws InvalidKeySpecException, NoSuchAlgorithmException {
         username = usernameInput.getText().toString();
         email = emailInput.getText().toString();
         password = passwordInput.getText().toString();
@@ -40,13 +41,9 @@ public class signUp extends Activity {
 
         if (dreamyAccount.findByUsername("username") != null) {
             Toast.makeText(getApplicationContext(), "Username is already taken.", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, signUp.class);
-            startActivity(intent);
         } else {
             if (!password.equals(passwordConf)) {
                 Toast.makeText(getApplicationContext(), "Password and password confirmation did not match!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, signUp.class);
-                startActivity(intent);
             } else {
                 dreamyAccount.createAccount(email, username, password);
                 Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_LONG).show();
