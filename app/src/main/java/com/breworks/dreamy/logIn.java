@@ -30,7 +30,6 @@ public class logIn extends Activity {
         Log.e("pol", "TEST");
 
         //Populate Data
-        dreamyAccount.deleteAll(dreamyAccount.class);
 
         dreamyAccount ac1 = null;
         dreamyAccount ac2 = null;

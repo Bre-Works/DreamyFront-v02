@@ -39,7 +39,7 @@ public class signUp extends Activity {
         password = passwordInput.getText().toString();
         passwordConf = passwordConfInput.getText().toString();
 
-        if (dreamyAccount.findByUsername("username") != null) {
+        if (dreamyAccount.findByUsername(username) != null) {
             Toast.makeText(getApplicationContext(), "Username is already taken.", Toast.LENGTH_SHORT).show();
         } else {
             if (!password.equals(passwordConf)) {
@@ -53,4 +53,5 @@ public class signUp extends Activity {
         }
         finish();
     }
+
 }
