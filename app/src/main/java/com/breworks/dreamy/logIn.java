@@ -34,19 +34,17 @@ public class logIn extends Activity {
 
             Dream.deleteAll(Dream.class);
             Dream dr1 = Dream.createDream("Conquer The World", false, ac1);
-            Log.e("lol", dr1.getName());
             Dream dr2 = Dream.createDream("Make a Homunculus", false,ac2);
-            Log.e("pop", dr2.getName());
             Dream.createDream("IT PRO gets A", true,ac3);
             Dream.createDream("Accepted at UI", true,ac2);
             Dream.createDream("Around the World", true,ac1);
+            Dream.createDream("Kill Monster",false,ac1);
 
             Milestone.deleteAll(Milestone.class);
             Milestone a = new Milestone("Finish Database", true, dr1);
             Milestone b = new Milestone("Finish UI", true, dr1);
             Milestone c = new Milestone("Finish BackEnd", true, dr1);
             Milestone d = new Milestone("Finish FrontEnd", true, dr1);
-
 
         usernameInput = (EditText) findViewById(R.id.usernameInput);
         passwordInput = (EditText) findViewById(R.id.passwordInput);
@@ -65,6 +63,7 @@ public class logIn extends Activity {
             if(password.equals(acc.getPassword())){
                 Intent intent = new Intent(this, Main.class);
                 startActivity(intent);
+                finish();
             }
         }}
         catch (Exception e){
