@@ -14,11 +14,15 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.view.inputmethod.EditorInfo;
+
 import com.breworks.dreamy.model.Todo;
 import com.breworks.dreamy.tabpanel.MyTabHostProvider;
 import com.breworks.dreamy.tabpanel.TabHostProvider;
 import com.breworks.dreamy.tabpanel.TabView;
+
 import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Created by Maha on 9/28/14.
@@ -61,6 +65,21 @@ public class ToDoList extends Activity {
         fieldWidth = (int) (screenWidth * 0.7);
         textField1.getLayoutParams().width = fieldWidth;
 
+        // Fetch tasks from the local database and display them
+        List<Todo> todos = Todo.listAll(Todo.class);
+        for (Todo todo : todos) {
+            TableRow row = new TableRow(this);
+            EditText textField = new EditText(this);
+            CheckBox checkbox = new CheckBox(this);
+            checkbox.setLayoutParams(new TableRow.LayoutParams(1));
+            setEditTextAttributes(textField);
+
+            checkBoxes.add(checkbox);
+            row.addView(checkbox);
+            row.addView(textField);
+            table.addView(row);
+        }
+
         View.OnClickListener oclBtnClear = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,15 +90,17 @@ public class ToDoList extends Activity {
                     }
                 }
                 if (table.getChildCount() == 0) {
-                    createTaskRow();
+                    createNewTaskField();
                 }
             }
         };
 
         taskEnter = new OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (v.getText().toString().trim().length() > 0 && actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    createTaskRow();
+                if (v.getText().toString().trim().length() > 0 && actionId == EditorInfo.IME_NULL
+                        && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    Todo newTask = new Todo(v.getText().toString());
+                    createNewTaskField();
                     return true;
                 } else if (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN) {
                     return true;
@@ -92,13 +113,33 @@ public class ToDoList extends Activity {
         textField1.setOnEditorActionListener(taskEnter);
     }
 
-    protected void createTaskRow() {
+    /*
+    Creates a new empty task text field
+     */
+    protected void createNewTaskField() {
         TableRow row = new TableRow(this);
         EditText textField = new EditText(this);
         CheckBox checkbox = new CheckBox(this);
         checkbox.setLayoutParams(new TableRow.LayoutParams(1));
         setEditTextAttributes(textField);
         checkBoxes.add(checkbox);
+        row.addView(checkbox);
+        row.addView(textField);
+        table.addView(row);
+    }
+
+    /*
+    Displays a new task field linked to an existing Todo object
+     */
+    protected void displayTask(Todo task) {
+
+        TableRow row = new TableRow(this);
+        EditText textField = new EditText(this);
+        CheckBox checkbox = new CheckBox(this);
+        checkbox.setLayoutParams(new TableRow.LayoutParams(1));
+        setEditTextAttributes(textField);
+        checkBoxes.add(checkbox);
+        textField.setText(task.getText());
         row.addView(checkbox);
         row.addView(textField);
         table.addView(row);
