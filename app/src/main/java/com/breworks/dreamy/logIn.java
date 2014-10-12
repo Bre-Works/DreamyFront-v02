@@ -83,6 +83,7 @@ public class logIn extends Activity {
                 if (authentication(password, userPass) == true) {
                     Intent intent = new Intent(this, Main.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         } catch (Exception e) {
