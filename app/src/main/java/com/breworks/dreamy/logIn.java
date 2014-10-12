@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
@@ -70,6 +71,9 @@ public class logIn extends Activity {
         Log.e("pop", password);
 
         try {
+            if (dreamyAccount.findByUsername(username) == null) {
+                Toast.makeText(getApplicationContext(), "Username does not exist!", Toast.LENGTH_SHORT).show();
+            }
             if (dreamyAccount.find(dreamyAccount.class, "username = ?", username) != null) {
                 dreamyAccount acc = dreamyAccount.findByUsername(username);
 
@@ -84,6 +88,9 @@ public class logIn extends Activity {
                     Intent intent = new Intent(this, Main.class);
                     startActivity(intent);
                     finish();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Invalid Password!", Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (Exception e) {
