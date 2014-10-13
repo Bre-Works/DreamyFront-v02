@@ -52,7 +52,6 @@ public class ToDoList extends Activity {
 
         btnClear = (Button) findViewById(R.id.btnClear);
         table = (TableLayout) findViewById(R.id.tableTaskList);
-        testText = (TextView) findViewById(R.id.textTitle);
         textField1 = (EditText) findViewById(R.id.textField1);
         checkBox1 = (CheckBox) findViewById(R.id.checkBox1);
         checkBoxes.add(checkBox1);
@@ -65,20 +64,7 @@ public class ToDoList extends Activity {
         fieldWidth = (int) (screenWidth * 0.7);
         textField1.getLayoutParams().width = fieldWidth;
 
-        // Fetch tasks from the local database and display them
-        List<Todo> todos = Todo.listAll(Todo.class);
-        for (Todo todo : todos) {
-            TableRow row = new TableRow(this);
-            EditText textField = new EditText(this);
-            CheckBox checkbox = new CheckBox(this);
-            checkbox.setLayoutParams(new TableRow.LayoutParams(1));
-            setEditTextAttributes(textField);
-
-            checkBoxes.add(checkbox);
-            row.addView(checkbox);
-            row.addView(textField);
-            table.addView(row);
-        }
+        fetchTasks();
 
         View.OnClickListener oclBtnClear = new View.OnClickListener() {
             @Override
@@ -99,7 +85,6 @@ public class ToDoList extends Activity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (v.getText().toString().trim().length() > 0 && actionId == EditorInfo.IME_NULL
                         && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    Todo newTask = new Todo(v.getText().toString());
                     createNewTaskField();
                     return true;
                 } else if (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -112,6 +97,43 @@ public class ToDoList extends Activity {
         btnClear.setOnClickListener(oclBtnClear);
         textField1.setOnEditorActionListener(taskEnter);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveTasks();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchTasks();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveTasks();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        fetchTasks();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        fetchTasks();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        saveTasks();
+    }
+
 
     /*
     Creates a new empty task text field
@@ -132,14 +154,14 @@ public class ToDoList extends Activity {
     Displays a new task field linked to an existing Todo object
      */
     protected void displayTask(Todo task) {
-
         TableRow row = new TableRow(this);
         EditText textField = new EditText(this);
         CheckBox checkbox = new CheckBox(this);
         checkbox.setLayoutParams(new TableRow.LayoutParams(1));
         setEditTextAttributes(textField);
         checkBoxes.add(checkbox);
-        textField.setText(task.getText());
+        CharSequence text = task.getText();
+        textField.setText(text);
         row.addView(checkbox);
         row.addView(textField);
         table.addView(row);
@@ -150,6 +172,25 @@ public class ToDoList extends Activity {
         et.requestFocus();
         et.setLayoutParams(new TableRow.LayoutParams(2));
         et.getLayoutParams().width = fieldWidth;
+    }
+
+    protected void fetchTasks() {
+        List<Todo> todos = Todo.listAll(Todo.class);
+        for (Todo todo : todos) {
+            displayTask(todo);
+        }
+    }
+
+    protected void saveTasks() {
+        ArrayList<EditText> taskList = new ArrayList<EditText>();
+        for (int i = 0; i < table.getChildCount(); i++) {
+            if (table.getChildAt(i) instanceof EditText)
+                taskList.add((EditText) table.getChildAt(i));
+        }
+        for (EditText et : taskList) {
+            Todo newTask = new Todo(et.getText().toString());
+            newTask.save();
+        }
     }
 
 }
