@@ -49,9 +49,10 @@ public class signUp extends Activity {
                 Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, logIn.class);
                 startActivity(intent);
+                finish();
             }
         }
-        finish();
+
     }
 
 }
