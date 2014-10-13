@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
@@ -30,8 +31,6 @@ public class logIn extends Activity {
         Log.e("pol", "TEST");
 
         //Populate Data
-
-
 
         dreamyAccount ac1 = null;
         dreamyAccount ac2 = null;
@@ -64,7 +63,6 @@ public class logIn extends Activity {
 
 
 
-
         usernameInput = (EditText) findViewById(R.id.usernameInput);
         passwordInput = (EditText) findViewById(R.id.passwordInput);
     }
@@ -75,8 +73,10 @@ public class logIn extends Activity {
         Log.e("pip", username);
         Log.e("pop", password);
 
-
         try {
+            if (dreamyAccount.findByUsername(username) == null) {
+                Toast.makeText(getApplicationContext(), "Username does not exist!", Toast.LENGTH_SHORT).show();
+            }
             if (dreamyAccount.find(dreamyAccount.class, "username = ?", username) != null) {
                 dreamyAccount acc = dreamyAccount.findByUsername(username);
 
@@ -90,6 +90,10 @@ public class logIn extends Activity {
                 if (authentication(password, userPass) == true) {
                     Intent intent = new Intent(this, Main.class);
                     startActivity(intent);
+                    finish();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Invalid Password!", Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (Exception e) {

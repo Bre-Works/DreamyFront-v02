@@ -45,6 +45,11 @@ public class Dream extends SugarRecord<Dream>{
         this.dreamStatus = status;
     }
 
+    @Override
+    public String toString() {
+        return  dreamName;
+
+    }
 
 }
 
