@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,11 +41,11 @@ public class DreamyForm extends Activity{
         if(getIntent() != null) {
             intent = getIntent();
             long dream = intent.getLongExtra("key",0);
+            Log.e("lol", String.valueOf(dream));
             Dream dr = Dream.findById(Dream.class,dream);
             dreamInput.setText(dr.getName());
 
-            if(Milestone.find(Milestone.class, "dream_id = ?", String.valueOf(dr.getId())) != null) {
-
+            try {
                 List<Milestone> miles = Milestone.find(Milestone.class, "dream_id = ?", String.valueOf(dr.getId()));
 
                 for (Milestone mil : miles) {
@@ -69,6 +70,9 @@ public class DreamyForm extends Activity{
 
                     container.addView(addView);
                 }
+            }
+            catch (Exception e){
+                Log.e("error", String.valueOf(e));
             }
         }
 

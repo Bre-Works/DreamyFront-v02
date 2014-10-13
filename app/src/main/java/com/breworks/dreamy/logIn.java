@@ -54,14 +54,12 @@ public class logIn extends Activity {
             Milestone b = new Milestone("Finish UI", true, dr1);
             Milestone c = new Milestone("Finish BackEnd", true, dr1);
             Milestone d = new Milestone("Finish FrontEnd", true, dr1);
+
         } catch (InvalidKeySpecException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-
-
-
 
         usernameInput = (EditText) findViewById(R.id.usernameInput);
         passwordInput = (EditText) findViewById(R.id.passwordInput);

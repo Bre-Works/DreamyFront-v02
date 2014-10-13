@@ -24,3 +24,10 @@ proguard/
 
 # Log Files
 *.log
+
+#App.iml
+app.iml
+
+
+#idea
+.idea/
