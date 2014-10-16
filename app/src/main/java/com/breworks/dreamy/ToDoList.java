@@ -114,13 +114,6 @@ public class ToDoList extends Activity {
         saveTasks();
     }
 
-    /*@Override
-    protected void onDestroy() {
-        super.onDestroy();
-        saveTasks();
-    }*/
-
-
     /*
     Creates a new empty task text field
      */
