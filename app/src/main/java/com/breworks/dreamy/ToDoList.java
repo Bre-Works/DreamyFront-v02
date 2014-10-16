@@ -20,9 +20,11 @@ import com.breworks.dreamy.tabpanel.MyTabHostProvider;
 import com.breworks.dreamy.tabpanel.TabHostProvider;
 import com.breworks.dreamy.tabpanel.TabView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.orm.SugarRecord;
 
 /**
  * Created by Maha on 9/28/14.
@@ -31,11 +33,9 @@ import java.util.List;
 public class ToDoList extends Activity {
 
     ArrayList<CheckBox> checkBoxes = new ArrayList<CheckBox>();
+    ArrayList<EditText> textFields = new ArrayList<EditText>();
     Button btnClear;
-    TextView testText;
     TableLayout table;
-    CheckBox checkBox1;
-    EditText textField1;
     OnEditorActionListener taskEnter;
     Display display;
     Point screenSize;
@@ -52,9 +52,6 @@ public class ToDoList extends Activity {
 
         btnClear = (Button) findViewById(R.id.btnClear);
         table = (TableLayout) findViewById(R.id.tableTaskList);
-        textField1 = (EditText) findViewById(R.id.textField1);
-        checkBox1 = (CheckBox) findViewById(R.id.checkBox1);
-        checkBoxes.add(checkBox1);
 
         // Scaling
         display = getWindowManager().getDefaultDisplay();
@@ -62,24 +59,6 @@ public class ToDoList extends Activity {
         display.getSize(screenSize);
         screenWidth = screenSize.x;
         fieldWidth = (int) (screenWidth * 0.7);
-        textField1.getLayoutParams().width = fieldWidth;
-
-        fetchTasks();
-
-        View.OnClickListener oclBtnClear = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (CheckBox i : checkBoxes) {
-                    if (i.isChecked()) {
-                        View row = (View) i.getParent();
-                        table.removeView(row);
-                    }
-                }
-                if (table.getChildCount() == 0) {
-                    createNewTaskField();
-                }
-            }
-        };
 
         taskEnter = new OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -94,8 +73,39 @@ public class ToDoList extends Activity {
             }
         };
 
+        View.OnClickListener oclBtnClear = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<CheckBox> newCB = new ArrayList<CheckBox>();
+                ArrayList<EditText> newTF = new ArrayList<EditText>();
+                for (int i = 0; i < checkBoxes.size(); i++) {
+                    CheckBox cb = checkBoxes.get(i);
+                    EditText tf = textFields.get(i);
+                    if (cb.isChecked()) {
+                        View row = (View) cb.getParent();
+                        table.removeView(row);
+                        //checkBoxes.remove(cb);
+                        //textFields.remove(i);
+                    } else {
+                        newCB.add(cb);
+                        newTF.add(tf);
+                    }
+                }
+                checkBoxes = newCB;
+                textFields = newTF;
+                createInitFieldIfNotExists();
+            }
+        };
+
         btnClear.setOnClickListener(oclBtnClear);
-        textField1.setOnEditorActionListener(taskEnter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Initial task filling
+        fetchTasks();
+        createInitFieldIfNotExists();
     }
 
     @Override
@@ -104,35 +114,11 @@ public class ToDoList extends Activity {
         saveTasks();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        fetchTasks();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        saveTasks();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        fetchTasks();
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        fetchTasks();
-    }
-
-    @Override
+    /*@Override
     protected void onDestroy() {
         super.onDestroy();
         saveTasks();
-    }
+    }*/
 
 
     /*
@@ -145,6 +131,7 @@ public class ToDoList extends Activity {
         checkbox.setLayoutParams(new TableRow.LayoutParams(1));
         setEditTextAttributes(textField);
         checkBoxes.add(checkbox);
+        textFields.add(textField);
         row.addView(checkbox);
         row.addView(textField);
         table.addView(row);
@@ -158,8 +145,10 @@ public class ToDoList extends Activity {
         EditText textField = new EditText(this);
         CheckBox checkbox = new CheckBox(this);
         checkbox.setLayoutParams(new TableRow.LayoutParams(1));
+        checkbox.setChecked(task.getStatus());
         setEditTextAttributes(textField);
         checkBoxes.add(checkbox);
+        textFields.add(textField);
         CharSequence text = task.getText();
         textField.setText(text);
         row.addView(checkbox);
@@ -174,23 +163,46 @@ public class ToDoList extends Activity {
         et.getLayoutParams().width = fieldWidth;
     }
 
+    /*
+    Creates a new initial text field if the task list is empty
+     */
+    protected void createInitFieldIfNotExists(){
+        if (table.getChildCount() == 0) {
+            TableRow row = new TableRow(this);
+            EditText textField = new EditText(this);
+            CheckBox checkbox = new CheckBox(this);
+            checkbox.setLayoutParams(new TableRow.LayoutParams(1));
+
+            textField.setOnEditorActionListener(taskEnter);
+            textField.setLayoutParams(new TableRow.LayoutParams(2));
+            textField.getLayoutParams().width = fieldWidth;
+            textField.setHint("add a task");
+
+            checkBoxes.add(checkbox);
+            textFields.add(textField);
+            row.addView(checkbox);
+            row.addView(textField);
+            table.addView(row);
+        }
+    }
+
     protected void fetchTasks() {
         List<Todo> todos = Todo.listAll(Todo.class);
         for (Todo todo : todos) {
             displayTask(todo);
         }
+        SugarRecord.deleteAll(Todo.class);
     }
 
     protected void saveTasks() {
-        ArrayList<EditText> taskList = new ArrayList<EditText>();
-        for (int i = 0; i < table.getChildCount(); i++) {
-            if (table.getChildAt(i) instanceof EditText)
-                taskList.add((EditText) table.getChildAt(i));
-        }
-        for (EditText et : taskList) {
-            Todo newTask = new Todo(et.getText().toString());
+        //SugarRecord.deleteAll(Todo.class);
+        for (int i = 0; i < textFields.size(); i++) {
+            CheckBox cb = checkBoxes.get(i);
+            EditText tf = textFields.get(i);
+            Todo newTask = new Todo(tf.getText().toString(), cb.isChecked());
             newTask.save();
         }
+        textFields.clear();
     }
 
 }

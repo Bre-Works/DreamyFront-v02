@@ -23,6 +23,12 @@ public class Todo extends SugarRecord<Todo> {
         this.save();
     }
 
+    public Todo(String text, Boolean status) {
+        this.todoText = text;
+        this.todoStatus = status;
+        this.save();
+    }
+
     public Todo(String name, boolean status, Milestone mil) {
         this.todoText = name;
         this.todoStatus = status;
