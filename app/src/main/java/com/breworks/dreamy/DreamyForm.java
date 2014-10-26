@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
+import com.orm.query.Condition;
+import com.orm.query.Select;
 
 import java.util.List;
 
@@ -46,7 +48,10 @@ public class DreamyForm extends Activity{
             dreamInput.setText(dr.getName());
 
             try {
-                List<Milestone> miles = Milestone.find(Milestone.class, "dream_id = ?", String.valueOf(dr.getId()));
+                List<Milestone> miles = Select.from(Milestone.class)
+                                        .where(Condition.prop("dream_id").eq(dr.getId()))
+                                        .list();
+                Log.e("lol", String.valueOf(dr.getId()));
 
                 for (Milestone mil : miles) {
                     LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService
@@ -60,6 +65,7 @@ public class DreamyForm extends Activity{
 
                     milestoneOut.setText(mil.getName());
 
+                    Log.e("la",mil.getName());
                     removeMilestone.setOnClickListener(new View.OnClickListener() {
 
                         @Override

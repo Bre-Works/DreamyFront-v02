@@ -11,7 +11,7 @@ public class Milestone extends SugarRecord<Milestone> {
     boolean milesStatus;
 
     //build relationship
-    Dream dream;
+    long dream_id;
 
     // constructors
     public Milestone() {
@@ -20,7 +20,7 @@ public class Milestone extends SugarRecord<Milestone> {
     public Milestone(String name, boolean status, Dream dream) {
         this.milesName = name;
         this.milesStatus = status;
-        this.dream = dream;
+        this.dream_id = dream.getId();
         this.save();
     }
 
