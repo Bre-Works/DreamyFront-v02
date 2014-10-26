@@ -5,45 +5,57 @@ import com.orm.SugarRecord;
 /**
  * Created by Ryan on 05/10/2014.
  */
-public class Todo extends SugarRecord<Todo>{
+public class Todo extends SugarRecord<Todo> {
 
-        String todoName;
-        boolean todoStatus;
+    String todoText;
+    boolean todoStatus;
 
-        //build relationship
-        Milestone miles;
+    //build relationship
+    Milestone miles;
 
-        // constructors
-        public Todo() {
-        }
+    // constructors
+    public Todo() {
+    }
 
-        public Todo(String name, boolean status, Milestone mil) {
-            this.todoName = name;
-            this.todoStatus = status;
-            this.miles = mil;
-            this.save();
-        }
+    public Todo(String text) {
+        this.todoText = text;
+        this.todoStatus = false;
+        this.save();
+    }
 
-        public String getName(){
-            return this.todoName;
-        }
+    public Todo(String text, Boolean status) {
+        this.todoText = text;
+        this.todoStatus = status;
+        this.save();
+    }
 
-        public boolean getStatus(){
-            return this.todoStatus;
-        }
+    public Todo(String name, boolean status, Milestone mil) {
+        this.todoText = name;
+        this.todoStatus = status;
+        this.miles = mil;
+        this.save();
+    }
 
-        public static Todo createMilestone(String name, boolean status, Milestone miles){
-            Todo todo = new Todo(name,status,miles);
-            todo.save();
-            return todo;
-        }
+    public String getText() {
+        return this.todoText;
+    }
 
-        public void setName(String todoName){
-            this.todoName = todoName;
-        }
+    public boolean getStatus() {
+        return this.todoStatus;
+    }
 
-        public void setStatus(boolean status) {
-            this.todoStatus = status;
-        }
+    public static Todo createMilestone(String name, boolean status, Milestone miles) {
+        Todo todo = new Todo(name, status, miles);
+        todo.save();
+        return todo;
+    }
+
+    public void setText(String todoText) {
+        this.todoText = todoText;
+    }
+
+    public void setStatus(boolean status) {
+        this.todoStatus = status;
+    }
 
 }
