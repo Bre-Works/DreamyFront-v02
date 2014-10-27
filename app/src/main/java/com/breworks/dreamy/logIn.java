@@ -72,7 +72,7 @@ public class logIn extends Activity {
         Log.e("pop", password);
 
         try {
-            if (dreamyAccount.findByUsername(username) == null) {
+            if (!username.equals("") && dreamyAccount.findByUsername(username) == null) {
                 Toast.makeText(getApplicationContext(), "Username does not exist!", Toast.LENGTH_SHORT).show();
             }
             if (dreamyAccount.find(dreamyAccount.class, "username = ?", username) != null) {
