@@ -84,8 +84,6 @@ public class ToDoList extends Activity {
                     if (cb.isChecked()) {
                         View row = (View) cb.getParent();
                         table.removeView(row);
-                        //checkBoxes.remove(cb);
-                        //textFields.remove(i);
                     } else {
                         newCB.add(cb);
                         newTF.add(tf);
@@ -188,7 +186,6 @@ public class ToDoList extends Activity {
     }
 
     protected void saveTasks() {
-        //SugarRecord.deleteAll(Todo.class);
         for (int i = 0; i < textFields.size(); i++) {
             CheckBox cb = checkBoxes.get(i);
             EditText tf = textFields.get(i);
@@ -198,4 +195,8 @@ public class ToDoList extends Activity {
         textFields.clear();
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(new CalligraphyContextWrapper(newBase));
+    }
 }
