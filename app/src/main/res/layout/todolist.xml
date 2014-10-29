@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout">
+    android:focusableInTouchMode="true">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -42,7 +42,7 @@
         android:textSize="28dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="50dp"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -59,24 +59,22 @@
         android:layout_height="wrap_content"
         android:id="@+id/scrollView2" />
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"></RelativeLayout>
-
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/scrolled"
         android:layout_below="@+id/textTitle"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="150dp">
+        android:layout_marginTop="125dp">
 
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tableTaskList"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_marginLeft="30dp">
+            android:layout_marginLeft="30dp"
+            android:focusableInTouchMode="true"
+            android:paddingBottom="15dp">
         </TableLayout>
     </ScrollView>
 

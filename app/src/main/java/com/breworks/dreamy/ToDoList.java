@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -98,6 +99,9 @@ public class ToDoList extends Activity {
         };
 
         btnClear.setOnClickListener(oclBtnClear);
+
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     @Override
