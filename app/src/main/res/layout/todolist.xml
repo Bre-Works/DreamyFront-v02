@@ -6,10 +6,32 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout">
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView2" />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="100dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dreams"
+            android:id="@+id/dreams"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="150dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Milestones"
+            android:layout_centerInParent="true"
+            android:id="@+id/milestone" />
+    </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,7 +41,8 @@
         android:id="@+id/textTitle"
         android:textSize="28dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -32,12 +55,21 @@
         android:layout_alignParentRight="true" />
 
     <ScrollView
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/scrollView2" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"></RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:id="@+id/scrolled"
         android:layout_below="@+id/textTitle"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="70dip">
+        android:layout_marginTop="150dp">
 
         <TableLayout
             android:layout_width="wrap_content"

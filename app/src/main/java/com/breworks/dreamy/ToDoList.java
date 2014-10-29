@@ -193,7 +193,7 @@ public class ToDoList extends Activity {
             CheckBox cb = checkBoxes.get(i);
             EditText tf = textFields.get(i);
             Todo newTask = new Todo(tf.getText().toString(), cb.isChecked());
-            newTask.save();
+            //newTask.save();
         }
         textFields.clear();
     }
