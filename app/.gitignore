@@ -26,8 +26,9 @@ proguard/
 *.log
 
 #App.iml
-app.iml
+app/app.iml
 
+.idea/workspace.iml
 
 #idea
 .idea/
