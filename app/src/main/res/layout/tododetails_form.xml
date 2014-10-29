@@ -22,9 +22,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Time :"
         android:id="@+id/textView2"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/datePicker"
-        android:layout_alignStart="@+id/datePicker" />
+        android:layout_below="@+id/setDate"
+        android:layout_alignLeft="@+id/setDate"
+        android:layout_alignStart="@+id/setDate"
+        android:layout_marginTop="56dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -35,24 +36,27 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="35dp"
-        android:layout_marginBottom="45dp" />
+        android:layout_marginBottom="45dp"/>
 
-    <DatePicker
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/datePicker"
-        android:calendarViewShown="false"
+        android:text="Set Date"
+        android:id="@+id/setDate"
         android:layout_below="@+id/textView"
         android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView" />
+        android:layout_alignStart="@+id/textView"
+        android:onClick="showDatePickerDialog"/>
 
-    <TimePicker
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/timePicker"
+        android:text="Set Time"
+        android:id="@+id/setTime"
         android:layout_below="@+id/textView2"
         android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
+        android:layout_alignStart="@+id/textView2"
+        android:onClick="showTimePickerDialog" />
 
 
 </RelativeLayout>
