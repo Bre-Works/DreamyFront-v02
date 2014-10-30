@@ -98,4 +98,10 @@ public class Main extends Activity {
         Intent intent = new Intent(this, DreamyForm.class);
         startActivity(intent);
     }
+
+    //just for testing purpose
+    public void gotoTDD(View v){
+        Intent intent = new Intent(this, ToDoDetail.class);
+        startActivity(intent);
+    }
 }

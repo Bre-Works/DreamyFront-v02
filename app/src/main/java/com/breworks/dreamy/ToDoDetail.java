@@ -24,14 +24,10 @@ public class ToDoDetail extends Activity{
     int month;
     int year;
     Calendar calendar;
-    Button setDate;
-    Button setTime;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tododetails_form);
-        setDate = (Button) findViewById(R.id.setDate);
-        setTime = (Button) findViewById(R.id.setTime);
 
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);

@@ -10,11 +10,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Date :"
         android:id="@+id/textView"
-        android:layout_marginTop="78dp"
-        android:layout_marginLeft="34dp"
+        android:layout_marginTop="60dp"
+        android:layout_toStartOf="@+id/timePicker"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_toLeftOf="@+id/timePicker" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,10 +21,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Time :"
         android:id="@+id/textView2"
-        android:layout_below="@+id/setDate"
-        android:layout_alignLeft="@+id/setDate"
-        android:layout_alignStart="@+id/setDate"
-        android:layout_marginTop="56dp" />
+        android:layout_below="@+id/datePicker"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginTop="41dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -38,25 +37,21 @@
         android:layout_marginRight="35dp"
         android:layout_marginBottom="45dp"/>
 
-    <Button
+    <DatePicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set Date"
-        android:id="@+id/setDate"
+        android:id="@+id/datePicker"
+        android:calendarViewShown="false"
         android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
-        android:onClick="showDatePickerDialog"/>
+        android:layout_centerHorizontal="true" />
 
-    <Button
+    <TimePicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set Time"
-        android:id="@+id/setTime"
+        android:id="@+id/timePicker"
         android:layout_below="@+id/textView2"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2"
-        android:onClick="showTimePickerDialog" />
+        android:layout_alignRight="@+id/datePicker"
+        android:layout_alignEnd="@+id/datePicker" />
 
 
 </RelativeLayout>
