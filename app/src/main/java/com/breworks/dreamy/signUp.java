@@ -12,13 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.dreamyAccount;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 
-public class signUp extends Activity {
+public class signUp extends DreamyActivity {
     Button createAccount;
     EditText usernameInput, emailInput, passwordInput, passwordConfInput;
     String username, email, password, passwordConf;

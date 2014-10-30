@@ -7,7 +7,9 @@ package com.breworks.dreamy;
         import android.view.MotionEvent;
         import android.view.Window;
 
-public class Splash extends Activity {
+        import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
+
+public class Splash extends DreamyActivity {
 
     private Thread mSplashThread;
     /**

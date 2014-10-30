@@ -1,6 +1,7 @@
 package com.breworks.dreamy;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.view.inputmethod.EditorInfo;
 
+import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Todo;
 import com.breworks.dreamy.tabpanel.MyTabHostProvider;
 import com.breworks.dreamy.tabpanel.TabHostProvider;
@@ -26,11 +28,13 @@ import java.util.List;
 
 import com.orm.SugarRecord;
 
+import uk.co.chrisjenx.calligraphy.*;
+
 /**
  * Created by Maha on 9/28/14.
  */
 
-public class ToDoList extends Activity {
+public class ToDoList extends DreamyActivity {
 
     ArrayList<CheckBox> checkBoxes = new ArrayList<CheckBox>();
     ArrayList<EditText> textFields = new ArrayList<EditText>();
@@ -195,8 +199,5 @@ public class ToDoList extends Activity {
         textFields.clear();
     }
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(new CalligraphyContextWrapper(newBase));
-    }
+
 }

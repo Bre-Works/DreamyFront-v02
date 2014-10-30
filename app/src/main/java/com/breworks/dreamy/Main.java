@@ -1,6 +1,5 @@
 package com.breworks.dreamy;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.tabpanel.MyTabHostProvider;
 import com.breworks.dreamy.tabpanel.TabHostProvider;
@@ -22,7 +22,7 @@ import java.util.List;
  * Created by aidifauzan on 24-Sep-14.
  */
 
-public class Main extends Activity {
+public class Main extends DreamyActivity {
 
     LinearLayout linearView;
 
@@ -98,4 +98,5 @@ public class Main extends Activity {
         Intent intent = new Intent(this, DreamyForm.class);
         startActivity(intent);
     }
+
 }

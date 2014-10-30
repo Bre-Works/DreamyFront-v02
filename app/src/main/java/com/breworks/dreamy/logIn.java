@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.dreamyAccount;
@@ -19,7 +20,7 @@ import com.breworks.dreamy.model.dreamyAccount;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-public class logIn extends Activity {
+public class logIn extends DreamyActivity {
     EditText usernameInput, passwordInput;
     String username, password;
 

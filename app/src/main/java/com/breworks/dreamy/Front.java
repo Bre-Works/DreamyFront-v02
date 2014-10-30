@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 
-public class Front extends Activity {
+
+public class Front extends DreamyActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
