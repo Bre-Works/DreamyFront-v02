@@ -28,7 +28,7 @@ proguard/
 #App.iml
 app/app.iml
 
-.idea/workspace.iml
+.idea/workspace.xml
 
 #idea
 .idea/
