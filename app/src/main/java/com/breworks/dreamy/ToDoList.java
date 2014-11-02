@@ -3,19 +3,23 @@ package com.breworks.dreamy;
 import android.app.Activity;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.view.inputmethod.EditorInfo;
 
+import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Todo;
 import com.breworks.dreamy.tabpanel.MyTabHostProvider;
 import com.breworks.dreamy.tabpanel.TabHostProvider;
@@ -23,6 +27,7 @@ import com.breworks.dreamy.tabpanel.TabView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.orm.SugarRecord;
@@ -100,6 +105,20 @@ public class ToDoList extends Activity {
 
         btnClear.setOnClickListener(oclBtnClear);
 
+        // get dream from database
+        List<Dream> dreams = Dream.listAll(Dream.class);
+        String[] dreamList = new String[dreams.size()];
+        for (int i=0; i < dreams.size(); i++) {
+            dreamList[i] = dreams.get(i).toString();
+        }
+
+        // spinner
+        Spinner mySpinner = (Spinner)findViewById(R.id.DreamSpinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                R.layout.todolist_dream, R.id.dreamArray, dreamList);
+        mySpinner.setAdapter(adapter);
+
+        //keyboard
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
