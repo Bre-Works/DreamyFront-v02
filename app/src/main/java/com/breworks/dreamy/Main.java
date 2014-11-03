@@ -53,7 +53,7 @@ public class Main extends Activity {
             Dc.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(Main.this, DreamyForm.class);
+                    Intent intent = new Intent(Main.this, DreamyFormUpdate.class);
                     intent.putExtra("key",dr.getId());
                     startActivity(intent);
                 }
