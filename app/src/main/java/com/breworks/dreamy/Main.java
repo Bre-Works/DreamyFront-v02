@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
@@ -61,6 +62,9 @@ public class Main extends DreamyActivity {
             Dc.setTextAppearance(this, android.R.style.TextAppearance_Medium);
             linearView.addView(Dc);
         }
+
+        ImageView bg = (ImageView) findViewById(R.id.bg);
+        bg.setScaleType(ImageView.ScaleType.CENTER_CROP);
     }
 
 
