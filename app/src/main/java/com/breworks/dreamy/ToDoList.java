@@ -1,21 +1,26 @@
 package com.breworks.dreamy;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.view.inputmethod.EditorInfo;
 
+import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Todo;
 import com.breworks.dreamy.tabpanel.MyTabHostProvider;
 import com.breworks.dreamy.tabpanel.TabHostProvider;
@@ -23,6 +28,7 @@ import com.breworks.dreamy.tabpanel.TabView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.orm.SugarRecord;
@@ -35,6 +41,7 @@ public class ToDoList extends Activity {
 
     ArrayList<CheckBox> checkBoxes = new ArrayList<CheckBox>();
     ArrayList<EditText> textFields = new ArrayList<EditText>();
+    ArrayList<Button> buttons = new ArrayList<Button>();
     Button btnClear;
     TableLayout table;
     OnEditorActionListener taskEnter;
@@ -79,9 +86,11 @@ public class ToDoList extends Activity {
             public void onClick(View v) {
                 ArrayList<CheckBox> newCB = new ArrayList<CheckBox>();
                 ArrayList<EditText> newTF = new ArrayList<EditText>();
+                ArrayList<Button> newButton = new ArrayList<Button>();
                 for (int i = 0; i < checkBoxes.size(); i++) {
                     CheckBox cb = checkBoxes.get(i);
                     EditText tf = textFields.get(i);
+                    Button b = buttons.get(i);
                     if (cb.isChecked()) {
                         View row = (View) cb.getParent();
                         table.removeView(row);
@@ -90,16 +99,34 @@ public class ToDoList extends Activity {
                     } else {
                         newCB.add(cb);
                         newTF.add(tf);
+                        newButton.add(b);
+
                     }
+
                 }
                 checkBoxes = newCB;
                 textFields = newTF;
+                buttons = newButton;
                 createInitFieldIfNotExists();
             }
         };
 
         btnClear.setOnClickListener(oclBtnClear);
 
+        // get dream from database
+        List<Dream> dreams = Dream.listAll(Dream.class);
+        String[] dreamList = new String[dreams.size()];
+        for (int i=0; i < dreams.size(); i++) {
+            dreamList[i] = dreams.get(i).toString();
+        }
+
+        // spinner
+        Spinner mySpinner = (Spinner)findViewById(R.id.DreamSpinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                R.layout.todolist_dream, R.id.dreamArray, dreamList);
+        mySpinner.setAdapter(adapter);
+
+        //keyboard
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
@@ -125,12 +152,27 @@ public class ToDoList extends Activity {
         TableRow row = new TableRow(this);
         EditText textField = new EditText(this);
         CheckBox checkbox = new CheckBox(this);
+        Button button = new Button(this);
+
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v1) {
+                gotoToDoDetail();
+            }
+        });;
+
         checkbox.setLayoutParams(new TableRow.LayoutParams(1));
         setEditTextAttributes(textField);
+        button.setLayoutParams(new TableRow.LayoutParams(3));
         checkBoxes.add(checkbox);
         textFields.add(textField);
+        buttons.add(button);
+
+
         row.addView(checkbox);
         row.addView(textField);
+        row.addView(button);
         table.addView(row);
     }
 
@@ -141,15 +183,30 @@ public class ToDoList extends Activity {
         TableRow row = new TableRow(this);
         EditText textField = new EditText(this);
         CheckBox checkbox = new CheckBox(this);
+        Button button = new Button(this);
+
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v1) {
+                gotoToDoDetail();
+            }
+        });;
+
         checkbox.setLayoutParams(new TableRow.LayoutParams(1));
         checkbox.setChecked(task.getStatus());
         setEditTextAttributes(textField);
+        button.setLayoutParams(new TableRow.LayoutParams(2));
+
         checkBoxes.add(checkbox);
         textFields.add(textField);
+        buttons.add(button);
+
         CharSequence text = task.getText();
         textField.setText(text);
         row.addView(checkbox);
         row.addView(textField);
+        row.addView(button);
         table.addView(row);
     }
 
@@ -168,6 +225,16 @@ public class ToDoList extends Activity {
             TableRow row = new TableRow(this);
             EditText textField = new EditText(this);
             CheckBox checkbox = new CheckBox(this);
+            Button button = new Button(this);
+
+            button.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v1) {
+                    gotoToDoDetail();
+                }
+            });;
+
             checkbox.setLayoutParams(new TableRow.LayoutParams(1));
 
             textField.setOnEditorActionListener(taskEnter);
@@ -175,10 +242,16 @@ public class ToDoList extends Activity {
             textField.getLayoutParams().width = fieldWidth;
             textField.setHint("add a task");
 
+            checkbox.setLayoutParams(new TableRow.LayoutParams(3));
+
             checkBoxes.add(checkbox);
             textFields.add(textField);
+            buttons.add(button);
+
             row.addView(checkbox);
             row.addView(textField);
+            row.addView(button);
+
             table.addView(row);
         }
     }
@@ -200,6 +273,11 @@ public class ToDoList extends Activity {
             //newTask.save();
         }
         textFields.clear();
+    }
+
+    public void gotoToDoDetail(){
+        Intent intent = new Intent(this, ToDoDetail.class);
+        startActivity(intent);
     }
 
 }
