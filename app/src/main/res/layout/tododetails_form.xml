@@ -10,10 +10,12 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Date :"
         android:id="@+id/textView"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="93dp"
         android:layout_toStartOf="@+id/timePicker"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/timePicker" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="43dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,10 +23,11 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Time :"
         android:id="@+id/textView2"
-        android:layout_below="@+id/datePicker"
+        android:layout_toEndOf="@+id/textView"
+        android:layout_below="@+id/textView"
         android:layout_alignLeft="@+id/textView"
         android:layout_alignStart="@+id/textView"
-        android:layout_marginTop="41dp" />
+        android:layout_marginTop="93dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -37,21 +40,26 @@
         android:layout_marginRight="35dp"
         android:layout_marginBottom="45dp"/>
 
-    <DatePicker
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/datePicker"
-        android:calendarViewShown="false"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/dateField"
+        android:layout_toEndOf="@+id/textView2"
         android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
 
-    <TimePicker
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/timePicker"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/timeField"
         android:layout_below="@+id/textView2"
-        android:layout_alignRight="@+id/datePicker"
-        android:layout_alignEnd="@+id/datePicker" />
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
 
 
 </RelativeLayout>
