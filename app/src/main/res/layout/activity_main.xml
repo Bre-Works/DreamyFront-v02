@@ -8,17 +8,23 @@
     android:focusable="false"
     android:longClickable="false">
 
+    <ImageView
+        android:id="@+id/bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bgmain" />
+
     <TextView
         android:text="Dreamy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:textSize="50sp"
-        android:textColor="#ff69aaff"
+        android:textColor="#ffffff"
         android:id="@+id/textAdd"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
-
 
     <RelativeLayout
         android:layout_width="fill_parent"
