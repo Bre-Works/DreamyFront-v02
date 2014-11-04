@@ -13,8 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
+<<<<<<< HEAD
         android:src="@drawable/bgblur"
         android:tint="#6bffffff"/>
+=======
+        android:src="@drawable/bgmain" />
+>>>>>>> custom-fonts
 
     <TextView
         android:text="Dreamy"
@@ -26,7 +30,6 @@
         android:id="@+id/textAdd"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
-
 
     <RelativeLayout
         android:layout_width="fill_parent"

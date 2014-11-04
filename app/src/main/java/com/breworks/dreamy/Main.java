@@ -61,6 +61,9 @@ public class Main extends DreamyActivity {
             });
             Dc.setTextAppearance(this, android.R.style.TextAppearance_Medium);
             linearView.addView(Dc);
+
+            ImageView bg = (ImageView)findViewById(R.id.bg);
+            bg.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
 
         ImageView bg = (ImageView) findViewById(R.id.bg);
