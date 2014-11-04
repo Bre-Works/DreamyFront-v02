@@ -1,6 +1,10 @@
 package com.breworks.dreamy.model;
 
 import com.orm.SugarRecord;
+import com.orm.query.Condition;
+import com.orm.query.Select;
+
+import java.util.List;
 
 /**
  * Created by Ryan on 05/10/2014.
@@ -9,9 +13,8 @@ public class Milestone extends SugarRecord<Milestone> {
 
     String milesName;
     boolean milesStatus;
+    String dream;
 
-    //build relationship
-    long dream_id;
 
     // constructors
     public Milestone() {
@@ -20,8 +23,7 @@ public class Milestone extends SugarRecord<Milestone> {
     public Milestone(String name, boolean status, Dream dream) {
         this.milesName = name;
         this.milesStatus = status;
-        this.dream_id = dream.getId();
-        this.save();
+        this.dream = dream.getId().toString();
     }
 
 
@@ -32,6 +34,8 @@ public class Milestone extends SugarRecord<Milestone> {
     public boolean getStatus(){
         return this.milesStatus;
     }
+
+    public String getDream() { return dream; }
 
     public static Milestone createMilestone(String name, boolean status, Dream dream){
         Milestone miles = new Milestone(name,status,dream);
@@ -47,5 +51,10 @@ public class Milestone extends SugarRecord<Milestone> {
         this.milesStatus = status;
     }
 
+
+    public static List<Milestone> searchByDream(Dream dr) {
+        List<Milestone> mil = Milestone.findWithQuery(Milestone.class,"Select * from Milestone Where dream = ?", dr.getId().toString());
+        return mil;
+    }
 }
 

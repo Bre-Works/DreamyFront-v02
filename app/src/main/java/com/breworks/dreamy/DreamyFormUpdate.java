@@ -3,6 +3,7 @@ package com.breworks.dreamy;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -28,11 +29,16 @@ public class DreamyFormUpdate extends Activity{
     EditText milestoneInput;
     ImageButton removeMilestone;
     EditText dreamInput;
+    public static final String MyPREFERENCES = "DreamyPrefs" ;
+    SharedPreferences sharedPref;
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dreamy_form);
+
+        sharedPref = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
         milestoneInput = (EditText) findViewById(R.id.milestoneInput);
         container = (LinearLayout) findViewById(R.id.container);
         dreamInput = (EditText) findViewById(R.id.dreamInput);
@@ -45,10 +51,11 @@ public class DreamyFormUpdate extends Activity{
             Dream dr = Dream.findById(Dream.class,dream);
             dreamInput.setText(dr.getName());
 
-            List<Milestone> miles = Select.from(Milestone.class)
-                    .where(Condition.prop("dream_id").eq(dr.getId()))
-                    .list();
-            Log.e("lol", String.valueOf(dr.getId()));
+            List<Milestone> miles = Milestone.searchByDream(dr);
+
+            //List<Milestone> miles = Milestone.listAll(Milestone.class);
+
+            Log.e("lol1", String.valueOf(dr.getId()));
 
             for (Milestone mil : miles) {
                 LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService
@@ -61,7 +68,6 @@ public class DreamyFormUpdate extends Activity{
                 EditText milestoneOut = (EditText) addView.findViewById(R.id.milestoneOut);
 
                 milestoneOut.setText(mil.getName());
-
                 Log.e("la",mil.getName());
                 removeMilestone.setOnClickListener(new View.OnClickListener() {
 

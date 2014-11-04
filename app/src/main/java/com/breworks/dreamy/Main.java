@@ -56,6 +56,7 @@ public class Main extends Activity {
                     Intent intent = new Intent(Main.this, DreamyFormUpdate.class);
                     intent.putExtra("key",dr.getId());
                     startActivity(intent);
+                    finish();
                 }
             });
             Dc.setTextAppearance(this, android.R.style.TextAppearance_Medium);

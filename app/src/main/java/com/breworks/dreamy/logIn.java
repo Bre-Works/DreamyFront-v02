@@ -5,7 +5,10 @@ package com.breworks.dreamy;
  */
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,12 +23,19 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 public class logIn extends Activity {
+
     EditText usernameInput, passwordInput;
+
+    public static final String MyPREFERENCES = "DreamyPrefs" ;
     String username, password;
+    SharedPreferences sharedPref;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        sharedPref = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_in);
         Log.e("pol", "TEST");
@@ -43,6 +53,7 @@ public class logIn extends Activity {
             Dream.deleteAll(Dream.class);
             Dream dr1 = Dream.createDream("Conquer The World", false, ac1);
             Log.e("lol", dr1.getName());
+            Log.e("dreamID", String.valueOf(dr1.getId()));
             Dream dr2 = Dream.createDream("Make a Homunculus", false, ac2);
             Log.e("pop", dr2.getName());
             Dream.createDream("IT PRO gets A", true, ac3);
@@ -50,10 +61,10 @@ public class logIn extends Activity {
             Dream.createDream("Around the World", true, ac1);
 
             Milestone.deleteAll(Milestone.class);
-            Milestone a = new Milestone("Finish Database", true, dr1);
-            Milestone b = new Milestone("Finish UI", true, dr1);
-            Milestone c = new Milestone("Finish BackEnd", true, dr1);
-            Milestone d = new Milestone("Finish FrontEnd", true, dr1);
+            Milestone mil1 = Milestone.createMilestone("Finish Database", true, dr1);
+            Milestone.createMilestone("Finish UI", true, dr1);
+            Milestone.createMilestone("Finish BackEnd", true, dr1);
+            Milestone.createMilestone("Finish FrontEnd", true, dr1);
 
         } catch (InvalidKeySpecException e) {
             e.printStackTrace();
@@ -88,6 +99,11 @@ public class logIn extends Activity {
                 if (authentication(password, userPass) == true) {
                     Intent intent = new Intent(this, Main.class);
                     startActivity(intent);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+
+                    editor.putLong("DreamID",acc.getId());
+                    editor.commit();
+
                     finish();
                 }
                 else{

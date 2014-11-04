@@ -18,7 +18,7 @@ public class Dream extends SugarRecord<Dream>{
     }
 
     public Dream(String name, boolean status,dreamyAccount acc) {
-    this.dreamName = name;
+        this.dreamName = name;
         this.dreamStatus = status;
         this.account = acc;
     }
