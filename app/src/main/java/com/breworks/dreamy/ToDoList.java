@@ -9,6 +9,7 @@ import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,6 +22,7 @@ import android.widget.TextView.OnEditorActionListener;
 import android.view.inputmethod.EditorInfo;
 
 import com.breworks.dreamy.model.Dream;
+import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.Todo;
 import com.breworks.dreamy.tabpanel.MyTabHostProvider;
 import com.breworks.dreamy.tabpanel.TabHostProvider;
@@ -49,6 +51,8 @@ public class ToDoList extends Activity {
     Point screenSize;
     int screenWidth;
     int fieldWidth;
+    int selectedDreamIndex = 0;
+    int selectedMilesIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,22 +117,98 @@ public class ToDoList extends Activity {
 
         btnClear.setOnClickListener(oclBtnClear);
 
+        // DREAMS
         // get dream from database
         List<Dream> dreams = Dream.listAll(Dream.class);
-        String[] dreamList = new String[dreams.size()];
-        for (int i=0; i < dreams.size(); i++) {
-            dreamList[i] = dreams.get(i).toString();
+        final long[] dreamId = new long[dreams.size()];
+        final String[] dreamList = new String[dreams.size()];
+        int inc = 0;
+
+        for (final Dream dr : dreams) {
+            Log.e("dream id", String.valueOf(dr.getId()));
+            dreamId[inc]= dr.getId();
+            dreamList[inc] = dr.getName();
+            inc++;
         }
 
-        // spinner
-        Spinner mySpinner = (Spinner)findViewById(R.id.DreamSpinner);
+        // spinner dream
+        Spinner SpinnerDream = (Spinner)findViewById(R.id.DreamSpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 R.layout.todolist_dream, R.id.dreamArray, dreamList);
-        mySpinner.setAdapter(adapter);
+        SpinnerDream.setAdapter(adapter);
+
+        // spinner dream listener
+        SpinnerDream.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        Log.e("Choose dream index ", String.valueOf(i));
+                        selectedDreamIndex = i;
+                        Log.e("index saved ", String.valueOf(selectedDreamIndex));
+                        checkDreamIndex(dreamList, dreamId);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        Log.e("nothing", "...");
+                    }
+                }
+        );
 
         //keyboard
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    public void checkDreamIndex(String[]dreamList, long[] dreamId){
+        if(dreamList[selectedDreamIndex] != null) {
+            Log.e("index ", "amazingly not null");
+            Dream dr = Dream.findById(Dream.class, dreamId[selectedDreamIndex]);// ALERT!!
+            milestonesSetUp(dr);
+        }else{
+            Log.e("index ", "is incredibly null");
+            selectedDreamIndex = 0;
+            Dream dr = Dream.findById(Dream.class, dreamId[selectedDreamIndex]);
+            milestonesSetUp(dr);
+        }
+    }
+
+    public void milestonesSetUp(Dream dr){
+        // MILESTONES
+        // get miles from database
+        Log.e("arrive here ", "LOH");
+        List<Milestone> miles = Milestone.searchByDream(dr);
+        long[] milesId = new long[miles.size()];
+        String[] milesList = new String[miles.size()];
+        int incM = 0;
+        for(Milestone mil : miles){
+            Log.e("miles id", String.valueOf(mil.getId()));
+            milesId[incM]= mil.getId();
+            milesList[incM] = mil.getName();
+            incM++;
+        }
+        // spinner miles
+        Spinner SpinnerMiles = (Spinner) findViewById(R.id.MilestoneSpinner);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
+                R.layout.todolist_dream, R.id.dreamArray, milesList);
+        SpinnerMiles.setAdapter(adapter2);
+
+        // spinner miles listener
+        SpinnerMiles.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        Log.e("choose miles index ", String.valueOf(i));
+                        selectedMilesIndex = i;
+                        Log.e("save miles index ", String.valueOf(selectedMilesIndex));
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        Log.e("nothing", "selected");
+                    }
+                }
+        );
     }
 
     @Override
