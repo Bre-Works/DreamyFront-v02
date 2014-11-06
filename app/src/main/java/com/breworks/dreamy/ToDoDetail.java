@@ -42,8 +42,8 @@ public class ToDoDetail extends Activity{
         dateField = (EditText) findViewById(R.id.dateField);
         timeField = (EditText) findViewById(R.id.timeField);
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm ");
+
+
 
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -51,10 +51,9 @@ public class ToDoDetail extends Activity{
         year = calendar.get(Calendar.YEAR);
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
+        updateDate();
+        updateTime();
 
-
-        dateField.setText(dateFormat.format(calendar.getTime()));
-        timeField.setText(timeFormat.format(calendar.getTime()));
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -63,6 +62,7 @@ public class ToDoDetail extends Activity{
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 calendar.set(Calendar.MONTH, monthOfYear);
                 calendar.set(Calendar.YEAR, year);
+                updateDate();
             }
         };
 
@@ -74,6 +74,7 @@ public class ToDoDetail extends Activity{
             }
         });;
 
+
         final TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
 
 
@@ -81,18 +82,31 @@ public class ToDoDetail extends Activity{
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 calendar.set(Calendar.MINUTE, minute);
+                updateTime();
             }
         };
+
 
         timeField.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v1) {
-                new TimePickerDialog(ToDoDetail.this, time, hour, minute, true).show();
+                new TimePickerDialog(ToDoDetail.this, time, hour, minute, false).show();
             }
         });;
 
 
+
+    }
+
+    public void updateDate(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateField.setText(dateFormat.format(calendar.getTime()));
+    }
+
+    public void updateTime(){
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm ");
+        timeField.setText(timeFormat.format(calendar.getTime()));
     }
 
     public void setTaskID(int taskID){
