@@ -25,7 +25,7 @@ import java.security.spec.InvalidKeySpecException;
 public class logIn extends Activity {
 
     EditText usernameInput, passwordInput;
-
+    public static Activity loginpage;
     public static final String MyPREFERENCES = "DreamyPrefs" ;
     String username, password;
     SharedPreferences sharedPref;
@@ -33,6 +33,7 @@ public class logIn extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        loginpage = this;
 
         sharedPref = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
@@ -128,7 +129,6 @@ public class logIn extends Activity {
     public void goToSignUp(View vi) {
         Intent intent = new Intent(this, signUp.class);
         startActivity(intent);
-        finish();
     }
 
 }
