@@ -101,9 +101,4 @@ public class Main extends Activity {
         finish();
     }
 
-    //just for testing purpose
-    public void gotoTDD(View v){
-        Intent intent = new Intent(this, ToDoDetail.class);
-        startActivity(intent);
-    }
 }
