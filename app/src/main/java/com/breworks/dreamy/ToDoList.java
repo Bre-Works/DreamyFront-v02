@@ -43,7 +43,6 @@ public class ToDoList extends Activity {
 
     ArrayList<CheckBox> checkBoxes = new ArrayList<CheckBox>();
     ArrayList<EditText> textFields = new ArrayList<EditText>();
-    ArrayList<Integer> dreamIDs = new ArrayList<Integer>();
 
     Button btnClear;
     TableLayout table;
