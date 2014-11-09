@@ -43,6 +43,8 @@ public class ToDoList extends Activity {
 
     ArrayList<CheckBox> checkBoxes = new ArrayList<CheckBox>();
     ArrayList<EditText> textFields = new ArrayList<EditText>();
+    ArrayList<Integer> dreamIDs = new ArrayList<Integer>();
+
     Button btnClear;
     TableLayout table;
     OnEditorActionListener taskEnter;
@@ -53,6 +55,9 @@ public class ToDoList extends Activity {
     int selectedDreamIndex = 0;
     int selectedMilesIndex = 0;
     private boolean clicked;
+    private int index = 2;
+    private int displayTaskIndex = 1;
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,7 +235,7 @@ public class ToDoList extends Activity {
         CheckBox checkbox = new CheckBox(this);
         Button button = new Button(this);
 
-        detailButtonListener(button);
+        detailButtonListener(button, index);
 
         checkbox.setLayoutParams(new TableRow.LayoutParams(1));
         setEditTextAttributes(textField);
@@ -242,6 +247,8 @@ public class ToDoList extends Activity {
         row.addView(textField);
         row.addView(button);
         table.addView(row);
+
+        index++;
     }
 
     /*
@@ -254,7 +261,7 @@ public class ToDoList extends Activity {
         CheckBox checkbox = new CheckBox(this);
         Button button = new Button(this);
 
-        detailButtonListener(button);
+        detailButtonListener(button, displayTaskIndex);
         if (clicked == true) {
             return;
         }
@@ -275,6 +282,8 @@ public class ToDoList extends Activity {
         row.addView(textField);
         row.addView(button);
         table.addView(row);
+
+        displayTaskIndex++;
     }
 
     protected void setEditTextAttributes(EditText et) {
@@ -295,7 +304,7 @@ public class ToDoList extends Activity {
             CheckBox checkbox = new CheckBox(this);
             Button button = new Button(this);
 
-            detailButtonListener(button);
+            detailButtonListener(button, 1);
 
             checkbox.setLayoutParams(new TableRow.LayoutParams(1));
 
@@ -341,11 +350,20 @@ public class ToDoList extends Activity {
         startActivity(intent);
     }
 
-    public void detailButtonListener(Button button) {
+    public void setCurrentID(int id){
+        this.id = id;
+    }
+
+    public int getCurrentID(){ return id;}
+
+
+    public void detailButtonListener(Button button, final int taskID) {
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v1) {
+                setCurrentID(taskID);
+                Log.e("id", String.valueOf(id));
                 gotoToDoDetail();
                 clicked = true;
             }
