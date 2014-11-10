@@ -33,8 +33,8 @@ public class MyTabHostProvider extends TabHostProvider
 	public TabView getTabHost(String category) 
 	{
 		tabView = new TabView(context);
-		tabView.setOrientation(TabView.Orientation.BOTTOM);
-		
+		tabView.setOrientation(TabView.Orientation.TOP);
+
 		gradientDrawable = new GradientDrawable(
 	            GradientDrawable.Orientation.TOP_BOTTOM,
 	            new int[] {0x00000000, 0x00000000});
@@ -55,6 +55,8 @@ public class MyTabHostProvider extends TabHostProvider
         homeTab.setSelectedBtnTextColor(0x00000000);
 		homeTab.setBtnGradient(transGradientDrawable);
 		homeTab.setSelectedBtnGradient(gradientDrawable);
+        homeTab.setBtnColor(0xb1e4d3);
+        homeTab.setSelectedBtnColor(0xb1e4d3);
 		homeTab.setIntent(new Intent(context, Main.class));
 
 		todoTab = new Tab(context, category);

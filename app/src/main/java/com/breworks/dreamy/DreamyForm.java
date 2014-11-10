@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.dreamyAccount;
@@ -25,7 +26,7 @@ import java.util.List;
  * Created by arsianindita on 28-Sep-14.
  */
 
-public class DreamyForm extends Activity{
+public class DreamyForm extends DreamyActivity {
 
     LinearLayout container;
     ImageButton addMilestone;

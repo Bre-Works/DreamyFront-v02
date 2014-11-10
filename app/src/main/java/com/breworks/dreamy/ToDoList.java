@@ -1,7 +1,11 @@
 package com.breworks.dreamy;
 
 import android.app.Activity;
+<<<<<<< HEAD
 import android.content.Intent;
+=======
+import android.content.Context;
+>>>>>>> ui-design
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,8 +25,12 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.view.inputmethod.EditorInfo;
 
+<<<<<<< HEAD
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
+=======
+import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
+>>>>>>> ui-design
 import com.breworks.dreamy.model.Todo;
 import com.breworks.dreamy.tabpanel.MyTabHostProvider;
 import com.breworks.dreamy.tabpanel.TabHostProvider;
@@ -35,11 +43,13 @@ import java.util.List;
 
 import com.orm.SugarRecord;
 
+import uk.co.chrisjenx.calligraphy.*;
+
 /**
  * Created by Maha on 9/28/14.
  */
 
-public class ToDoList extends Activity {
+public class ToDoList extends DreamyActivity {
 
     ArrayList<CheckBox> checkBoxes = new ArrayList<CheckBox>();
     ArrayList<EditText> textFields = new ArrayList<EditText>();
@@ -100,8 +110,6 @@ public class ToDoList extends Activity {
                     if (cb.isChecked()) {
                         View row = (View) cb.getParent();
                         table.removeView(row);
-                        //checkBoxes.remove(cb);
-                        //textFields.remove(i);
                     } else {
                         newCB.add(cb);
                         newTF.add(tf);
@@ -334,7 +342,10 @@ public class ToDoList extends Activity {
     }
 
     protected void saveTasks() {
+<<<<<<< HEAD
         SugarRecord.deleteAll(Todo.class);
+=======
+>>>>>>> ui-design
         for (int i = 0; i < textFields.size(); i++) {
             CheckBox cb = checkBoxes.get(i);
             EditText tf = textFields.get(i);
@@ -344,6 +355,7 @@ public class ToDoList extends Activity {
         textFields.clear();
     }
 
+<<<<<<< HEAD
     public void gotoToDoDetail() {
         Intent intent = new Intent(this, ToDoDetail.class);
         startActivity(intent);
@@ -368,5 +380,7 @@ public class ToDoList extends Activity {
             }
         });
     }
+=======
+>>>>>>> ui-design
 
 }

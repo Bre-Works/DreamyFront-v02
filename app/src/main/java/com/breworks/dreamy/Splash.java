@@ -1,5 +1,6 @@
 package com.breworks.dreamy;
 
+        import android.app.ActionBar;
         import android.app.Activity;
         import android.app.DownloadManager;
         import android.content.Intent;
@@ -7,7 +8,9 @@ package com.breworks.dreamy;
         import android.view.MotionEvent;
         import android.view.Window;
 
-public class Splash extends Activity {
+        import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
+
+public class Splash extends DreamyActivity {
 
     private Thread mSplashThread;
     /**
@@ -19,6 +22,8 @@ public class Splash extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        ActionBar actionBar = getActionBar();
+        actionBar.hide();
         IntentLauncher launch = new IntentLauncher();
         launch.start();
     }

@@ -20,9 +20,12 @@ import java.util.Calendar;
 
 import static android.app.PendingIntent.getActivity;
 
+import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
+
 /**
  * Created by arsianindita on 27-Oct-14.
  */
+<<<<<<< HEAD
 public class ToDoDetail extends Activity{
 
     DatePicker datePicker;
@@ -36,6 +39,9 @@ public class ToDoDetail extends Activity{
 
     EditText dateField;
     EditText timeField;
+=======
+public class ToDoDetail extends DreamyActivity {
+>>>>>>> ui-design
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
