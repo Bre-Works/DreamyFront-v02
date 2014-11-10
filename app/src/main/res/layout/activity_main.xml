@@ -6,30 +6,15 @@
     android:clickable="false"
     android:focusableInTouchMode="false"
     android:focusable="false"
-    android:longClickable="false">
+    android:longClickable="false"
+    android:background="@drawable/bgportrait">
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/bg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-<<<<<<< HEAD
-        android:src="@drawable/bgblur"
-        android:tint="#6bffffff"/>
-=======
-        android:src="@drawable/bgmain" />
->>>>>>> custom-fonts
-
-    <TextView
-        android:text="Dreamy"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:textSize="50sp"
-        android:textColor="#ffffff"
-        android:id="@+id/textAdd"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_height="fill_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg"/>-->
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -37,8 +22,8 @@
         android:layout_below="@+id/adddreamButton">
 
         <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:id="@+id/scrolled"
             android:layout_gravity="center_horizontal"
             android:layout_alignParentTop="true"
@@ -46,18 +31,17 @@
             android:layout_alignParentStart="true"
             android:paddingTop="5dp">
 
-            <LinearLayout
+            <GridLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:layout_height="wrap_content"
                 android:weightSum="1"
-                android:id="@+id/linearView"
+                android:id="@+id/grid"
+                android:columnCount="1"
                 android:layout_below="@+id/adddreamButton">
 
 
-            </LinearLayout>
+            </GridLayout>
         </ScrollView>
     </RelativeLayout>
 
@@ -70,5 +54,13 @@
         android:onClick="gotoDreamyForm"
         android:layout_below="@+id/textAdd"
         android:layout_toRightOf="@+id/textAdd" />
+
+    <AdapterViewFlipper
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/adapterViewFlipper"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

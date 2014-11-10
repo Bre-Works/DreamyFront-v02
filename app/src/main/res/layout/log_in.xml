@@ -1,61 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="fill_parent">
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/bg"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="87dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/relativeLayout">
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg"/>
 
-        android:layout_alignParentEnd="true"
-        android:id="@+id/rlayout">
-
+    <RelativeLayout
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:padding="30dp"
+        android:id="@+id/relativeLayout"
+        android:background="@drawable/circle">
 
         <TextView
             android:text="@string/app_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#1057CA"
-            android:textSize="50dp"
-            android:id="@+id/textView3"
+            android:textColor="#000000"
+            android:textSize="30sp"
+            android:id="@+id/textTitle"
             android:layout_gravity="center_horizontal"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_alignParentEnd="false" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:id="@+id/usernameInput"
-            android:layout_column="2"
             android:hint="username"
-            android:layout_marginTop="75dp"
-            android:textSize="30dp"
-            android:layout_below="@+id/textView3"
-            android:layout_alignRight="@+id/textView3"
-            android:layout_alignEnd="@+id/textView3"
-            android:layout_alignLeft="@+id/textView3"
-            android:layout_alignStart="@+id/textView3" />
+            android:textSize="20sp"
+            android:layout_marginTop="40dp"
+            android:layout_below="@+id/textTitle"
+            android:layout_centerHorizontal="true"
+            android:typeface="sans" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:id="@+id/passwordInput"
-            android:layout_column="2"
             android:hint="password"
-            android:textSize="30dp"
+            android:textSize="20sp"
             android:inputType="textPassword"
-            android:visibility="visible"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/usernameInput"
             android:layout_alignLeft="@+id/usernameInput"
-            android:layout_alignStart="@+id/usernameInput" />
+            android:layout_alignStart="@+id/usernameInput"
+            android:typeface="sans" />
 
         <Button
             android:layout_width="wrap_content"
@@ -63,22 +62,20 @@
             android:text="Login"
             android:id="@+id/signin"
             android:onClick="loginAccount"
-            android:layout_alignTop="@+id/signup"
-            android:layout_alignLeft="@+id/passwordInput"
-            android:layout_alignStart="@+id/passwordInput" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sign Up"
-            android:id="@+id/signup"
-            android:onClick="goToSignUp"
-
-            android:layout_below="@+id/passwordInput"
-            android:layout_alignRight="@+id/usernameInput"
-            android:layout_alignEnd="@+id/usernameInput"
-            android:layout_marginTop="57dp" />
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:typeface="sans" />
 
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:textSize="18dp"
+        android:id="@+id/signup"
+        android:layout_margin="18dp"
+        android:onClick="goToSignUp"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

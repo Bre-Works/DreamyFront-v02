@@ -1,12 +1,15 @@
 package com.breworks.dreamy;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ImageView;
@@ -25,7 +28,7 @@ import java.util.List;
 
 public class Main extends DreamyActivity {
 
-    LinearLayout linearView;
+    GridLayout grid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,19 +38,29 @@ public class Main extends DreamyActivity {
         TabView tabView = tabProvider.getTabHost("Home");
         tabView.setCurrentView(R.layout.activity_main);
         setContentView(tabView.render(0));
-        linearView = (LinearLayout) findViewById(R.id.linearView);
+        //ImageView bg = (ImageView) findViewById(R.id.bg);
+        //bg.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        grid = (GridLayout) findViewById(R.id.grid);
+        Drawable circle = getResources().getDrawable(R.drawable.circle);
+        //circle.setBounds(0,0,100,100);
+        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        llp.setMargins(10,10,10,10);
 
         Log.d("Reading: ", "Reading all contacts..");
         List<Dream> dreams = Dream.listAll(Dream.class);
 
         for (final Dream dr : dreams) {
             TextView Dc = new TextView(this);
+            Dc.setBackground(circle);
+            Dc.setPadding(50, 50, 50, 50);
+            Dc.setLines(5);
+            Dc.setLayoutParams(llp);
             Log.e("lol",dr.getName());
             if(!dr.getStatus()) {
-                Dc.setText(dr.getName() + " - ONGOING " );
+                Dc.setText(dr.getName() + "\n- ONGOING " );
             }
             else{
-                Dc.setText(dr.getName() + " - COMPLETED");
+                Dc.setText(dr.getName() + "\n- COMPLETED");
             }
             Dc.setGravity(Gravity.CENTER);
             Dc.isClickable();
@@ -60,14 +73,11 @@ public class Main extends DreamyActivity {
                 }
             });
             Dc.setTextAppearance(this, android.R.style.TextAppearance_Medium);
-            linearView.addView(Dc);
+            //Dc.setHeight(Dc.getWidth());
+            grid.addView(Dc);
 
-            ImageView bg = (ImageView)findViewById(R.id.bg);
-            bg.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
 
-        ImageView bg = (ImageView) findViewById(R.id.bg);
-        bg.setScaleType(ImageView.ScaleType.CENTER_CROP);
     }
 
 
@@ -85,17 +95,15 @@ public class Main extends DreamyActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.to_do_list) {
-            Intent intent = new Intent(Main.this, ToDoList.class);
-            startActivity(intent);
-            //setContentView(R.layout.todolist);
-        }
-        if (id == R.id.Dreamy_form) {
-            Intent intent = new Intent(Main.this, DreamyForm.class);
-            startActivity(intent);
-        }
         if (id == R.id.action_settings) {
-            return true;
+            //Intent intent = new Intent(Main.this, ClassName.class);
+            //startActivity(intent);
+            //setContentView(R.layout.layoutname);
+        }
+        if (id == R.id.action_logout) {
+            //Intent intent = new Intent(Main.this, ClassName.class);
+            //startActivity(intent);
+            //setContentView(R.layout.layoutname);
         }
 
         return super.onOptionsItemSelected(item);

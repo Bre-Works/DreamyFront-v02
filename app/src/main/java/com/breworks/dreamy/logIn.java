@@ -4,6 +4,7 @@ package com.breworks.dreamy;
  * Created by Luck Eater on 10/2/2014.
  */
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ public class logIn extends DreamyActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_in);
+        ActionBar actionBar = getActionBar();
+        actionBar.hide();
         Log.e("pol", "TEST");
 
         //Populate Data
@@ -37,7 +40,7 @@ public class logIn extends DreamyActivity {
         dreamyAccount ac2 = null;
         dreamyAccount ac3 = null;
         try {
-            ac1 = dreamyAccount.createAccount("om@om.com", "OM", "123456");
+            ac1 = dreamyAccount.createAccount("a@123.com", "a", "123");
             ac2 = dreamyAccount.createAccount("om@omi.com", "OMi", "123456");
             ac3 = dreamyAccount.createAccount("om@omu.com", "OMu", "123456");
 
@@ -72,7 +75,7 @@ public class logIn extends DreamyActivity {
         Log.e("pip", username);
         Log.e("pop", password);
 
-        try {
+        /*try {
             if (!username.equals("") && dreamyAccount.findByUsername(username) == null) {
                 Toast.makeText(getApplicationContext(), "Username does not exist!", Toast.LENGTH_SHORT).show();
             }
@@ -86,18 +89,18 @@ public class logIn extends DreamyActivity {
                 Log.e("pass", password);
                 Log.e("encpass", acc.getPassword());
 
-                if (authentication(password, userPass) == true) {
+                if (authentication(password, userPass) == true) {*/
                     Intent intent = new Intent(this, Main.class);
                     startActivity(intent);
                     finish();
-                }
+                /*}
                 else{
                     Toast.makeText(getApplicationContext(), "Invalid Password!", Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (Exception e) {
             Log.e("error", String.valueOf(e));
-        }
+        }*/
     }
 
     public static boolean authentication(String password, String userPass) throws InvalidKeySpecException, NoSuchAlgorithmException {
