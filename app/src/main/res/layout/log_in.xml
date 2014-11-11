@@ -65,7 +65,7 @@
             android:background="@android:color/transparent"
             android:text="Login"
             android:id="@+id/signin"
-            android:onClick="goToMain"
+            android:onClick="loginAccount"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:typeface="sans" />

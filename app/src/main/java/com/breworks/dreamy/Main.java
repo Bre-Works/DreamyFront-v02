@@ -16,9 +16,6 @@ import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ImageView;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-
 
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
@@ -26,6 +23,7 @@ import com.breworks.dreamy.model.dreamyAccount;
 import com.breworks.dreamy.tabpanel.MyTabHostProvider;
 import com.breworks.dreamy.tabpanel.TabHostProvider;
 import com.breworks.dreamy.tabpanel.TabView;
+import com.breworks.dreamy.SessionManager;
 
 import java.util.List;
 
@@ -35,7 +33,7 @@ import java.util.List;
 
 public class Main extends DreamyActivity {
 
-    SharedPreferences sharedPref;
+    SessionManager session;
     GridLayout grid;
     dreamyAccount login;
 
@@ -45,10 +43,12 @@ public class Main extends DreamyActivity {
 
         super.onCreate(savedInstanceState);
 
-        ActionBar actionBar = getActionBar();
-        login = dreamyAccount.findById(dreamyAccount.class,sharedPref.getLong("DreamID",0));
+        session = new SessionManager(getApplicationContext());
 
-        actionBar.setTitle(login.getUsername());
+        ActionBar actionBar = getActionBar();
+        login = session.getUser();
+
+        actionBar.setTitle("Hello, "+ login.getUsername());
 
         TabHostProvider tabProvider = new MyTabHostProvider(Main.this);
         TabView tabView = tabProvider.getTabHost("Home");

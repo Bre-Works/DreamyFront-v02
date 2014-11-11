@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
 
 public class SessionManager {
     // Shared Preferences
@@ -81,14 +82,13 @@ public class SessionManager {
         }
     }
 
-
-
     /**
      * Get stored session data
      * */
     public dreamyAccount getUser(){
         long loginUser = pref.getLong(KEY_ID, 0);
-        dreamyAccount user = dreamyAccount.findById(dreamyAccount.class,loginUser);
+        //dreamyAccount user = dreamyAccount.findById(dreamyAccount.class,loginUser);
+        dreamyAccount user = dreamyAccount.findByUsername(pref.getString(KEY_USERNAME,null));
         return user;
     }
 

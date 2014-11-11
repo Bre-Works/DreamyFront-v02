@@ -8,8 +8,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +19,7 @@ import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.dreamyAccount;
+import com.breworks.dreamy.SessionManager;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -27,25 +27,23 @@ import java.security.spec.InvalidKeySpecException;
 public class logIn extends DreamyActivity {
     EditText usernameInput, passwordInput;
     public static Activity loginpage;
-    public static final String MyPREFERENCES = "DreamyPrefs" ;
-    String username, password;
-    SharedPreferences sharedPref;
 
+    SessionManager session;
+
+    String username, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         loginpage = this;
 
-        sharedPref = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        String str = String.valueOf(sharedPref.getLong("DreamID", 0));
-        Log.e("fuckfuck",str);
+        session = new SessionManager(getApplicationContext());
 
-        if(sharedPref.getLong("DreamID",0) != 0){
-            Intent intent = new Intent(this, Main.class);
-            startActivity(intent);
-            finish();
-        }
-
+            if (session.isLoggedIn()) {
+                Intent intent = new Intent(this, Main.class);
+                Log.e("rightThere", String.valueOf(session.isLoggedIn()));
+                startActivity(intent);
+                finish();
+            }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_in);
@@ -113,10 +111,8 @@ public class logIn extends DreamyActivity {
                 if (authentication(password, userPass) == true) {
                     Intent intent = new Intent(this, Main.class);
                     startActivity(intent);
-                    SharedPreferences.Editor editor = sharedPref.edit();
 
-                    editor.putLong("DreamID",acc.getId());
-                    editor.commit();
+                    session.createLoginSession(acc.getUsername(), acc.getId());
 
                     finish();
                 }
