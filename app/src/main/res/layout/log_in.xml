@@ -62,6 +62,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:text="Login"
             android:id="@+id/signin"
             android:onClick="loginAccount"
@@ -74,14 +75,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
     android:id="@+id/scrollView" />
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:text="Sign Up"
-        android:textSize="18dp"
         android:id="@+id/signup"
-        android:layout_margin="18dp"
         android:onClick="goToSignUp"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:typeface="sans"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp" />
 
 </RelativeLayout>
