@@ -4,6 +4,7 @@ package com.breworks.dreamy;
  * Created by Luck Eater on 10/2/2014.
  */
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.dreamyAccount;
@@ -22,10 +24,9 @@ import com.breworks.dreamy.model.dreamyAccount;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-public class logIn extends Activity {
-
+public class logIn extends DreamyActivity {
     EditText usernameInput, passwordInput;
-
+    public static Activity loginpage;
     public static final String MyPREFERENCES = "DreamyPrefs" ;
     String username, password;
     SharedPreferences sharedPref;
@@ -33,11 +34,14 @@ public class logIn extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        loginpage = this;
 
         sharedPref = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_in);
+        ActionBar actionBar = getActionBar();
+        actionBar.hide();
         Log.e("pol", "TEST");
 
         //Populate Data
@@ -46,7 +50,7 @@ public class logIn extends Activity {
         dreamyAccount ac2 = null;
         dreamyAccount ac3 = null;
         try {
-            ac1 = dreamyAccount.createAccount("om@om.com", "OM", "123456");
+            ac1 = dreamyAccount.createAccount("a@123.com", "a", "123");
             ac2 = dreamyAccount.createAccount("om@omi.com", "OMi", "123456");
             ac3 = dreamyAccount.createAccount("om@omu.com", "OMu", "123456");
 
@@ -128,7 +132,6 @@ public class logIn extends Activity {
     public void goToSignUp(View vi) {
         Intent intent = new Intent(this, signUp.class);
         startActivity(intent);
-        finish();
     }
 
 }

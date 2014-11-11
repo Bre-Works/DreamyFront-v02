@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.dreamyAccount;
@@ -26,7 +27,7 @@ import java.util.List;
  * Created by arsianindita on 28-Sep-14.
  */
 
-public class DreamyForm extends Activity{
+public class DreamyForm extends DreamyActivity {
 
     LinearLayout container;
     ImageButton addMilestone;
@@ -124,6 +125,19 @@ public class DreamyForm extends Activity{
         startActivity(intent);
         finish();
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            // do something on back.
+            Intent intent = new Intent(this, Main.class);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 
 

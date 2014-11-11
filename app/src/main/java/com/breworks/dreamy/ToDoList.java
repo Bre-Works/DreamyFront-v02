@@ -2,6 +2,7 @@ package com.breworks.dreamy;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,6 +23,10 @@ import android.widget.TextView.OnEditorActionListener;
 import android.view.inputmethod.EditorInfo;
 
 import com.breworks.dreamy.model.Dream;
+import com.breworks.dreamy.model.Milestone;
+
+import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
+
 import com.breworks.dreamy.model.Todo;
 import com.breworks.dreamy.tabpanel.MyTabHostProvider;
 import com.breworks.dreamy.tabpanel.TabHostProvider;
@@ -33,15 +39,17 @@ import java.util.List;
 
 import com.orm.SugarRecord;
 
+import uk.co.chrisjenx.calligraphy.*;
+
 /**
  * Created by Maha on 9/28/14.
  */
 
-public class ToDoList extends Activity {
+public class ToDoList extends DreamyActivity {
 
     ArrayList<CheckBox> checkBoxes = new ArrayList<CheckBox>();
     ArrayList<EditText> textFields = new ArrayList<EditText>();
-    ArrayList<Button> buttons = new ArrayList<Button>();
+
     Button btnClear;
     TableLayout table;
     OnEditorActionListener taskEnter;
@@ -49,6 +57,12 @@ public class ToDoList extends Activity {
     Point screenSize;
     int screenWidth;
     int fieldWidth;
+    int selectedDreamIndex = 0;
+    int selectedMilesIndex = 0;
+    private boolean clicked;
+    private int index = 2;
+    private int displayTaskIndex = 1;
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,49 +100,118 @@ public class ToDoList extends Activity {
             public void onClick(View v) {
                 ArrayList<CheckBox> newCB = new ArrayList<CheckBox>();
                 ArrayList<EditText> newTF = new ArrayList<EditText>();
-                ArrayList<Button> newButton = new ArrayList<Button>();
                 for (int i = 0; i < checkBoxes.size(); i++) {
                     CheckBox cb = checkBoxes.get(i);
                     EditText tf = textFields.get(i);
-                    Button b = buttons.get(i);
                     if (cb.isChecked()) {
                         View row = (View) cb.getParent();
                         table.removeView(row);
-                        //checkBoxes.remove(cb);
-                        //textFields.remove(i);
                     } else {
                         newCB.add(cb);
                         newTF.add(tf);
-                        newButton.add(b);
-
                     }
 
                 }
                 checkBoxes = newCB;
                 textFields = newTF;
-                buttons = newButton;
                 createInitFieldIfNotExists();
             }
         };
 
         btnClear.setOnClickListener(oclBtnClear);
 
+        // DREAMS
         // get dream from database
         List<Dream> dreams = Dream.listAll(Dream.class);
-        String[] dreamList = new String[dreams.size()];
-        for (int i=0; i < dreams.size(); i++) {
-            dreamList[i] = dreams.get(i).toString();
+        final long[] dreamId = new long[dreams.size()];
+        final String[] dreamList = new String[dreams.size()];
+        int inc = 0;
+
+        for (final Dream dr : dreams) {
+            Log.e("dream id", String.valueOf(dr.getId()));
+            dreamId[inc] = dr.getId();
+            dreamList[inc] = dr.getName();
+            inc++;
         }
 
-        // spinner
-        Spinner mySpinner = (Spinner)findViewById(R.id.DreamSpinner);
+        // spinner dream
+        Spinner SpinnerDream = (Spinner) findViewById(R.id.DreamSpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 R.layout.todolist_dream, R.id.dreamArray, dreamList);
-        mySpinner.setAdapter(adapter);
+        SpinnerDream.setAdapter(adapter);
+
+        // spinner dream listener
+        SpinnerDream.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        Log.e("Choose dream index ", String.valueOf(i));
+                        selectedDreamIndex = i;
+                        Log.e("index saved ", String.valueOf(selectedDreamIndex));
+                        checkDreamIndex(dreamList, dreamId);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        Log.e("nothing", "...");
+                    }
+                }
+        );
 
         //keyboard
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    public void checkDreamIndex(String[] dreamList, long[] dreamId) {
+        if (dreamList[selectedDreamIndex] != null) {
+            Log.e("index ", "amazingly not null");
+            Dream dr = Dream.findById(Dream.class, dreamId[selectedDreamIndex]);// ALERT!!
+            milestonesSetUp(dr);
+        } else {
+            Log.e("index ", "is incredibly null");
+            selectedDreamIndex = 0;
+            Dream dr = Dream.findById(Dream.class, dreamId[selectedDreamIndex]);
+            milestonesSetUp(dr);
+        }
+    }
+
+    public void milestonesSetUp(Dream dr) {
+        // MILESTONES
+        // get miles from database
+        Log.e("arrive here ", "LOH");
+        List<Milestone> miles = Milestone.searchByDream(dr);
+        long[] milesId = new long[miles.size()];
+        String[] milesList = new String[miles.size()];
+        int incM = 0;
+        for (Milestone mil : miles) {
+            Log.e("miles id", String.valueOf(mil.getId()));
+            milesId[incM] = mil.getId();
+            milesList[incM] = mil.getName();
+            incM++;
+        }
+        // spinner miles
+        Spinner SpinnerMiles = (Spinner) findViewById(R.id.MilestoneSpinner);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
+                R.layout.todolist_dream, R.id.dreamArray, milesList);
+        SpinnerMiles.setAdapter(adapter2);
+
+        // spinner miles listener
+        SpinnerMiles.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        Log.e("choose miles index ", String.valueOf(i));
+                        selectedMilesIndex = i;
+                        Log.e("save miles index ", String.valueOf(selectedMilesIndex));
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        Log.e("nothing", "selected");
+                    }
+                }
+        );
     }
 
     @Override
@@ -149,65 +232,61 @@ public class ToDoList extends Activity {
     Creates a new empty task text field
      */
     protected void createNewTaskField() {
+
         TableRow row = new TableRow(this);
         EditText textField = new EditText(this);
         CheckBox checkbox = new CheckBox(this);
         Button button = new Button(this);
 
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v1) {
-                gotoToDoDetail();
-            }
-        });;
+        detailButtonListener(button, index);
 
         checkbox.setLayoutParams(new TableRow.LayoutParams(1));
         setEditTextAttributes(textField);
         button.setLayoutParams(new TableRow.LayoutParams(3));
         checkBoxes.add(checkbox);
         textFields.add(textField);
-        buttons.add(button);
-
 
         row.addView(checkbox);
         row.addView(textField);
         row.addView(button);
         table.addView(row);
+
+        index++;
     }
 
     /*
     Displays a new task field linked to an existing Todo object
      */
     protected void displayTask(Todo task) {
+
         TableRow row = new TableRow(this);
         EditText textField = new EditText(this);
         CheckBox checkbox = new CheckBox(this);
         Button button = new Button(this);
 
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v1) {
-                gotoToDoDetail();
-            }
-        });;
+        detailButtonListener(button, displayTaskIndex);
+        if (clicked == true) {
+            return;
+        }
 
         checkbox.setLayoutParams(new TableRow.LayoutParams(1));
         checkbox.setChecked(task.getStatus());
         setEditTextAttributes(textField);
-        button.setLayoutParams(new TableRow.LayoutParams(2));
+        button.setLayoutParams(new TableRow.LayoutParams(3));
 
         checkBoxes.add(checkbox);
         textFields.add(textField);
-        buttons.add(button);
 
         CharSequence text = task.getText();
+
         textField.setText(text);
+
         row.addView(checkbox);
         row.addView(textField);
         row.addView(button);
         table.addView(row);
+
+        displayTaskIndex++;
     }
 
     protected void setEditTextAttributes(EditText et) {
@@ -220,20 +299,15 @@ public class ToDoList extends Activity {
     /*
     Creates a new initial text field if the task list is empty
      */
-    protected void createInitFieldIfNotExists(){
+    protected void createInitFieldIfNotExists() {
         if (table.getChildCount() == 0) {
+
             TableRow row = new TableRow(this);
             EditText textField = new EditText(this);
             CheckBox checkbox = new CheckBox(this);
             Button button = new Button(this);
 
-            button.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v1) {
-                    gotoToDoDetail();
-                }
-            });;
+            detailButtonListener(button, 1);
 
             checkbox.setLayoutParams(new TableRow.LayoutParams(1));
 
@@ -242,11 +316,10 @@ public class ToDoList extends Activity {
             textField.getLayoutParams().width = fieldWidth;
             textField.setHint("add a task");
 
-            checkbox.setLayoutParams(new TableRow.LayoutParams(3));
+            button.setLayoutParams(new TableRow.LayoutParams(3));
 
             checkBoxes.add(checkbox);
             textFields.add(textField);
-            buttons.add(button);
 
             row.addView(checkbox);
             row.addView(textField);
@@ -261,11 +334,13 @@ public class ToDoList extends Activity {
         for (Todo todo : todos) {
             displayTask(todo);
         }
-        SugarRecord.deleteAll(Todo.class);
+        //SugarRecord.deleteAll(Todo.class);
     }
 
     protected void saveTasks() {
-        //SugarRecord.deleteAll(Todo.class);
+
+        SugarRecord.deleteAll(Todo.class);
+
         for (int i = 0; i < textFields.size(); i++) {
             CheckBox cb = checkBoxes.get(i);
             EditText tf = textFields.get(i);
@@ -275,9 +350,31 @@ public class ToDoList extends Activity {
         textFields.clear();
     }
 
-    public void gotoToDoDetail(){
+
+    public void gotoToDoDetail() {
         Intent intent = new Intent(this, ToDoDetail.class);
         startActivity(intent);
     }
+
+    public void setCurrentID(int id){
+        this.id = id;
+    }
+
+    public int getCurrentID(){ return id;}
+
+
+    public void detailButtonListener(Button button, final int taskID) {
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v1) {
+                setCurrentID(taskID);
+                Log.e("id", String.valueOf(id));
+                gotoToDoDetail();
+                clicked = true;
+            }
+        });
+    }
+
 
 }

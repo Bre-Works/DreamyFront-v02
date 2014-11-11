@@ -35,8 +35,8 @@ public class Tab {
 	private String btnText;
 	private int textColor;
 	private int selectedTextColor;
-//	private int btnColor;
-//	private int selectedBtnColor;
+	private int btnColor;
+	private int selectedBtnColor;
 	private GradientDrawable btnGradient;
 	private GradientDrawable selectedBtnGradient;
 	private float btnTextSize;
@@ -57,13 +57,13 @@ public class Tab {
 		this.resourceIconSelected = resourceIcon;
 	}
 	
-//	public void setBtnColor(int btnColor) {
-//		this.btnColor = btnColor;
-//	}
-//	
-//	public void setSelectedBtnColor(int btnColor) {
-//		this.selectedBtnColor = btnColor;
-//	}
+	public void setBtnColor(int btnColor) {
+		this.btnColor = btnColor;
+	}
+
+	public void setSelectedBtnColor(int btnColor) {
+		this.selectedBtnColor = btnColor;
+	}
 	
 	public void setBtnGradient(GradientDrawable btnGradient) {
 		this.btnGradient = btnGradient;
@@ -126,12 +126,12 @@ public class Tab {
 		btn = (Button)(context.getLayoutInflater().inflate(R.layout.button, null));
 
 		int iconId = resourceIcon;
-//		int btnBackColor = btnColor;
+		int btnBackColor = btnColor;
 		GradientDrawable btnBackGrad = btnGradient;
 		int btnTextColor = textColor;
 		if (isSelected && resourceIconSelected != 0) {
 			iconId = resourceIconSelected;
-//			btnBackColor = selectedBtnColor;
+			btnBackColor = selectedBtnColor;
 			btnBackGrad = selectedBtnGradient;
 			btnTextColor = selectedTextColor;
 		}
@@ -140,7 +140,7 @@ public class Tab {
 		btn.setText(btnText);
 		btn.setTextColor(btnTextColor);
 		btn.setTextSize(btnTextSize);
-//		btn.setBackgroundColor(btnBackColor);
+		btn.setBackgroundColor(btnBackColor);
 		btn.setBackgroundDrawable(btnBackGrad);
 		btn.setMinimumHeight(preferedHeight);
 		btn.setPadding(0, 15, 0, 0);
