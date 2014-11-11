@@ -3,7 +3,7 @@ package com.breworks.dreamy;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -18,6 +18,7 @@ import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.dreamyAccount;
 import com.orm.query.Condition;
 import com.orm.query.Select;
+import com.breworks.dreamy.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,17 +32,17 @@ public class DreamyFormUpdate extends Activity{
     EditText milestoneInput;
     ImageButton removeMilestone;
     EditText dreamInput;
-    public static final String MyPREFERENCES = "DreamyPrefs" ;
-    SharedPreferences sharedPref;
+    SessionManager session;
 
     List<String> mils = new ArrayList<String>();
 
     protected void onCreate(Bundle savedInstanceState) {
 
+        session = new SessionManager(getApplicationContext());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dreamy_form);
 
-        sharedPref = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         milestoneInput = (EditText) findViewById(R.id.milestoneInput);
         container = (LinearLayout) findViewById(R.id.container);
@@ -140,7 +141,7 @@ public class DreamyFormUpdate extends Activity{
         Intent intent = new Intent(this, Main.class);
         String dreamName = dreamInput.getText().toString();
 
-        dreamyAccount dr = dreamyAccount.findById(dreamyAccount.class, sharedPref.getLong("DreamID",0));
+        dreamyAccount dr = session.getUser();
         Dream dream = Dream.createDream(dreamName,false,dr);
 
         if(!dreamName.equals("")){

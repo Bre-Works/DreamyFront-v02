@@ -3,7 +3,6 @@ package com.breworks.dreamy;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -17,6 +16,7 @@ import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.dreamyAccount;
+import com.breworks.dreamy.SessionManager;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -34,74 +34,75 @@ public class DreamyForm extends DreamyActivity {
     EditText milestoneInput;
     ImageButton removeMilestone;
     EditText dreamInput;
-    SharedPreferences sharedPref;
-    public static final String MyPREFERENCES = "DreamyPrefs" ;
+
+    SessionManager session;
 
     List<String> miles = new ArrayList<String>();
 
     protected void onCreate(Bundle savedInstanceState) {
 
-        sharedPref = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        try {
 
-        try{
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.dreamy_form);
-        milestoneInput = (EditText) findViewById(R.id.milestoneInput);
-        container = (LinearLayout) findViewById(R.id.container);
-        dreamInput = (EditText) findViewById(R.id.dreamInput);
+            session = new SessionManager(getApplicationContext());
 
-        int i = 0;
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.dreamy_form);
+            milestoneInput = (EditText) findViewById(R.id.milestoneInput);
+            container = (LinearLayout) findViewById(R.id.container);
+            dreamInput = (EditText) findViewById(R.id.dreamInput);
 
-        milestoneInput.setOnKeyListener(new View.OnKeyListener() {
+            int i = 0;
 
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
+            milestoneInput.setOnKeyListener(new View.OnKeyListener() {
 
-                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                        LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService
-                                (Context.LAYOUT_INFLATER_SERVICE);
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-                        final View addView = inflater.inflate(R.layout.dreamy_form_row, null);
+                    if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                        if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                            LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService
+                                    (Context.LAYOUT_INFLATER_SERVICE);
 
-                        removeMilestone = (ImageButton) addView.findViewById(R.id.delMilestone);
+                            final View addView = inflater.inflate(R.layout.dreamy_form_row, null);
 
-                        EditText milestoneOut = (EditText) addView.findViewById(R.id.milestoneOut);
+                            removeMilestone = (ImageButton) addView.findViewById(R.id.delMilestone);
 
-                        final String MileInput = milestoneInput.getText().toString();
+                            EditText milestoneOut = (EditText) addView.findViewById(R.id.milestoneOut);
 
-                        milestoneOut.setText(MileInput);
-                        miles.add(MileInput);
+                            final String MileInput = milestoneInput.getText().toString();
 
-                        removeMilestone.setOnClickListener(new View.OnClickListener() {
+                            milestoneOut.setText(MileInput);
+                            miles.add(MileInput);
 
-                            @Override
-                            public void onClick(View v1) {
-                                ((LinearLayout) addView.getParent()).removeView(addView);
-                                removeMile(MileInput);
+                            removeMilestone.setOnClickListener(new View.OnClickListener() {
 
-                            }
-                        });
+                                @Override
+                                public void onClick(View v1) {
+                                    ((LinearLayout) addView.getParent()).removeView(addView);
+                                    removeMile(MileInput);
 
-                        container.addView(addView);
-                        milestoneInput.setText("");
+                                }
+                            });
+
+                            container.addView(addView);
+                            milestoneInput.setText("");
 
 
-                        return true;
+                            return true;
+                        }
                     }
+                    return false;
                 }
-                return false;
-            }
-        });}
-        catch(Exception e){
+            });
+        } catch (Exception e) {
             Log.e("error", String.valueOf(e));
         }
 
     }
 
-    public void removeMile(String mil){
+    public void removeMile(String mil) {
         List<String> mm = new ArrayList<String>();
-        for(String m : miles){
-            if(!m.equals(mil)){
+        for (String m : miles) {
+            if (!m.equals(mil)) {
                 mm.add(m);
                 continue;
             }
@@ -110,16 +111,16 @@ public class DreamyForm extends DreamyActivity {
     }
 
 
-    public void saveBackToHome(View v){
+    public void saveBackToHome(View v) {
         Intent intent = new Intent(this, Main.class);
         String dreamName = dreamInput.getText().toString();
 
-        dreamyAccount dr = dreamyAccount.findById(dreamyAccount.class, sharedPref.getLong("DreamID",0));
-        Dream dream = Dream.createDream(dreamName,false,dr);
+        dreamyAccount dr = session.getUser();
+        Dream dream = Dream.createDream(dreamName, false, dr);
 
-        if(!dreamName.equals("")){
-            for(String m : miles){
-                Milestone.createMilestone(m,false,dream);
+        if (!dreamName.equals("")) {
+            for (String m : miles) {
+                Milestone.createMilestone(m, false, dream);
             }
         }
         startActivity(intent);
@@ -128,7 +129,7 @@ public class DreamyForm extends DreamyActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             // do something on back.
             Intent intent = new Intent(this, Main.class);
@@ -139,7 +140,6 @@ public class DreamyForm extends DreamyActivity {
 
         return super.onKeyDown(keyCode, event);
     }
-
 
 
 }

@@ -38,6 +38,7 @@ public class logIn extends DreamyActivity {
 
         session = new SessionManager(getApplicationContext());
 
+        //Check if there are login user or not
             if (session.isLoggedIn()) {
                 Intent intent = new Intent(this, Main.class);
                 Log.e("rightThere", String.valueOf(session.isLoggedIn()));
