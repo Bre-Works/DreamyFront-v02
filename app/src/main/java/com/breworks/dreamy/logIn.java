@@ -24,12 +24,9 @@ import com.breworks.dreamy.model.dreamyAccount;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-<<<<<<< HEAD
-public class logIn extends Activity {
 
-=======
 public class logIn extends DreamyActivity {
->>>>>>> ui-design
+
     EditText usernameInput, passwordInput;
     public static Activity loginpage;
     public static final String MyPREFERENCES = "DreamyPrefs" ;
@@ -91,7 +88,7 @@ public class logIn extends DreamyActivity {
         Log.e("pip", username);
         Log.e("pop", password);
 
-        /*try {
+        try {
             if (!username.equals("") && dreamyAccount.findByUsername(username) == null) {
                 Toast.makeText(getApplicationContext(), "Username does not exist!", Toast.LENGTH_SHORT).show();
             }
@@ -105,23 +102,24 @@ public class logIn extends DreamyActivity {
                 Log.e("pass", password);
                 Log.e("encpass", acc.getPassword());
 
-                if (authentication(password, userPass) == true) {*/
+                if (authentication(password, userPass) == true) {
+
                     Intent intent = new Intent(this, Main.class);
                     startActivity(intent);
                     SharedPreferences.Editor editor = sharedPref.edit();
 
-                    editor.putLong("DreamID",acc.getId());
+                    editor.putLong("DreamID", acc.getId());
                     editor.commit();
 
                     finish();
-                /*}
-                else{
-                    Toast.makeText(getApplicationContext(), "Invalid Password!", Toast.LENGTH_SHORT).show();
                 }
+                }else{
+                    Toast.makeText(getApplicationContext(), "Invalid Password!", Toast.LENGTH_SHORT).show();
+
             }
         } catch (Exception e) {
             Log.e("error", String.valueOf(e));
-        }*/
+        }
     }
 
     public static boolean authentication(String password, String userPass) throws InvalidKeySpecException, NoSuchAlgorithmException {

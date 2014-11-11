@@ -1,11 +1,7 @@
 package com.breworks.dreamy;
 
-import android.app.Activity;
-<<<<<<< HEAD
+
 import android.content.Intent;
-=======
-import android.content.Context;
->>>>>>> ui-design
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,12 +21,12 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.view.inputmethod.EditorInfo;
 
-<<<<<<< HEAD
+
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
-=======
+
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
->>>>>>> ui-design
+
 import com.breworks.dreamy.model.Todo;
 import com.breworks.dreamy.tabpanel.MyTabHostProvider;
 import com.breworks.dreamy.tabpanel.TabHostProvider;
@@ -342,10 +338,9 @@ public class ToDoList extends DreamyActivity {
     }
 
     protected void saveTasks() {
-<<<<<<< HEAD
+
         SugarRecord.deleteAll(Todo.class);
-=======
->>>>>>> ui-design
+
         for (int i = 0; i < textFields.size(); i++) {
             CheckBox cb = checkBoxes.get(i);
             EditText tf = textFields.get(i);
@@ -355,7 +350,6 @@ public class ToDoList extends DreamyActivity {
         textFields.clear();
     }
 
-<<<<<<< HEAD
     public void gotoToDoDetail() {
         Intent intent = new Intent(this, ToDoDetail.class);
         startActivity(intent);
@@ -380,7 +374,5 @@ public class ToDoList extends DreamyActivity {
             }
         });
     }
-=======
->>>>>>> ui-design
 
 }
