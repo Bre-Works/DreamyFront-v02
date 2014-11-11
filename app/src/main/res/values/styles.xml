@@ -24,4 +24,9 @@
         <item name="android:background">#8fffffff</item>
     </style>
 
+    <!-- Custom dialog box -->
+    <style name="DialogWithCorners" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@drawable/rounded_corner</item>
+    </style>
+
 </resources>

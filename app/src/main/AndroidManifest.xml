@@ -32,7 +32,7 @@
         </activity>
 
         <activity
-            android:theme="@android:style/Theme.Holo.Light.Dialog"
+            android:theme="@style/DialogWithCorners"
             android:name=".signUp" >
         </activity>
 
