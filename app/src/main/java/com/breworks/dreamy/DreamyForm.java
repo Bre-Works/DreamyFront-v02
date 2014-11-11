@@ -19,6 +19,7 @@ import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.dreamyAccount;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -49,6 +50,8 @@ public class DreamyForm extends DreamyActivity {
         container = (LinearLayout) findViewById(R.id.container);
         dreamInput = (EditText) findViewById(R.id.dreamInput);
 
+        int i = 0;
+
         milestoneInput.setOnKeyListener(new View.OnKeyListener() {
 
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -64,21 +67,24 @@ public class DreamyForm extends DreamyActivity {
 
                         EditText milestoneOut = (EditText) addView.findViewById(R.id.milestoneOut);
 
-                        String MileInput = milestoneInput.getText().toString();
+                        final String MileInput = milestoneInput.getText().toString();
+
                         milestoneOut.setText(MileInput);
+                        miles.add(MileInput);
 
                         removeMilestone.setOnClickListener(new View.OnClickListener() {
 
                             @Override
                             public void onClick(View v1) {
                                 ((LinearLayout) addView.getParent()).removeView(addView);
+                                removeMile(MileInput);
+
                             }
                         });
 
                         container.addView(addView);
                         milestoneInput.setText("");
 
-                        miles.add(MileInput);
 
                         return true;
                     }
@@ -87,9 +93,22 @@ public class DreamyForm extends DreamyActivity {
             }
         });}
         catch(Exception e){
-
+            Log.e("error", String.valueOf(e));
         }
+
     }
+
+    public void removeMile(String mil){
+        List<String> mm = new ArrayList<String>();
+        for(String m : miles){
+            if(!m.equals(mil)){
+                mm.add(m);
+                continue;
+            }
+        }
+        miles = mm;
+    }
+
 
     public void saveBackToHome(View v){
         Intent intent = new Intent(this, Main.class);
@@ -103,7 +122,6 @@ public class DreamyForm extends DreamyActivity {
                 Milestone.createMilestone(m,false,dream);
             }
         }
-
         startActivity(intent);
         finish();
 

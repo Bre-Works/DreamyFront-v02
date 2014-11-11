@@ -24,9 +24,7 @@ import com.breworks.dreamy.model.dreamyAccount;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-
 public class logIn extends DreamyActivity {
-
     EditText usernameInput, passwordInput;
     public static Activity loginpage;
     public static final String MyPREFERENCES = "DreamyPrefs" ;
@@ -113,19 +111,18 @@ public class logIn extends DreamyActivity {
                 Log.e("encpass", acc.getPassword());
 
                 if (authentication(password, userPass) == true) {
-
                     Intent intent = new Intent(this, Main.class);
                     startActivity(intent);
                     SharedPreferences.Editor editor = sharedPref.edit();
 
-                    editor.putLong("DreamID", acc.getId());
+                    editor.putLong("DreamID",acc.getId());
                     editor.commit();
 
                     finish();
                 }
-                }else{
+                else{
                     Toast.makeText(getApplicationContext(), "Invalid Password!", Toast.LENGTH_SHORT).show();
-
+                }
             }
         } catch (Exception e) {
             Log.e("error", String.valueOf(e));

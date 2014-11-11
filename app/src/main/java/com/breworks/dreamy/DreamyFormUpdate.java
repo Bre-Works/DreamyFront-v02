@@ -15,9 +15,11 @@ import android.widget.LinearLayout;
 
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
+import com.breworks.dreamy.model.dreamyAccount;
 import com.orm.query.Condition;
 import com.orm.query.Select;
 
+import java.util.ArrayList;
 import java.util.List;
 /**
  * Created by Ryan Avila on 30/10/2014.
@@ -31,6 +33,8 @@ public class DreamyFormUpdate extends Activity{
     EditText dreamInput;
     public static final String MyPREFERENCES = "DreamyPrefs" ;
     SharedPreferences sharedPref;
+
+    List<String> mils = new ArrayList<String>();
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -53,8 +57,6 @@ public class DreamyFormUpdate extends Activity{
 
             List<Milestone> miles = Milestone.searchByDream(dr);
 
-            //List<Milestone> miles = Milestone.listAll(Milestone.class);
-
             Log.e("lol1", String.valueOf(dr.getId()));
 
             for (Milestone mil : miles) {
@@ -68,7 +70,7 @@ public class DreamyFormUpdate extends Activity{
                 EditText milestoneOut = (EditText) addView.findViewById(R.id.milestoneOut);
 
                 milestoneOut.setText(mil.getName());
-                Log.e("la",mil.getName());
+
                 removeMilestone.setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -76,7 +78,6 @@ public class DreamyFormUpdate extends Activity{
                         ((LinearLayout) addView.getParent()).removeView(addView);
                     }
                 });
-
                 container.addView(addView);
             }
         }
@@ -101,6 +102,8 @@ public class DreamyFormUpdate extends Activity{
 
                         milestoneOut.setText(milestoneInput.getText().toString());
 
+                        String MileInput = milestoneInput.getText().toString();
+
                         removeMilestone.setOnClickListener(new View.OnClickListener() {
 
                             @Override
@@ -112,6 +115,8 @@ public class DreamyFormUpdate extends Activity{
                         container.addView(addView);
                         milestoneInput.setText("");
 
+                        mils.add(MileInput);
+
                         return true;
                     }
                 }
@@ -120,7 +125,30 @@ public class DreamyFormUpdate extends Activity{
         });
     }
 
+    public void removeMile(String mil){
+        List<String> mm = new ArrayList<String>();
+        for(String m : mils){
+            if(!m.equals(mil)){
+                mm.add(m);
+                continue;
+            }
+        }
+        mils = mm;
+    }
+
     public void saveBackToHome(View v){
+        Intent intent = new Intent(this, Main.class);
+        String dreamName = dreamInput.getText().toString();
+
+        dreamyAccount dr = dreamyAccount.findById(dreamyAccount.class, sharedPref.getLong("DreamID",0));
+        Dream dream = Dream.createDream(dreamName,false,dr);
+
+        if(!dreamName.equals("")){
+            for(String m : mils){
+                Milestone.createMilestone(m,false,dream);
+            }
+        }
+        startActivity(intent);
         finish();
     }
 
