@@ -39,6 +39,15 @@ public class logIn extends DreamyActivity {
         loginpage = this;
 
         sharedPref = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        String str = String.valueOf(sharedPref.getLong("DreamID", 0));
+        Log.e("fuckfuck",str);
+
+        if(sharedPref.getLong("DreamID",0) != 0){
+            Intent intent = new Intent(this, Main.class);
+            startActivity(intent);
+            finish();
+        }
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_in);
@@ -52,6 +61,7 @@ public class logIn extends DreamyActivity {
         dreamyAccount ac2 = null;
         dreamyAccount ac3 = null;
         try {
+            dreamyAccount.deleteAll(dreamyAccount.class);
             ac1 = dreamyAccount.createAccount("a@123.com", "a", "123");
             ac2 = dreamyAccount.createAccount("om@omi.com", "OMi", "123456");
             ac3 = dreamyAccount.createAccount("om@omu.com", "OMu", "123456");
@@ -125,6 +135,7 @@ public class logIn extends DreamyActivity {
     public static boolean authentication(String password, String userPass) throws InvalidKeySpecException, NoSuchAlgorithmException {
         return PasswordHash.validatePassword(password, userPass);
     }
+
 
     public void goToMain(View vi) {
         Intent intent = new Intent(this, Main.class);

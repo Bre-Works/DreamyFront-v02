@@ -1,7 +1,10 @@
 package com.breworks.dreamy;
 
+import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -13,9 +16,13 @@ import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ImageView;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+
 
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
+import com.breworks.dreamy.model.dreamyAccount;
 import com.breworks.dreamy.tabpanel.MyTabHostProvider;
 import com.breworks.dreamy.tabpanel.TabHostProvider;
 import com.breworks.dreamy.tabpanel.TabView;
@@ -28,12 +35,21 @@ import java.util.List;
 
 public class Main extends DreamyActivity {
 
+    SharedPreferences sharedPref;
     GridLayout grid;
+    dreamyAccount login;
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        ActionBar actionBar = getActionBar();
+        login = dreamyAccount.findById(dreamyAccount.class,sharedPref.getLong("DreamID",0));
+
+        actionBar.setTitle(login.getUsername());
+
         TabHostProvider tabProvider = new MyTabHostProvider(Main.this);
         TabView tabView = tabProvider.getTabHost("Home");
         tabView.setCurrentView(R.layout.activity_main);

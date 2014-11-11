@@ -124,4 +124,12 @@ public class DreamyFormUpdate extends Activity{
         finish();
     }
 
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, Main.class);
+        startActivity(intent);
+        finish();
+    }
 }
+

@@ -3,8 +3,9 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:focusableInTouchMode="true"
-    android:layout_height="fill_parent">
+    >
 
 
     <ImageView
@@ -12,8 +13,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
 
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="87dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:scaleType="centerCrop"
@@ -70,7 +69,7 @@
             android:layout_height="wrap_content"
             android:text="Login"
             android:id="@+id/signin"
-            android:onClick="loginAccount"
+            android:onClick="goToMain"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:typeface="sans" />
