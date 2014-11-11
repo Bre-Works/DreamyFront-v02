@@ -118,9 +118,7 @@ public class Main extends DreamyActivity {
             //setContentView(R.layout.layoutname);
         }
         if (id == R.id.action_logout) {
-            //Intent intent = new Intent(Main.this, ClassName.class);
-            //startActivity(intent);
-            //setContentView(R.layout.layoutname);
+            session.logoutUser();
         }
 
         return super.onOptionsItemSelected(item);
