@@ -1,7 +1,8 @@
 package com.breworks.dreamy;
 
-
+import android.app.Activity;
 import android.content.Intent;
+import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +21,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.view.inputmethod.EditorInfo;
-
 
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
@@ -350,6 +350,7 @@ public class ToDoList extends DreamyActivity {
         textFields.clear();
     }
 
+
     public void gotoToDoDetail() {
         Intent intent = new Intent(this, ToDoDetail.class);
         startActivity(intent);
@@ -374,5 +375,6 @@ public class ToDoList extends DreamyActivity {
             }
         });
     }
+
 
 }

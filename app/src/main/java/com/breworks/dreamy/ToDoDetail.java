@@ -25,10 +25,7 @@ import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 /**
  * Created by arsianindita on 27-Oct-14.
  */
-
-
 public class ToDoDetail extends DreamyActivity {
-
     DatePicker datePicker;
     TimePicker timePicker;
     int day;
@@ -40,7 +37,6 @@ public class ToDoDetail extends DreamyActivity {
 
     EditText dateField;
     EditText timeField;
-
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
