@@ -19,4 +19,9 @@
         <item name="android:background">#8fffffff</item>
     </style>
 
+    <style name="NoActionBar"
+        parent="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
+        <item name="android:background">#8fffffff</item>
+    </style>
+
 </resources>

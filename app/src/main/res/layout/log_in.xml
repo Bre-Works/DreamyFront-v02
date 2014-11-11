@@ -84,7 +84,7 @@
         android:onClick="goToSignUp"
         android:layout_alignParentBottom="true"
         android:typeface="sans"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="2dp"
         android:layout_marginLeft="10dp" />
 
 </RelativeLayout>
