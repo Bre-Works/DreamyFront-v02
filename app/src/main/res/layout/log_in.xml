@@ -2,25 +2,15 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-<<<<<<< HEAD
     android:layout_height="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:focusableInTouchMode="true">
-=======
-    android:layout_height="fill_parent">
->>>>>>> ui-design
 
     <ImageView
         android:id="@+id/bg"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-<<<<<<< HEAD
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="87dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/relativeLayout">
-=======
         android:scaleType="centerCrop"
         android:src="@drawable/bg"/>
 
@@ -32,7 +22,6 @@
         android:padding="30dp"
         android:id="@+id/relativeLayout"
         android:background="@drawable/circle">
->>>>>>> ui-design
 
         <TextView
             android:text="@string/app_name"
@@ -81,13 +70,10 @@
             android:typeface="sans" />
 
     </RelativeLayout>
-
-<<<<<<< HEAD
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView" />
-=======
+    android:id="@+id/scrollView" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -97,6 +83,5 @@
         android:layout_margin="18dp"
         android:onClick="goToSignUp"
         android:layout_alignParentBottom="true"/>
->>>>>>> ui-design
 
 </RelativeLayout>
