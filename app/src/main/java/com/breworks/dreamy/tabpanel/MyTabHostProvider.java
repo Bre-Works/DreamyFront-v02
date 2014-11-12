@@ -10,6 +10,7 @@ import com.breworks.dreamy.ToDoList;
 import com.breworks.dreamy.Notes;
 import com.breworks.dreamy.FreeTime;
 import com.breworks.dreamy.R;
+import com.breworks.dreamy.ToDoListNew;
 
 /**
  * Created by aidifauzan on 04/10/2014.
@@ -67,7 +68,7 @@ public class MyTabHostProvider extends TabHostProvider
         todoTab.setSelectedBtnTextColor(0x00000000);
         todoTab.setBtnGradient(transGradientDrawable);
         todoTab.setSelectedBtnGradient(gradientDrawable);
-        todoTab.setIntent(new Intent(context, ToDoList.class));
+        todoTab.setIntent(new Intent(context, ToDoListNew.class));
 
         notesTab = new Tab(context, category);
         notesTab.setIcon(R.drawable.notesidle);

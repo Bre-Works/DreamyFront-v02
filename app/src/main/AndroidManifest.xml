@@ -66,6 +66,15 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ToDoListNew"
+            android:label="@string/app_name"
+            android:launchMode="standard">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".Notes"
             android:label="@string/app_name"
