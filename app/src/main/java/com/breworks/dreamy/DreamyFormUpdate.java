@@ -35,6 +35,7 @@ public class DreamyFormUpdate extends Activity{
     ImageButton removeMilestone;
     EditText dreamInput;
     SessionManager session;
+    Dream dreamMain;
 
     List<String> mils = new ArrayList<String>();
 
@@ -57,6 +58,7 @@ public class DreamyFormUpdate extends Activity{
             Log.e("lol", String.valueOf(dream));
             final Dream dr = Dream.findById(Dream.class,dream);
             dreamInput.setText(dr.getName());
+            dreamMain = dr;
 
             dreamInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
@@ -101,7 +103,7 @@ public class DreamyFormUpdate extends Activity{
                 editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View v, boolean hasFocus) {
-                        if(!hasFocus) {
+                        if (!hasFocus) {
                             mil.setName(String.valueOf(editText.getText()));
                         }
                     }
@@ -137,15 +139,20 @@ public class DreamyFormUpdate extends Activity{
 
                         CheckBox milestoneOut = (CheckBox) addView.findViewById(R.id.milestoneOut);
 
-                        milestoneOut.setText(milestoneInput.getText().toString());
+                        final EditText editText = (EditText) addView.findViewById(R.id.editText);
+
+                        editText.setText(milestoneInput.getText().toString());
 
                         String MileInput = milestoneInput.getText().toString();
+
+                        final Milestone mil = Milestone.createMilestone(MileInput, false,dreamMain);
 
                         removeMilestone.setOnClickListener(new View.OnClickListener() {
 
                             @Override
                             public void onClick(View v1) {
                                 ((LinearLayout) addView.getParent()).removeView(addView);
+                                mil.delete();
                             }
                         });
 
@@ -162,29 +169,8 @@ public class DreamyFormUpdate extends Activity{
         });
     }
 
-    public void removeMile(String mil){
-        List<String> mm = new ArrayList<String>();
-        for(String m : mils){
-            if(!m.equals(mil)){
-                mm.add(m);
-                continue;
-            }
-        }
-        mils = mm;
-    }
-
     public void saveBackToHome(View v){
         Intent intent = new Intent(this, Main.class);
-        String dreamName = dreamInput.getText().toString();
-
-        dreamyAccount dr = session.getUser();
-        Dream dream = Dream.createDream(dreamName,false,dr);
-
-        if(!dreamName.equals("")){
-            for(String m : mils){
-                Milestone.createMilestone(m,false,dream);
-            }
-        }
         startActivity(intent);
         getCurrentFocus().clearFocus();
         finish();
