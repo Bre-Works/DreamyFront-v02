@@ -17,14 +17,16 @@ import android.widget.TimePicker;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import static android.app.PendingIntent.getActivity;
+
+import com.breworks.dreamy.model.Todo;
 
 /**
  * Created by arsianindita on 27-Oct-14.
  */
-public class ToDoDetail extends Activity{
-
+public class ToDoDetail extends Activity {
     DatePicker datePicker;
     TimePicker timePicker;
     int day;
@@ -61,6 +63,7 @@ public class ToDoDetail extends Activity{
                 calendar.set(Calendar.MONTH, monthOfYear);
                 calendar.set(Calendar.YEAR, year);
                 updateDate();
+                Log.e("date", String.valueOf(day));
             }
         };
 
@@ -98,17 +101,43 @@ public class ToDoDetail extends Activity{
     }
 
     public void updateDate(){
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        month = calendar.get(Calendar.MONTH);
+        year = calendar.get(Calendar.YEAR);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateField.setText(dateFormat.format(calendar.getTime()));
     }
 
     public void updateTime(){
+        hour = calendar.get(Calendar.HOUR_OF_DAY);
+        minute = calendar.get(Calendar.MINUTE);
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm ");
         timeField.setText(timeFormat.format(calendar.getTime()));
     }
-    
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetch();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        save();
+    }
+
+    protected void fetch(){
+    }
+
+    protected void save(){
+        Todo td = new Todo();
+        td.addDeadline(day, month, year, minute, hour);
+    }
+
+
 
 
 
 }
-

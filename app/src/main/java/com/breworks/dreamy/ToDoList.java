@@ -2,6 +2,7 @@ package com.breworks.dreamy;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,8 @@ import android.view.inputmethod.EditorInfo;
 
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
+
+
 import com.breworks.dreamy.model.Todo;
 import com.breworks.dreamy.tabpanel.MyTabHostProvider;
 import com.breworks.dreamy.tabpanel.TabHostProvider;
@@ -34,6 +37,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.orm.SugarRecord;
+
 
 /**
  * Created by Maha on 9/28/14.
@@ -102,8 +106,6 @@ public class ToDoList extends Activity {
                     if (cb.isChecked()) {
                         View row = (View) cb.getParent();
                         table.removeView(row);
-                        //checkBoxes.remove(cb);
-                        //textFields.remove(i);
                     } else {
                         newCB.add(cb);
                         newTF.add(tf);
@@ -227,7 +229,6 @@ public class ToDoList extends Activity {
         saveTasks();
     }
 
-
     /*
     Creates a new empty task text field
      */
@@ -260,19 +261,17 @@ public class ToDoList extends Activity {
     protected void displayTask(Todo task) {
 
         TableRow row = new TableRow(this);
-        Button button = new Button(this);
         EditText textField = new EditText(this);
         CheckBox checkbox = new CheckBox(this);
+        Button button = new Button(this);
 
         detailButtonListener(button, displayTaskIndex);
-
         if (clicked == true) {
             return;
         }
 
         Log.e("checkbox size not clicked", String.valueOf(checkBoxes.size()));
         Log.e("textfield size not clicked", String.valueOf(textFields.size()));
-
 
         checkbox.setLayoutParams(new TableRow.LayoutParams(1));
         checkbox.setChecked(task.getStatus());
@@ -343,15 +342,17 @@ public class ToDoList extends Activity {
     }
 
     protected void saveTasks() {
+
         SugarRecord.deleteAll(Todo.class);
+
         for (int i = 0; i < textFields.size(); i++) {
             CheckBox cb = checkBoxes.get(i);
             EditText tf = textFields.get(i);
             Todo newTask = new Todo(tf.getText().toString(), cb.isChecked());
             //newTask.save();
         }
-        //textFields.clear();
     }
+
 
     public void gotoToDoDetail() {
         Intent intent = new Intent(this, ToDoDetail.class);
@@ -362,7 +363,7 @@ public class ToDoList extends Activity {
         this.id = id;
     }
 
-    public int getCurrentID(){ return id;}
+    public long getCurrentID(){ return (long) id;}
 
 
     public void detailButtonListener(Button button, final int taskID) {
@@ -377,5 +378,6 @@ public class ToDoList extends Activity {
             }
         });
     }
+
 
 }

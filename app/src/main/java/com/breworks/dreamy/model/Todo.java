@@ -1,5 +1,6 @@
 package com.breworks.dreamy.model;
 
+import com.breworks.dreamy.ToDoList;
 import com.orm.SugarRecord;
 
 /**
@@ -9,6 +10,11 @@ public class Todo extends SugarRecord<Todo> {
 
     String todoText;
     boolean todoStatus;
+    int day;
+    int month;
+    int year;
+    int hour;
+    int minute;
 
     //build relationship
     Milestone miles;
@@ -36,6 +42,14 @@ public class Todo extends SugarRecord<Todo> {
         this.save();
     }
 
+    public Todo(int day, int month, int year, int hour, int minute){
+        this.day = day;
+        this.month = month;
+        this.year = year;
+        this.hour = hour;
+        this.minute = minute;
+    }
+
     public String getText() {
         return this.todoText;
     }
@@ -50,6 +64,24 @@ public class Todo extends SugarRecord<Todo> {
         return todo;
     }
 
+    public static Todo addDeadline(int day, int month, int year, int hour, int minute){
+        Todo t = new Todo();
+        t.findById(Todo.class, t.getCurrentTaskID());
+        t.day = day;
+        t.month = month;
+        t.year = year;
+        t.hour = hour;
+        t.minute = minute;
+        t.save();
+        return t;
+    }
+
+    public long getCurrentTaskID(){
+        ToDoList tl = new ToDoList();
+        return tl.getCurrentID();
+    }
+
+
     public void setText(String todoText) {
         this.todoText = todoText;
     }
@@ -57,5 +89,4 @@ public class Todo extends SugarRecord<Todo> {
     public void setStatus(boolean status) {
         this.todoStatus = status;
     }
-
 }
