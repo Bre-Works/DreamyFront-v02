@@ -193,7 +193,7 @@ public class ToDoList extends DreamyActivity {
         // spinner miles
         Spinner SpinnerMiles = (Spinner) findViewById(R.id.MilestoneSpinner);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
-                R.layout.todolist_dream, R.id.dreamArray, milesList);
+                R.layout.todolist_miles, R.id.milesArray, milesList);
         SpinnerMiles.setAdapter(adapter2);
 
         // spinner miles listener
