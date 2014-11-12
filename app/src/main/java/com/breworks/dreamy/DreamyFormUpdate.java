@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -68,7 +69,7 @@ public class DreamyFormUpdate extends Activity{
 
                 removeMilestone = (ImageButton) addView.findViewById(R.id.delMilestone);
 
-                EditText milestoneOut = (EditText) addView.findViewById(R.id.milestoneOut);
+                CheckBox milestoneOut = (CheckBox) addView.findViewById(R.id.milestoneOut);
 
                 milestoneOut.setText(mil.getName());
 
@@ -99,7 +100,7 @@ public class DreamyFormUpdate extends Activity{
 
                         removeMilestone = (ImageButton) addView.findViewById(R.id.delMilestone);
 
-                        EditText milestoneOut = (EditText) addView.findViewById(R.id.milestoneOut);
+                        CheckBox milestoneOut = (CheckBox) addView.findViewById(R.id.milestoneOut);
 
                         milestoneOut.setText(milestoneInput.getText().toString());
 

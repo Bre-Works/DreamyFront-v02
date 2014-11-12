@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -27,7 +28,7 @@ import java.util.List;
  * Created by arsianindita on 28-Sep-14.
  */
 
-public class DreamyForm extends DreamyActivity {
+public class DreamyForm extends Activity {
 
     LinearLayout container;
     ImageButton addMilestone;
@@ -66,7 +67,7 @@ public class DreamyForm extends DreamyActivity {
 
                             removeMilestone = (ImageButton) addView.findViewById(R.id.delMilestone);
 
-                            EditText milestoneOut = (EditText) addView.findViewById(R.id.milestoneOut);
+                            CheckBox milestoneOut = (CheckBox) addView.findViewById(R.id.milestoneOut);
 
                             final String MileInput = milestoneInput.getText().toString();
 
@@ -79,7 +80,6 @@ public class DreamyForm extends DreamyActivity {
                                 public void onClick(View v1) {
                                     ((LinearLayout) addView.getParent()).removeView(addView);
                                     removeMile(MileInput);
-
                                 }
                             });
 

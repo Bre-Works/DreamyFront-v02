@@ -119,6 +119,7 @@ public class Main extends DreamyActivity {
         }
         if (id == R.id.action_logout) {
             session.logoutUser();
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
