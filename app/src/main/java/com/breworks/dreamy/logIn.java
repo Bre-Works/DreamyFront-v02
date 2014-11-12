@@ -74,10 +74,10 @@ public class logIn extends DreamyActivity {
             Dream.createDream("Around the World", true, ac1);
 
             Milestone.deleteAll(Milestone.class);
-            Milestone mil1 = Milestone.createMilestone("Finish Database", true, dr1);
-            Milestone.createMilestone("Finish UI", true, dr1);
-            Milestone.createMilestone("Finish BackEnd", true, dr1);
-            Milestone.createMilestone("Finish FrontEnd", true, dr1);
+            Milestone mil1 = Milestone.createMilestone("Finish Database", false, dr1);
+            Milestone.createMilestone("Finish UI", false, dr1);
+            Milestone.createMilestone("Finish BackEnd", false, dr1);
+            Milestone.createMilestone("Finish FrontEnd", false, dr1);
 
         } catch (InvalidKeySpecException e) {
             e.printStackTrace();

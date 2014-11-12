@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
@@ -54,14 +55,23 @@ public class DreamyFormUpdate extends Activity{
             intent = getIntent();
             long dream = intent.getLongExtra("key",0);
             Log.e("lol", String.valueOf(dream));
-            Dream dr = Dream.findById(Dream.class,dream);
+            final Dream dr = Dream.findById(Dream.class,dream);
             dreamInput.setText(dr.getName());
+
+            dreamInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        dr.setName(String.valueOf(dreamInput.getText()));
+                    }
+                }
+            });
 
             List<Milestone> miles = Milestone.searchByDream(dr);
 
             Log.e("lol1", String.valueOf(dr.getId()));
 
-            for (Milestone mil : miles) {
+            for (final Milestone mil : miles) {
                 LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService
                         (Context.LAYOUT_INFLATER_SERVICE);
 
@@ -71,13 +81,38 @@ public class DreamyFormUpdate extends Activity{
 
                 CheckBox milestoneOut = (CheckBox) addView.findViewById(R.id.milestoneOut);
 
-                milestoneOut.setText(mil.getName());
+                if(mil.getStatus()){
+                    milestoneOut.setChecked(true);
+                }
+
+                milestoneOut.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        if (((CheckBox) v).isChecked())
+                            mil.setStatus(true);
+                        else
+                            mil.setStatus(false);
+                    }
+                });
+
+                final EditText editText = (EditText) addView.findViewById(R.id.editText);
+
+                editText.setText(mil.getName());
+
+                editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+                        if(!hasFocus) {
+                            mil.setName(String.valueOf(editText.getText()));
+                        }
+                    }
+                });
 
                 removeMilestone.setOnClickListener(new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v1) {
                         ((LinearLayout) addView.getParent()).removeView(addView);
+                        mil.delete();
                     }
                 });
                 container.addView(addView);
@@ -151,6 +186,7 @@ public class DreamyFormUpdate extends Activity{
             }
         }
         startActivity(intent);
+        getCurrentFocus().clearFocus();
         finish();
     }
 
@@ -159,6 +195,7 @@ public class DreamyFormUpdate extends Activity{
     public void onBackPressed() {
         Intent intent = new Intent(this, Main.class);
         startActivity(intent);
+        getCurrentFocus().clearFocus();
         finish();
     }
 }

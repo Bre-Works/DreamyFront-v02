@@ -16,13 +16,24 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New CheckBox"
         android:id="@+id/milestoneOut"
         android:layout_alignBottom="@+id/delMilestone"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_toLeftOf="@+id/delMilestone"
         android:layout_toStartOf="@+id/delMilestone" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:layout_toStartOf="@+id/delMilestone"
+        android:layout_alignTop="@+id/milestoneOut"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="40dp"
+        android:singleLine="true"
+        android:autoText="true" />
 
 
 </RelativeLayout>

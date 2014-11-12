@@ -45,10 +45,12 @@ public class Milestone extends SugarRecord<Milestone> {
 
     public void setName(String milesName){
         this.milesName = milesName;
+        this.save();
     }
 
     public void setStatus(boolean status) {
         this.milesStatus = status;
+        this.save();
     }
 
 
