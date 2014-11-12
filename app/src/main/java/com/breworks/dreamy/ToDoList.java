@@ -94,6 +94,8 @@ public class ToDoList extends Activity {
             public void onClick(View v) {
                 ArrayList<CheckBox> newCB = new ArrayList<CheckBox>();
                 ArrayList<EditText> newTF = new ArrayList<EditText>();
+                Log.e("checkbox size before loop", String.valueOf(checkBoxes.size()));
+                Log.e("textfield size before loop", String.valueOf(textFields.size()));
                 for (int i = 0; i < checkBoxes.size(); i++) {
                     CheckBox cb = checkBoxes.get(i);
                     EditText tf = textFields.get(i);
@@ -220,9 +222,11 @@ public class ToDoList extends Activity {
 
     @Override
     protected void onPause() {
+        clicked = true;
         super.onPause();
         saveTasks();
     }
+
 
     /*
     Creates a new empty task text field
@@ -256,14 +260,19 @@ public class ToDoList extends Activity {
     protected void displayTask(Todo task) {
 
         TableRow row = new TableRow(this);
+        Button button = new Button(this);
         EditText textField = new EditText(this);
         CheckBox checkbox = new CheckBox(this);
-        Button button = new Button(this);
 
         detailButtonListener(button, displayTaskIndex);
+
         if (clicked == true) {
             return;
         }
+
+        Log.e("checkbox size not clicked", String.valueOf(checkBoxes.size()));
+        Log.e("textfield size not clicked", String.valueOf(textFields.size()));
+
 
         checkbox.setLayoutParams(new TableRow.LayoutParams(1));
         checkbox.setChecked(task.getStatus());
@@ -341,7 +350,7 @@ public class ToDoList extends Activity {
             Todo newTask = new Todo(tf.getText().toString(), cb.isChecked());
             //newTask.save();
         }
-        textFields.clear();
+        //textFields.clear();
     }
 
     public void gotoToDoDetail() {
