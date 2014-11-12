@@ -13,14 +13,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
-import com.breworks.dreamy.model.dreamyAccount;
-import com.orm.query.Condition;
-import com.orm.query.Select;
-import com.breworks.dreamy.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +91,7 @@ public class DreamyFormUpdate extends Activity{
                     }
                 });
 
-                final EditText editText = (EditText) addView.findViewById(R.id.editText);
+                final EditText editText = (EditText) addView.findViewById(R.id.toDoListInput);
 
                 editText.setText(mil.getName());
 
@@ -139,7 +134,7 @@ public class DreamyFormUpdate extends Activity{
 
                         CheckBox milestoneOut = (CheckBox) addView.findViewById(R.id.milestoneOut);
 
-                        final EditText editText = (EditText) addView.findViewById(R.id.editText);
+                        final EditText editText = (EditText) addView.findViewById(R.id.toDoListInput);
 
                         editText.setText(milestoneInput.getText().toString());
 

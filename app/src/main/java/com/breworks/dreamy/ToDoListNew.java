@@ -31,7 +31,7 @@ public class ToDoListNew extends DreamyActivity{
     int selectedDreamIndex = 0;
     int selectedMilesIndex = 0;
     EditText TodoInput;
-    ImageButton removeTodo;
+    CheckBox TodoCheck;
     LinearLayout container;
 
     @Override
@@ -80,7 +80,7 @@ public class ToDoListNew extends DreamyActivity{
                 }
         );
 
-       
+
 
 
         //keyboard

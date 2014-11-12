@@ -13,15 +13,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.dreamyAccount;
-import com.breworks.dreamy.SessionManager;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -69,9 +65,11 @@ public class DreamyForm extends Activity {
 
                             CheckBox milestoneOut = (CheckBox) addView.findViewById(R.id.milestoneOut);
 
+                            final EditText editText = (EditText) addView.findViewById(R.id.toDoListInput);
+
                             final String MileInput = milestoneInput.getText().toString();
 
-                            milestoneOut.setText(MileInput);
+                            editText.setText(MileInput);
                             miles.add(MileInput);
 
                             removeMilestone.setOnClickListener(new View.OnClickListener() {
