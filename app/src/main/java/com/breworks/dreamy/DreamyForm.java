@@ -65,7 +65,7 @@ public class DreamyForm extends Activity {
 
                             CheckBox milestoneOut = (CheckBox) addView.findViewById(R.id.milestoneOut);
 
-                            final EditText editText = (EditText) addView.findViewById(R.id.toDoListInput);
+                            final EditText editText = (EditText) addView.findViewById(R.id.Inputted);
 
                             final String MileInput = milestoneInput.getText().toString();
 

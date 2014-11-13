@@ -91,7 +91,7 @@ public class DreamyFormUpdate extends Activity{
                     }
                 });
 
-                final EditText editText = (EditText) addView.findViewById(R.id.toDoListInput);
+                final EditText editText = (EditText) addView.findViewById(R.id.Inputted);
 
                 editText.setText(mil.getName());
 
@@ -101,6 +101,8 @@ public class DreamyFormUpdate extends Activity{
                         if (!hasFocus) {
                             mil.setName(String.valueOf(editText.getText()));
                         }
+
+
                     }
                 });
 
@@ -134,7 +136,7 @@ public class DreamyFormUpdate extends Activity{
 
                         CheckBox milestoneOut = (CheckBox) addView.findViewById(R.id.milestoneOut);
 
-                        final EditText editText = (EditText) addView.findViewById(R.id.toDoListInput);
+                        final EditText editText = (EditText) addView.findViewById(R.id.Inputted);
 
                         editText.setText(milestoneInput.getText().toString());
 
