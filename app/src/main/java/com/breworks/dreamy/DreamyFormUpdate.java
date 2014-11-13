@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -78,22 +79,28 @@ public class DreamyFormUpdate extends Activity{
 
                 CheckBox milestoneOut = (CheckBox) addView.findViewById(R.id.milestoneOut);
 
+                final EditText editText = (EditText) addView.findViewById(R.id.Inputted);
+
+                editText.setText(mil.getName());
+
                 if(mil.getStatus()){
                     milestoneOut.setChecked(true);
+                    editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 }
 
                 milestoneOut.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        if (((CheckBox) v).isChecked())
+                        if (((CheckBox) v).isChecked()) {
                             mil.setStatus(true);
-                        else
+                            editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        }
+                        else {
                             mil.setStatus(false);
+                            editText.setPaintFlags(editText.getPaintFlags() & ~ Paint.STRIKE_THRU_TEXT_FLAG);
+                        }
                     }
                 });
 
-                final EditText editText = (EditText) addView.findViewById(R.id.Inputted);
-
-                editText.setText(mil.getName());
 
                 editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                     @Override
