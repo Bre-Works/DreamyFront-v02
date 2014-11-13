@@ -34,7 +34,7 @@ import java.util.List;
 public class Main extends DreamyActivity {
 
     SessionManager session;
-    GridLayout grid;
+    LinearLayout layout;
     dreamyAccount login;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -48,7 +48,7 @@ public class Main extends DreamyActivity {
         ActionBar actionBar = getActionBar();
         login = session.getUser();
 
-        actionBar.setTitle("Hello, "+ login.getUsername());
+        //actionBar.setTitle("Hello, "+ login.getUsername());
 
         TabHostProvider tabProvider = new MyTabHostProvider(Main.this);
         TabView tabView = tabProvider.getTabHost("Home");
@@ -56,26 +56,23 @@ public class Main extends DreamyActivity {
         setContentView(tabView.render(0));
         //ImageView bg = (ImageView) findViewById(R.id.bg);
         //bg.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        grid = (GridLayout) findViewById(R.id.grid);
-        Drawable circle = getResources().getDrawable(R.drawable.circle);
-        //circle.setBounds(0,0,100,100);
-        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        llp.setMargins(10,10,10,10);
+        layout = (LinearLayout) findViewById(R.id.listLayout);
+        Drawable rect = getResources().getDrawable(R.drawable.rectangle);
+        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        llp.setMargins(30, 30, 30, 30);
 
         Log.d("Reading: ", "Reading all contacts..");
         List<Dream> dreams = Dream.listAll(Dream.class);
 
         for (final Dream dr : dreams) {
             TextView Dc = new TextView(this);
-            Dc.setBackground(circle);
-            Dc.setPadding(50, 50, 50, 50);
-            Dc.setLines(5);
+            Dc.setBackground(rect);
+            Dc.setPadding(60,10,60,10);
             Dc.setLayoutParams(llp);
-            Log.e("lol",dr.getName());
-            if(!dr.getStatus()) {
-                Dc.setText(dr.getName() + "\n- ONGOING " );
-            }
-            else{
+            Log.e("lol", dr.getName());
+            if (!dr.getStatus()) {
+                Dc.setText(dr.getName() + "\n- ONGOING ");
+            } else {
                 Dc.setText(dr.getName() + "\n- COMPLETED");
             }
             Dc.setGravity(Gravity.CENTER);
@@ -84,19 +81,15 @@ public class Main extends DreamyActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(Main.this, DreamyFormUpdate.class);
-                    intent.putExtra("key",dr.getId());
+                    intent.putExtra("key", dr.getId());
                     startActivity(intent);
                     finish();
                 }
             });
             Dc.setTextAppearance(this, android.R.style.TextAppearance_Medium);
-            //Dc.setHeight(Dc.getWidth());
-            grid.addView(Dc);
-
+            layout.addView(Dc);
         }
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -121,11 +114,16 @@ public class Main extends DreamyActivity {
             session.logoutUser();
             finish();
         }
+        //if (id == R.id.action_todolist) {
+        //    Intent intent = new Intent(this, ToDoList.class);
+        //    startActivity(intent);
+        //    finish();
+        //}
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void gotoDreamyForm(View v){
+    public void gotoDreamyForm(View v) {
         Intent intent = new Intent(this, DreamyForm.class);
         startActivity(intent);
         finish();

@@ -14,6 +14,6 @@ public class Dreamy extends SugarApp {
     @Override
     public void onCreate() {
         super.onCreate();
-        CalligraphyConfig.initDefault("fonts/Existence-Light/Existence-Light.otf", R.attr.fontPath);
+        CalligraphyConfig.initDefault("fonts/Roboto/Roboto-Light.ttf", R.attr.fontPath);
     }
 }

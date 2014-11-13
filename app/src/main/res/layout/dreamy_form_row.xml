@@ -24,7 +24,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/toDoListInput"
+        android:id="@+id/Inputted"
         android:layout_toStartOf="@+id/delMilestone"
         android:layout_alignTop="@+id/milestoneOut"
         android:layout_alignParentLeft="true"
