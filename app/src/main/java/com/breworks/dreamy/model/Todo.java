@@ -53,11 +53,11 @@ public class Todo extends SugarRecord<Todo> {
     }
 
     public void setText(String todoText) {
-        this.todoText = todoText;
+        this.todoText = todoText; this.save();
     }
 
     public void setStatus(boolean status) {
-        this.todoStatus = status;
+        this.todoStatus = status; this.save();
     }
 
     public static List<Todo> searchByMilestone(Milestone mil) {
