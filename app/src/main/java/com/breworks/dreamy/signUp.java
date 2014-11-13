@@ -7,7 +7,9 @@ package com.breworks.dreamy;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,6 +19,7 @@ import com.breworks.dreamy.model.dreamyAccount;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.regex.Pattern;
 
 
 public class signUp extends DreamyActivity {
@@ -26,6 +29,7 @@ public class signUp extends DreamyActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.sign_up);
         usernameInput = (EditText) findViewById(R.id.username);
         emailInput = (EditText) findViewById(R.id.email);
@@ -34,26 +38,36 @@ public class signUp extends DreamyActivity {
     }
 
 
-    public void createAccount(View v) throws InvalidKeySpecException, NoSuchAlgorithmException {
-        username = usernameInput.getText().toString();
+    public void createAccount(View v)  throws InvalidKeySpecException, NoSuchAlgorithmException{
         email = emailInput.getText().toString();
+        username = usernameInput.getText().toString();
         password = passwordInput.getText().toString();
         passwordConf = passwordConfInput.getText().toString();
-
-        if (dreamyAccount.findByUsername(username) != null) {
-            Toast.makeText(getApplicationContext(), "Username is already taken.", Toast.LENGTH_SHORT).show();
-        } else {
-            if (!password.equals(passwordConf)) {
-                Toast.makeText(getApplicationContext(), "Password and password confirmation did not match!", Toast.LENGTH_SHORT).show();
+        if(!email.equals("") && !username.equals("") && !password.equals("") && !passwordConf.equals("")){
+            if(checkEmail(email) == false){
+                Toast.makeText(getApplicationContext(), "Invalid e-mail.", Toast.LENGTH_SHORT).show();
             } else {
-                dreamyAccount.createAccount(email, username, password);
-                Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, logIn.class);
-                startActivity(intent);
-                finish();
+                if (dreamyAccount.findByUsername(username) != null) {
+                    Toast.makeText(getApplicationContext(), "Username is already taken.", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (!password.equals(passwordConf)) {
+                        Toast.makeText(getApplicationContext(), "Password and password confirmation did not match!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        dreamyAccount.createAccount(email, username, password);
+                        finish();
+                        Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
+        }else{
+            Toast.makeText(getApplicationContext(), "Please complete the form.", Toast.LENGTH_SHORT).show();
         }
-
     }
+
+    private boolean checkEmail(String email){
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        return pattern.matcher(email).matches();
+    }
+
 
 }

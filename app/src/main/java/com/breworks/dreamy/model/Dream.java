@@ -2,6 +2,8 @@ package com.breworks.dreamy.model;
 
 import com.orm.SugarRecord;
 
+import java.util.List;
+
 /**
  * Created by Ryan on 05/10/2014.
  */
@@ -18,7 +20,7 @@ public class Dream extends SugarRecord<Dream>{
     }
 
     public Dream(String name, boolean status,dreamyAccount acc) {
-    this.dreamName = name;
+        this.dreamName = name;
         this.dreamStatus = status;
         this.account = acc;
     }
@@ -43,6 +45,14 @@ public class Dream extends SugarRecord<Dream>{
 
     public void setStatus(boolean status) {
         this.dreamStatus = status;
+    }
+
+    public static Dream findByDreamName(String DrName){
+        List<Dream> dr = Dream.find(Dream.class, "dreamName = ?", DrName);
+        if(dr.size() == 1){
+            return dr.get(0);
+        }
+        else return null;
     }
 
     @Override

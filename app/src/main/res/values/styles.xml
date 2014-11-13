@@ -17,6 +17,17 @@
     <style name="ActionBar"
         parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">#8fffffff</item>
+        <item name="fontPath">fonts/Existence-Light/Existence-Light.otf</item>
+    </style>
+
+    <style name="NoActionBar"
+        parent="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
+        <item name="android:background">#8fffffff</item>
+    </style>
+
+    <!-- Custom dialog box -->
+    <style name="DialogWithCorners" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@drawable/rounded_corner</item>
     </style>
 
 </resources>

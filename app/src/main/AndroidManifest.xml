@@ -18,7 +18,8 @@
 
         <activity
             android:name=".Splash"
-            android:label="@string/app_name" >
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -27,13 +28,12 @@
         </activity>
 
         <activity
-            android:name=".logIn"
-            android:label="@string/app_name" >
+            android:name=".logIn">
         </activity>
 
         <activity
-            android:name=".signUp"
-            android:label="@string/app_name" >
+            android:theme="@style/DialogWithCorners"
+            android:name=".signUp" >
         </activity>
 
 
@@ -52,9 +52,21 @@
             android:label="@string/title_activity_front" >
         </activity>
 
-        <activity android:name=".DreamyForm" />
+        <activity
+            android:name=".DreamyForm" />
+
+        <activity android:name=".DreamyFormUpdate" />
 
         <activity android:name=".ToDoList"
+            android:label="@string/app_name"
+            android:launchMode="standard">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ToDoListNew"
             android:label="@string/app_name"
             android:launchMode="standard">
             <intent-filter>
@@ -83,6 +95,12 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ToDoDetail"
+            android:label="@string/app_name" >
+        </activity>
+
 
     </application>
 
