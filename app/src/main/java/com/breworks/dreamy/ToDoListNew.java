@@ -2,6 +2,7 @@ package com.breworks.dreamy;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -16,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
@@ -91,6 +91,7 @@ public class ToDoListNew extends Activity {
                 }
         );
         TodoInput = (EditText) findViewById(R.id.Inputted);
+        TodoCheck = (CheckBox) findViewById(R.id.toDoCheck);
         container = (LinearLayout) findViewById(R.id.container);
 
         TodoInput.setOnKeyListener(new View.OnKeyListener() {
@@ -106,7 +107,7 @@ public class ToDoListNew extends Activity {
 
                         removeTodo = (ImageButton) addView.findViewById(R.id.delMilestone);
 
-                        CheckBox milestoneOut = (CheckBox) addView.findViewById(R.id.milestoneOut);
+                        CheckBox todoc = (CheckBox) addView.findViewById(R.id.milestoneOut);
 
                         final EditText editText = (EditText) addView.findViewById(R.id.Inputted);
 
@@ -117,7 +118,21 @@ public class ToDoListNew extends Activity {
                         Milestone selectedMilestone = Milestone.findById(Milestone.class, selectedMiles);
                         final Todo todo = Todo.createTodo(toDoInput, false, selectedMilestone);
 
-                        Log.e("Todo",todo.getText());
+                        todoc.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                if (((CheckBox) v).isChecked()) {
+                                    Log.e("lol", "wooooi");
+                                    todo.setStatus(true);
+                                    editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                                }
+                                else {
+                                    todo.setStatus(false);
+                                    editText.setPaintFlags(editText.getPaintFlags() & ~ Paint.STRIKE_THRU_TEXT_FLAG);
+                                }
+                            }
+                        });
+
+                        Log.e("Todo", todo.getText());
 
                         removeTodo.setOnClickListener(new View.OnClickListener() {
 
@@ -188,6 +203,7 @@ public class ToDoListNew extends Activity {
                         selectedMiles = milesId[selectedMilesIndex];
                         Milestone m = Milestone.findById(Milestone.class,milesId[selectedMilesIndex]);
                         Log.e("save miles index ", String.valueOf(selectedMilesIndex));
+                        container.removeAllViewsInLayout();
                         ToDoSetUp(m);
                     }
 
@@ -200,7 +216,7 @@ public class ToDoListNew extends Activity {
     }
 
     public void ToDoSetUp(Milestone mil){
-        container.removeAllViewsInLayout();
+
         List<Todo>Todos = Todo.searchByMilestone(mil);
         for(final Todo td : Todos){
             LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService
@@ -210,11 +226,30 @@ public class ToDoListNew extends Activity {
 
             removeTodo = (ImageButton) addView.findViewById(R.id.delMilestone);
 
-            CheckBox milestoneOut = (CheckBox) addView.findViewById(R.id.milestoneOut);
+            CheckBox todoc = (CheckBox) addView.findViewById(R.id.milestoneOut);
 
             final EditText editText = (EditText) addView.findViewById(R.id.Inputted);
 
             editText.setText(td.getText().toString());
+
+            if(td.getStatus()){
+                todoc.setChecked(true);
+                editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            }
+
+            todoc.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    if (((CheckBox) v).isChecked()) {
+                        Log.e("lol", "wooooi");
+                        td.setStatus(true);
+                        editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    }
+                    else {
+                        td.setStatus(false);
+                        editText.setPaintFlags(editText.getPaintFlags() & ~ Paint.STRIKE_THRU_TEXT_FLAG);
+                    }
+                }
+            });
 
             removeTodo.setOnClickListener(new View.OnClickListener() {
 
@@ -229,9 +264,5 @@ public class ToDoListNew extends Activity {
         }
     }
 
-    public void ClearDone(View v){
-        Toast.makeText(this,"Clicked",Toast.LENGTH_SHORT).show();
-        finish();
-    }
 
 }
