@@ -91,7 +91,6 @@ public class ToDoListNew extends Activity {
                 }
         );
         TodoInput = (EditText) findViewById(R.id.Inputted);
-        TodoCheck = (CheckBox) findViewById(R.id.toDoCheck);
         container = (LinearLayout) findViewById(R.id.container);
 
         TodoInput.setOnKeyListener(new View.OnKeyListener() {
