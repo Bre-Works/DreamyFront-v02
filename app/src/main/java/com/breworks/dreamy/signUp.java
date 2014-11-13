@@ -7,6 +7,7 @@ package com.breworks.dreamy;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import com.breworks.dreamy.model.dreamyAccount;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.regex.Pattern;
 
 
 public class signUp extends DreamyActivity {
@@ -42,20 +44,30 @@ public class signUp extends DreamyActivity {
         password = passwordInput.getText().toString();
         passwordConf = passwordConfInput.getText().toString();
         if(!email.equals("") && !username.equals("") && !password.equals("") && !passwordConf.equals("")){
-            if (dreamyAccount.findByUsername(username) != null) {
-                Toast.makeText(getApplicationContext(), "Username is already taken.", Toast.LENGTH_SHORT).show();
+            if(checkEmail(email) == false){
+                Toast.makeText(getApplicationContext(), "Invalid e-mail.", Toast.LENGTH_SHORT).show();
             } else {
-                if (!password.equals(passwordConf)) {
-                    Toast.makeText(getApplicationContext(), "Password and password confirmation did not match!", Toast.LENGTH_SHORT).show();
+                if (dreamyAccount.findByUsername(username) != null) {
+                    Toast.makeText(getApplicationContext(), "Username is already taken.", Toast.LENGTH_SHORT).show();
                 } else {
-                    dreamyAccount.createAccount(email, username, password);
-                    finish();
-                    Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_LONG).show();
+                    if (!password.equals(passwordConf)) {
+                        Toast.makeText(getApplicationContext(), "Password and password confirmation did not match!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        dreamyAccount.createAccount(email, username, password);
+                        finish();
+                        Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         }else{
             Toast.makeText(getApplicationContext(), "Please complete the form.", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private boolean checkEmail(String email){
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        return pattern.matcher(email).matches();
+    }
+
 
 }

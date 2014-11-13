@@ -62,7 +62,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:background="@drawable/btn_white"
             android:text="Login"
             android:id="@+id/signin"
             android:onClick="loginAccount"
@@ -71,14 +71,11 @@
             android:typeface="sans" />
 
     </RelativeLayout>
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-    android:id="@+id/scrollView" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:background="@drawable/btn_white"
         android:text="Sign Up"
         android:id="@+id/signup"
         android:onClick="goToSignUp"
