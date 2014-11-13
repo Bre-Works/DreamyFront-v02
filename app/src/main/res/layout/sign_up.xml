@@ -46,7 +46,8 @@
             android:layout_column="2"
             android:hint="email"
             android:layout_centerHorizontal="true"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            android:inputType="textEmailAddress"/>
 
         <EditText
             android:layout_width="fill_parent"

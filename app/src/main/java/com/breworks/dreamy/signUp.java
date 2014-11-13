@@ -19,6 +19,7 @@ import com.breworks.dreamy.model.dreamyAccount;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
@@ -38,35 +39,51 @@ public class signUp extends DreamyActivity {
     }
 
 
-    public void createAccount(View v)  throws InvalidKeySpecException, NoSuchAlgorithmException{
+    public void createAccount(View v) throws InvalidKeySpecException, NoSuchAlgorithmException {
         email = emailInput.getText().toString();
         username = usernameInput.getText().toString();
         password = passwordInput.getText().toString();
         passwordConf = passwordConfInput.getText().toString();
-        if(!email.equals("") && !username.equals("") && !password.equals("") && !passwordConf.equals("")){
-            if(checkEmail(email) == false){
+        if (!email.equals("") && !username.equals("") && !password.equals("") && !passwordConf.equals("")) {
+            if (checkEmail(email) == false) {
                 Toast.makeText(getApplicationContext(), "Invalid e-mail.", Toast.LENGTH_SHORT).show();
             } else {
                 if (dreamyAccount.findByUsername(username) != null) {
                     Toast.makeText(getApplicationContext(), "Username is already taken.", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (!password.equals(passwordConf)) {
-                        Toast.makeText(getApplicationContext(), "Password and password confirmation did not match!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        dreamyAccount.createAccount(email, username, password);
-                        finish();
-                        Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_LONG).show();
+                    if (checkPass(password) == false) {
+                        Toast.makeText(getApplicationContext(), "Password should have at least 6 character, uppercase, lowercase, and number", Toast.LENGTH_SHORT).show();
+                    }else{
+                            if (!password.equals(passwordConf)) {
+                                Toast.makeText(getApplicationContext(), "Password and password confirmation did not match!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                dreamyAccount.createAccount(email, username, password);
+                                finish();
+                                Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_LONG).show();
+                            }
+                        }
                     }
                 }
-            }
-        }else{
+        } else {
             Toast.makeText(getApplicationContext(), "Please complete the form.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private boolean checkEmail(String email){
+    private boolean checkEmail(String email) {
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         return pattern.matcher(email).matches();
+    }
+
+    private boolean checkPass(String password) {
+        String pattern = "((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,})";
+        Pattern p = Pattern.compile(pattern);
+
+        Matcher m = p.matcher(password);
+        if (m.find()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
