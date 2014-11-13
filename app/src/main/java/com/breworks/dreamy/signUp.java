@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -46,20 +47,28 @@ public class signUp extends DreamyActivity {
         passwordConf = passwordConfInput.getText().toString();
         if (!email.equals("") && !username.equals("") && !password.equals("") && !passwordConf.equals("")) {
             if (checkEmail(email) == false) {
-                Toast.makeText(getApplicationContext(), "Invalid e-mail.", Toast.LENGTH_SHORT).show();
+                Toast toast = Toast.makeText(getApplicationContext(), "Invalid e-mail.", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP, 0, 0);
+                toast.show();
             } else {
                 if (dreamyAccount.findByUsername(username) != null) {
-                    Toast.makeText(getApplicationContext(), "Username is already taken.", Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(getApplicationContext(), "Username is already taken.", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.TOP, 0, 0);
+                    toast.show();
                 } else {
                     if (checkPass(password) == false) {
-                        Toast.makeText(getApplicationContext(), "Password should have at least 6 character, uppercase, lowercase, and number", Toast.LENGTH_SHORT).show();
+                        Toast toast= Toast.makeText(getApplicationContext(), "Password should have at least 6 character, uppercase, lowercase, and number", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.TOP, 0, 0);
+                        toast.show();
                     }else{
                             if (!password.equals(passwordConf)) {
                                 Toast.makeText(getApplicationContext(), "Password and password confirmation did not match!", Toast.LENGTH_SHORT).show();
                             } else {
                                 dreamyAccount.createAccount(email, username, password);
                                 finish();
-                                Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_LONG).show();
+                                Toast toast= Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_LONG);
+                                toast.setGravity(Gravity.TOP, 0, 0);
+                                toast.show();
                             }
                         }
                     }
