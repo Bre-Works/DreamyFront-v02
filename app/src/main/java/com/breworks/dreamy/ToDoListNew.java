@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
@@ -90,7 +91,6 @@ public class ToDoListNew extends Activity {
                 }
         );
         TodoInput = (EditText) findViewById(R.id.Inputted);
-        TodoCheck = (CheckBox) findViewById(R.id.toDoCheck);
         container = (LinearLayout) findViewById(R.id.container);
 
         TodoInput.setOnKeyListener(new View.OnKeyListener() {
@@ -229,5 +229,9 @@ public class ToDoListNew extends Activity {
         }
     }
 
+    public void ClearDone(View v){
+        Toast.makeText(this,"Clicked",Toast.LENGTH_SHORT).show();
+        finish();
+    }
 
 }
