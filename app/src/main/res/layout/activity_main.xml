@@ -6,8 +6,7 @@
     android:clickable="false"
     android:focusableInTouchMode="false"
     android:focusable="false"
-    android:longClickable="false"
-    android:background="@drawable/bgportrait">
+    android:longClickable="false">
 
     <!--<ImageView
         android:id="@+id/bg"
@@ -18,10 +17,21 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/adddreamButton">
+        android:layout_height="match_parent"
+        android:background="@drawable/bgportrait">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/adddreamButton"
+            android:layout_toEndOf="@+id/textAdd"
+            android:background="@drawable/adddream"
+            android:onClick="gotoDreamyForm"
+            android:layout_below="@+id/textAdd"
+            android:layout_toRightOf="@+id/textAdd" />
 
         <ScrollView
+            android:layout_marginTop="50dp"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/scrolled"
@@ -33,22 +43,13 @@
 
             <LinearLayout
                 android:id="@+id/listLayout"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"></LinearLayout>
+                android:layout_height="fill_parent"
+                android:layout_centerHorizontal="true"/>
         </ScrollView>
 
     </RelativeLayout>
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/adddreamButton"
-        android:layout_toEndOf="@+id/textAdd"
-        android:background="@drawable/adddream"
-        android:onClick="gotoDreamyForm"
-        android:layout_below="@+id/textAdd"
-        android:layout_toRightOf="@+id/textAdd" />
 
     <AdapterViewFlipper
         android:layout_width="wrap_content"

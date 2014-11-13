@@ -17,6 +17,7 @@
     <style name="ActionBar"
         parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">#8fffffff</item>
+        <item name="fontPath">fonts/Existence-Light/Existence-Light.otf</item>
     </style>
 
     <style name="NoActionBar"

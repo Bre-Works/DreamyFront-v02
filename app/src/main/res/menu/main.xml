@@ -2,14 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Main" >
     <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"/>
+        android:title="@string/action_settings"
+        android:showAsAction="collapseActionView"/>
 
     <item android:id="@+id/action_logout"
-        android:title="Log out"/>
+        android:title="Log out"
+        android:showAsAction="collapseActionView"/>
 
-    <item android:id="@+id/action_todolist"
+    <!--<item android:id="@+id/action_todolist"
         android:title="To Do List"
         android:icon="@drawable/todoactive"
-        android:showAsAction="always"/>
+        android:showAsAction="always"/>-->
 
 </menu>
