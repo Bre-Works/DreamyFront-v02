@@ -2,11 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Main" >
     <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:icon="@drawable/nextbutton"/>
+        android:title="@string/action_settings"/>
 
     <item android:id="@+id/action_logout"
-        android:title="Log out"
-        android:icon="@drawable/nextbutton"/>
+        android:title="Log out"/>
+
+    <item android:id="@+id/action_todolist"
+        android:title="To Do List"
+        android:icon="@drawable/todoactive"
+        android:showAsAction="always"/>
 
 </menu>
