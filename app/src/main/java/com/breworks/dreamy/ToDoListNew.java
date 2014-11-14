@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
+
 import com.breworks.dreamy.SessionManager;
 
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
@@ -29,6 +31,8 @@ import com.breworks.dreamy.tabpanel.TabHostProvider;
 import com.breworks.dreamy.tabpanel.TabView;
 
 import java.util.List;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 /**
  * Created by Ryan Avila on 12/11/2014.
@@ -43,6 +47,7 @@ public class ToDoListNew extends Activity {
     LinearLayout container;
     ImageButton removeTodo;
 
+    long selectedDreams = 0;
     long selectedMiles = 0;
 
 
@@ -104,6 +109,9 @@ public class ToDoListNew extends Activity {
 
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
                     if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                        if(selectedMiles == 0){
+                            Toast.makeText(getApplicationContext(),"Please enter milestone and dream first", LENGTH_SHORT).show();
+                        }else{
                         LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService
                                 (Context.LAYOUT_INFLATER_SERVICE);
 
@@ -151,6 +159,7 @@ public class ToDoListNew extends Activity {
                         TodoInput.setText("");
 
                         return true;
+                    }
                     }
                 }
                 return false;
@@ -220,6 +229,7 @@ public class ToDoListNew extends Activity {
     }
 
     public void ToDoSetUp(Milestone mil){
+
 
         List<Todo>Todos = Todo.searchByMilestone(mil);
         for(final Todo td : Todos){
