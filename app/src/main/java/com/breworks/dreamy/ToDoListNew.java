@@ -2,6 +2,7 @@ package com.breworks.dreamy;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -45,7 +47,7 @@ public class ToDoListNew extends Activity {
     EditText TodoInput;
     CheckBox TodoCheck;
     LinearLayout container;
-    ImageButton removeTodo;
+    ImageButton toDetail;
 
     long selectedDreams = 0;
     long selectedMiles = 0;
@@ -115,13 +117,13 @@ public class ToDoListNew extends Activity {
                         LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService
                                 (Context.LAYOUT_INFLATER_SERVICE);
 
-                        final View addView = inflater.inflate(R.layout.dreamy_form_row,null);
+                        final View addView = inflater.inflate(R.layout.todo_row,null);
 
-                        removeTodo = (ImageButton) addView.findViewById(R.id.delMilestone);
+                        toDetail = (ImageButton) addView.findViewById(R.id.toDetail);
 
-                        CheckBox todoc = (CheckBox) addView.findViewById(R.id.milestoneOut);
+                        CheckBox todoc = (CheckBox) addView.findViewById(R.id.cbTodo);
 
-                        final EditText editText = (EditText) addView.findViewById(R.id.Inputted);
+                        final EditText editText = (EditText) addView.findViewById(R.id.taskInput);
 
                         editText.setText(TodoInput.getText().toString());
 
@@ -146,12 +148,12 @@ public class ToDoListNew extends Activity {
 
                         Log.e("Todo", todo.getText());
 
-                        removeTodo.setOnClickListener(new View.OnClickListener() {
+                        toDetail.setOnClickListener(new View.OnClickListener() {
 
                             @Override
                             public void onClick(View v1) {
-                                ((LinearLayout) addView.getParent()).removeView(addView);
-                                todo.delete();
+                                Intent intent = new Intent(ToDoListNew.this, ToDoDetail.class);
+                                startActivity(intent);
                             }
                         });
 
@@ -236,9 +238,9 @@ public class ToDoListNew extends Activity {
             LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService
                     (Context.LAYOUT_INFLATER_SERVICE);
 
-            final View addView = inflater.inflate(R.layout.dreamy_form_row,null);
+            final View addView = inflater.inflate(R.layout.todo_row,null);
 
-            removeTodo = (ImageButton) addView.findViewById(R.id.delMilestone);
+            toDetail = (ImageButton) addView.findViewById(R.id.toDetail);
 
             CheckBox todoc = (CheckBox) addView.findViewById(R.id.milestoneOut);
 
@@ -264,12 +266,12 @@ public class ToDoListNew extends Activity {
                 }
             });
 
-            removeTodo.setOnClickListener(new View.OnClickListener() {
+            toDetail.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v1) {
-                    ((LinearLayout) addView.getParent()).removeView(addView);
-                    td.delete();
+                    Intent intent = new Intent(ToDoListNew.this, ToDoDetail.class);
+                    startActivity(intent);
                 }
             });
 
