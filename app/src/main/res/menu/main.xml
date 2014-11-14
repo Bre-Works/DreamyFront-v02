@@ -1,9 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Main" >
-    <item android:id="@+id/action_settings"
+    <!--item android:id="@+id/action_settings"
         android:title="@string/action_settings"
-        android:showAsAction="collapseActionView"/>
+        android:showAsAction="collapseActionView"/>-->
 
     <item android:id="@+id/action_logout"
         android:title="Log out"

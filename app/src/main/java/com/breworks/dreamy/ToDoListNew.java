@@ -17,11 +17,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import com.breworks.dreamy.SessionManager;
 
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.Todo;
+import com.breworks.dreamy.model.dreamyAccount;
 import com.breworks.dreamy.tabpanel.MyTabHostProvider;
 import com.breworks.dreamy.tabpanel.TabHostProvider;
 import com.breworks.dreamy.tabpanel.TabView;
@@ -33,6 +35,7 @@ import java.util.List;
  */
 public class ToDoListNew extends Activity {
 
+    SessionManager session;
     int selectedDreamIndex = 0;
     int selectedMilesIndex = 0;
     EditText TodoInput;
@@ -51,10 +54,12 @@ public class ToDoListNew extends Activity {
         TabView tabView = tabProvider.getTabHost("Todo");
         tabView.setCurrentView(R.layout.todolist_new);
         setContentView(tabView.render(1));
+        session = new SessionManager(getApplicationContext());
+        dreamyAccount login = session.getUser();
 
         // DREAMS
         // get dream from database
-        List<Dream> dreams = Dream.listAll(Dream.class);
+        List<Dream> dreams = Dream.searchByUser(login);
         final long[] dreamId = new long[dreams.size()];
         final String[] dreamList = new String[dreams.size()];
         int inc = 0;
@@ -242,10 +247,9 @@ public class ToDoListNew extends Activity {
                         Log.e("lol", "wooooi");
                         td.setStatus(true);
                         editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    }
-                    else {
+                    } else {
                         td.setStatus(false);
-                        editText.setPaintFlags(editText.getPaintFlags() & ~ Paint.STRIKE_THRU_TEXT_FLAG);
+                        editText.setPaintFlags(editText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
                     }
                 }
             });

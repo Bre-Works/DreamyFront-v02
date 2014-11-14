@@ -57,6 +57,7 @@ public class logIn extends DreamyActivity {
         dreamyAccount ac1 = null;
         dreamyAccount ac2 = null;
         dreamyAccount ac3 = null;
+         /*
         try {
             dreamyAccount.deleteAll(dreamyAccount.class);
             ac1 = dreamyAccount.createAccount("a@123.com", "a", "123");
@@ -83,7 +84,7 @@ public class logIn extends DreamyActivity {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-        }
+        }*/
 
         usernameInput = (EditText) findViewById(R.id.usernameInput);
         passwordInput = (EditText) findViewById(R.id.passwordInput);

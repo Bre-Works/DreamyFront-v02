@@ -48,7 +48,7 @@ public class Main extends DreamyActivity {
         ActionBar actionBar = getActionBar();
         login = session.getUser();
 
-        //actionBar.setTitle("Hello, "+ login.getUsername());
+        actionBar.setTitle("Hello, "+ login.getUsername());
 
         TabHostProvider tabProvider = new MyTabHostProvider(Main.this);
         TabView tabView = tabProvider.getTabHost("Home");
@@ -62,7 +62,7 @@ public class Main extends DreamyActivity {
         llp.setMargins(30, 30, 30, 30);
 
         Log.d("Reading: ", "Reading all contacts..");
-        List<Dream> dreams = Dream.listAll(Dream.class);
+        List<Dream> dreams = Dream.searchByUser(login);
 
         for (final Dream dr : dreams) {
             TextView Dc = new TextView(this);
@@ -104,12 +104,13 @@ public class Main extends DreamyActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        /*
         if (id == R.id.action_settings) {
             //Intent intent = new Intent(Main.this, ClassName.class);
             //startActivity(intent);
             //setContentView(R.layout.layoutname);
         }
+        */
         if (id == R.id.action_logout) {
             session.logoutUser();
             finish();
