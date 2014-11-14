@@ -48,17 +48,17 @@ public class signUp extends DreamyActivity {
         if (!email.equals("") && !username.equals("") && !password.equals("") && !passwordConf.equals("")) {
             if (checkEmail(email) == false) {
                 Toast toast = Toast.makeText(getApplicationContext(), "Invalid e-mail.", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP, 0, 0);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
             } else {
                 if (dreamyAccount.findByUsername(username) != null) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Username is already taken.", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.TOP, 0, 0);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                     toast.show();
                 } else {
                     if (checkPass(password) == false) {
                         Toast toast= Toast.makeText(getApplicationContext(), "Password should have at least 6 character, uppercase, lowercase, and number", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.TOP, 0, 0);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                         toast.show();
                     }else{
                             if (!password.equals(passwordConf)) {
@@ -67,14 +67,16 @@ public class signUp extends DreamyActivity {
                                 dreamyAccount.createAccount(email, username, password);
                                 finish();
                                 Toast toast= Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_LONG);
-                                toast.setGravity(Gravity.TOP, 0, 0);
+                                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                                 toast.show();
                             }
                         }
                     }
                 }
         } else {
-            Toast.makeText(getApplicationContext(), "Please complete the form.", Toast.LENGTH_SHORT).show();
+            Toast toast = Toast.makeText(getApplicationContext(), "Please complete the form.", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.show();
         }
     }
 
