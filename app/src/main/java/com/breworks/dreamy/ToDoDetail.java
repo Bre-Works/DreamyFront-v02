@@ -17,10 +17,12 @@ import android.widget.TimePicker;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import static android.app.PendingIntent.getActivity;
 
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
+import com.breworks.dreamy.model.Todo;
 
 /**
  * Created by arsianindita on 27-Oct-14.
@@ -34,6 +36,8 @@ public class ToDoDetail extends DreamyActivity {
     int hour;
     int minute;
     Calendar calendar;
+    Date taskDeadline;
+    long taskID;
 
     EditText dateField;
     EditText timeField;
@@ -50,8 +54,11 @@ public class ToDoDetail extends DreamyActivity {
         year = calendar.get(Calendar.YEAR);
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
-        updateDate();
-        updateTime();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateField.setText(dateFormat.format(calendar.getTime()));
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm ");
+        timeField.setText(timeFormat.format(calendar.getTime()));
 
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -61,7 +68,7 @@ public class ToDoDetail extends DreamyActivity {
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 calendar.set(Calendar.MONTH, monthOfYear);
                 calendar.set(Calendar.YEAR, year);
-                updateDate();
+                updateDeadline();
             }
         };
 
@@ -81,7 +88,7 @@ public class ToDoDetail extends DreamyActivity {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 calendar.set(Calendar.MINUTE, minute);
-                updateTime();
+                updateDeadline();
             }
         };
 
@@ -94,22 +101,24 @@ public class ToDoDetail extends DreamyActivity {
             }
         });;
 
+        Intent intent = getIntent();
 
+        taskID = intent.getLongExtra("taskID", 0);
+
+        Log.e("tududud ID!!", String.valueOf(taskID));
+
+        taskDeadline = calendar.getTime();
 
     }
 
-    public void updateDate(){
+    public void updateDeadline(){
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateField.setText(dateFormat.format(calendar.getTime()));
-    }
-
-    public void updateTime(){
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm ");
         timeField.setText(timeFormat.format(calendar.getTime()));
+        Todo td = new Todo();
+        td.saveDeadline(taskDeadline, taskID);
     }
-    
-
-
 
 }
 

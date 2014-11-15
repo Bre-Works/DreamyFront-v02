@@ -2,6 +2,7 @@ package com.breworks.dreamy.model;
 
 import com.orm.SugarRecord;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,6 +12,7 @@ public class Todo extends SugarRecord<Todo> {
 
     String todoText;
     boolean todoStatus;
+    Date taskdeadline;
 
     //build relationship
     String miles;
@@ -18,6 +20,14 @@ public class Todo extends SugarRecord<Todo> {
     // constructors
     public Todo() {
     }
+
+    public Todo(String text, boolean status, Milestone mil, Date taskDeadline){
+        this.todoText = text;
+        this.todoStatus = status;
+        this.miles = mil.getId().toString();
+        this.taskdeadline = taskDeadline;
+    }
+
 
     public Todo(String text) {
         this.todoText = text;
@@ -37,6 +47,8 @@ public class Todo extends SugarRecord<Todo> {
         this.miles = mil.getId().toString();
         this.save();
     }
+
+
 
     public String getText() {
         return this.todoText;
@@ -64,4 +76,11 @@ public class Todo extends SugarRecord<Todo> {
         List<Todo> todo = Todo.findWithQuery(Todo.class, "Select * from Todo Where miles = ?", mil.getId().toString());
         return todo;
     }
+
+    public void saveDeadline(Date taskDeadline, long currentID){
+        Todo td = Todo.findById(Todo.class, currentID);
+        td.taskdeadline = taskdeadline;
+        td.save();
+    }
+
 }

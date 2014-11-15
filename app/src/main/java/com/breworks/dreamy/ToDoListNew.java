@@ -52,6 +52,8 @@ public class ToDoListNew extends Activity {
     long selectedDreams = 0;
     long selectedMiles = 0;
 
+    long toDoIndex = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,57 +113,56 @@ public class ToDoListNew extends Activity {
 
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
                     if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                        if(selectedMiles == 0){
-                            Toast.makeText(getApplicationContext(),"Please enter milestone and dream first", LENGTH_SHORT).show();
-                        }else{
-                        LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService
-                                (Context.LAYOUT_INFLATER_SERVICE);
+                        if (selectedMiles == 0) {
+                            Toast.makeText(getApplicationContext(), "Please enter milestone and dream first", LENGTH_SHORT).show();
+                        } else {
+                            LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService
+                                    (Context.LAYOUT_INFLATER_SERVICE);
 
-                        final View addView = inflater.inflate(R.layout.todo_row,null);
+                            final View addView = inflater.inflate(R.layout.todo_row, null);
 
-                        toDetail = (ImageButton) addView.findViewById(R.id.toDetail);
+                            toDetail = (ImageButton) addView.findViewById(R.id.toDetail);
 
-                        CheckBox todoc = (CheckBox) addView.findViewById(R.id.cbTodo);
+                            CheckBox todoc = (CheckBox) addView.findViewById(R.id.cbTodo);
 
-                        final EditText editText = (EditText) addView.findViewById(R.id.taskInput);
+                            final EditText editText = (EditText) addView.findViewById(R.id.taskInput);
 
-                        editText.setText(TodoInput.getText().toString());
+                            editText.setText(TodoInput.getText().toString());
 
-                        String toDoInput = TodoInput.getText().toString();
+                            String toDoInput = TodoInput.getText().toString();
 
-                        Milestone selectedMilestone = Milestone.findById(Milestone.class, selectedMiles);
-                        final Todo todo = Todo.createTodo(toDoInput, false, selectedMilestone);
+                            Milestone selectedMilestone = Milestone.findById(Milestone.class, selectedMiles);
+                            final Todo todo = Todo.createTodo(toDoInput, false, selectedMilestone);
 
-                        todoc.setOnClickListener(new View.OnClickListener() {
-                            public void onClick(View v) {
-                                if (((CheckBox) v).isChecked()) {
-                                    Log.e("lol", "wooooi");
-                                    todo.setStatus(true);
-                                    editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                            todoc.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View v) {
+                                    if (((CheckBox) v).isChecked()) {
+                                        Log.e("lol", "wooooi");
+                                        todo.setStatus(true);
+                                        editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                                    } else {
+                                        todo.setStatus(false);
+                                        editText.setPaintFlags(editText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                                    }
                                 }
-                                else {
-                                    todo.setStatus(false);
-                                    editText.setPaintFlags(editText.getPaintFlags() & ~ Paint.STRIKE_THRU_TEXT_FLAG);
+                            });
+
+                            Log.e("Todo", todo.getText());
+
+                            toDetail.setOnClickListener(new View.OnClickListener() {
+
+                                @Override
+                                public void onClick(View v1) {
+                                    Intent intent = new Intent(ToDoListNew.this, ToDoDetail.class);
+                                    startActivity(intent);
                                 }
-                            }
-                        });
+                            });
 
-                        Log.e("Todo", todo.getText());
+                            container.addView(addView);
+                            TodoInput.setText("");
 
-                        toDetail.setOnClickListener(new View.OnClickListener() {
-
-                            @Override
-                            public void onClick(View v1) {
-                                Intent intent = new Intent(ToDoListNew.this, ToDoDetail.class);
-                                startActivity(intent);
-                            }
-                        });
-
-                        container.addView(addView);
-                        TodoInput.setText("");
-
-                        return true;
-                    }
+                            return true;
+                        }
                     }
                 }
                 return false;
@@ -216,7 +217,7 @@ public class ToDoListNew extends Activity {
                         Log.e("choose miles index ", String.valueOf(i));
                         selectedMilesIndex = i;
                         selectedMiles = milesId[selectedMilesIndex];
-                        Milestone m = Milestone.findById(Milestone.class,milesId[selectedMilesIndex]);
+                        Milestone m = Milestone.findById(Milestone.class, milesId[selectedMilesIndex]);
                         Log.e("save miles index ", String.valueOf(selectedMilesIndex));
                         container.removeAllViewsInLayout();
                         ToDoSetUp(m);
@@ -230,25 +231,26 @@ public class ToDoListNew extends Activity {
         );
     }
 
-    public void ToDoSetUp(Milestone mil){
+    public void ToDoSetUp(Milestone mil) {
 
 
-        List<Todo>Todos = Todo.searchByMilestone(mil);
-        for(final Todo td : Todos){
+        List<Todo> Todos = Todo.searchByMilestone(mil);
+        for (final Todo td : Todos) {
+
             LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService
                     (Context.LAYOUT_INFLATER_SERVICE);
 
-            final View addView = inflater.inflate(R.layout.todo_row,null);
+            final View addView = inflater.inflate(R.layout.todo_row, null);
 
             toDetail = (ImageButton) addView.findViewById(R.id.toDetail);
 
-            CheckBox todoc = (CheckBox) addView.findViewById(R.id.milestoneOut);
+            CheckBox todoc = (CheckBox) addView.findViewById(R.id.cbTodo);
 
-            final EditText editText = (EditText) addView.findViewById(R.id.Inputted);
+            final EditText editText = (EditText) addView.findViewById(R.id.taskInput);
 
             editText.setText(td.getText().toString());
 
-            if(td.getStatus()){
+            if (td.getStatus()) {
                 todoc.setChecked(true);
                 editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             }
@@ -271,6 +273,7 @@ public class ToDoListNew extends Activity {
                 @Override
                 public void onClick(View v1) {
                     Intent intent = new Intent(ToDoListNew.this, ToDoDetail.class);
+                    intent.putExtra("taskID", td.getId());
                     startActivity(intent);
                 }
             });
