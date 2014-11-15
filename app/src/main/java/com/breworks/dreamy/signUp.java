@@ -4,8 +4,6 @@ package com.breworks.dreamy;
  * Created by Luck Eater on 10/2/2014.
  */
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.Gravity;
@@ -33,7 +31,7 @@ public class signUp extends DreamyActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.sign_up);
-        usernameInput = (EditText) findViewById(R.id.username);
+        usernameInput = (EditText) findViewById(R.id.lastAccess);
         emailInput = (EditText) findViewById(R.id.email);
         passwordInput = (EditText) findViewById(R.id.password);
         passwordConfInput = (EditText) findViewById(R.id.passwordConf);

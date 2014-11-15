@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="NOTES"
-            android:id="@+id/textView"
+            android:id="@+id/bigUsername"
             android:layout_below="@+id/title"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="106dp"

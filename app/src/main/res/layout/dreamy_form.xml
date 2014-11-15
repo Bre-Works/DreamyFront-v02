@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:textColor="#1057CA"
             android:textSize="30dp"
-            android:id="@+id/textView"
+            android:id="@+id/bigUsername"
             android:layout_gravity="center"
             android:layout_toStartOf="@+id/saveDream"
             android:layout_alignParentTop="true"

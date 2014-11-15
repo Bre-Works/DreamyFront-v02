@@ -53,7 +53,6 @@ public class logIn extends DreamyActivity {
         Log.e("pol", "TEST");
 
         //Populate Data
-
         dreamyAccount ac1 = null;
         dreamyAccount ac2 = null;
         dreamyAccount ac3 = null;
