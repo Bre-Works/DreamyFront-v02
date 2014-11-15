@@ -115,6 +115,12 @@ public class Main extends DreamyActivity {
             session.logoutUser();
             finish();
         }
+
+        if (id == R.id.action_volley) {
+            Intent intent = new Intent(this, VolleyTest.class);
+            startActivity(intent);
+            finish();
+        }
         //if (id == R.id.action_todolist) {
         //    Intent intent = new Intent(this, ToDoList.class);
         //    startActivity(intent);
