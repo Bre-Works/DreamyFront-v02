@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -138,7 +139,6 @@ public class TodoSquare extends Activity {
         // get miles from database
         Log.e("arrive here ", "LOH");
 
-        Drawable rect = getResources().getDrawable(R.drawable.rectangle);
         LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         llp.setMargins(10, 10, 10, 10);
 
@@ -146,18 +146,26 @@ public class TodoSquare extends Activity {
         final long[] milesId = new long[miles.size()];
         String[] milesList = new String[miles.size()];
         int incM = 0;
+
         for (Milestone mil : miles) {
             Log.e("miles id", String.valueOf(mil.getId()));
             milesId[incM] = mil.getId();
             milesList[incM] = mil.getName();
+
             TextView Dc = new TextView(this);
+
+            Drawable rect = getResources().getDrawable(R.drawable.rectangle_border);
             Dc.setBackground(rect);
+
             int rand = random();
             if(rand == 1){
-                Dc.setBackgroundColor(Color.parseColor("#FFE8FAFF"));
+                ((GradientDrawable)Dc.getBackground()).setColor(Color.parseColor("#FFE8FAFF"));
+            }else if(rand == 2){
+                ((GradientDrawable)Dc.getBackground()).setColor(Color.parseColor("#FFFFFCEA"));
             }else{
-                Dc.setBackgroundColor(Color.parseColor("#FFFFFCEA"));
+                ((GradientDrawable)Dc.getBackground()).setColor(Color.parseColor("#FFEAFFE1"));
             }
+
             //Dc.setPadding(60,10,60,10);
             Dc.setLayoutParams(llp);
             Dc.setText(mil.getName());
@@ -251,7 +259,7 @@ public class TodoSquare extends Activity {
 
     public int random(){
         Random generator = new Random();
-        int i = generator.nextInt(2) + 1;
+        int i = generator.nextInt(3) + 1;
         return i;
     }
 
