@@ -21,8 +21,7 @@
                 android:layout_height="wrap_content"
                 android:text="List"
                 android:id="@+id/listbutton"
-                android:onClick="gotoSquare"
-                android:clickable="false"/>
+                android:onClick="gotoList"/>
 
         </RelativeLayout>
         <RelativeLayout
@@ -35,7 +34,8 @@
                 android:layout_height="wrap_content"
                 android:text="Square"
                 android:id="@+id/squarebutton"
-                android:onClick="gotoSquare"></Button>
+                android:onClick="gotoSquare"
+                android:clickable="false"></Button>
         </RelativeLayout>
     </LinearLayout>
 
@@ -49,71 +49,44 @@
             android:id="@+id/DreamSpinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-        />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="120dp"
-        android:id="@+id/linearLayout">
-
-        <Spinner
-            android:id="@+id/MilestoneSpinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
             />
 
     </LinearLayout>
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="clear done"
-        android:id="@+id/btnClear"
-        android:layout_column="2"
-        android:layout_marginTop="170dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:clickable="false"
-        android:onClick="ClearDone"></Button>
-
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView2" />
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/relativeLayout"
-        android:layout_below="@+id/btnClear"
-        android:layout_alignParentBottom="true">
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/Inputted"
-            android:layout_toStartOf="@+id/textTitle"
-            android:singleLine="true"
-            android:autoText="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:hint="What do you want to do ?" />
-
-    </RelativeLayout>
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/scrolled">
+        android:layout_height="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp">
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <LinearLayout
+                android:id="@+id/listLayout"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerHorizontal="true">
 
+            </LinearLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <LinearLayout
+                android:id="@+id/listLayout2"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
     </LinearLayout>
+
+
+
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -121,7 +94,7 @@
         android:id="@+id/scrolled"
         android:layout_alignParentLeft="true"
         android:fillViewport="false"
-        android:layout_below="@+id/btnClear">
+        android:layout_below="@+id/relativeLayout">
 
         <LinearLayout
             android:orientation="vertical"
