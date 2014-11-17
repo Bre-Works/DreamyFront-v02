@@ -117,7 +117,6 @@ public class ToDoDetail extends DreamyActivity {
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm ");
         timeField.setText(timeFormat.format(calendar.getTime()));
         Todo td = new Todo();
-        td.saveDeadline(taskDeadline, taskID);
     }
 
 }
