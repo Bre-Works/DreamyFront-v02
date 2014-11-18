@@ -65,43 +65,13 @@ public class VolleyTest2 extends Activity {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.d(TAG, response.toString());
-                        try {
                             // Parsing json array response
                             // loop through each json object
                             jsonResponse = "";
-                            for (int i = 0; i < response.length(); i++) {
-
-                                JSONObject person = (JSONObject) response
-                                        .get(i);
-
-                                accountModel am = new accountModel();
-
-                                am.setFirstName(person.getString("firstName"));
-                                Log.e("firstName",person.getString("firstName"));
-
-                                am.setLastName(person.getString("LastName"));
-                                am.setUsername(person.getString("Username"));
-                                Log.e("username",am.getUsername());
-
-                                am.setPassword(person.getString("Password"));
-                                am.setEmail(person.getString("Email"));
-                                am.setId(person.getInt("id"));
-                                Log.e("ID", String.valueOf(am.getId()));
-
-                                am.setLastAccess(person.getString("LastAccess"));
-
-                                acc.add(am);
-                            }
-                            Log.e("fuck", acc.get(0).getLastAccess());
+                            parseJSON(response);
                             makeitThere(acc);
                             pd.dismiss();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(getApplicationContext(),
-                                    "Error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG).show();
-                        }  }
+                    }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -110,21 +80,6 @@ public class VolleyTest2 extends Activity {
                         error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-        /*JsonObjectRequest jr = new JsonObjectRequest(Request.Method.GET,url,null,new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.i(TAG, response.toString());
-                Log.e("kok","Masuk COY");
-                parseJSON(response);
-                pd.dismiss();
-            }
-        },new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i(TAG,error.getMessage());
-            }
-        });*/
 
         queue.add(req);
     }
@@ -169,27 +124,37 @@ public class VolleyTest2 extends Activity {
         }
     }
 
-    private void parseJSON(JSONObject json){
+    private void parseJSON(JSONArray response){
         try{
-            JSONObject value = json.getJSONObject("value");
-            JSONArray items = value.getJSONArray("items");
-            for(int i=0;i<items.length();i++){
+            for (int i = 0; i < response.length(); i++) {
 
-                JSONObject item = items.getJSONObject(i);
+                JSONObject person = (JSONObject) response
+                        .get(i);
+
                 accountModel am = new accountModel();
-                am.setFirstName(item.optString("firstName"));
 
-                am.setLastName(item.optString("LastName"));
-                am.setUsername(item.optString("Username"));
-                am.setPassword(item.optString("Password"));
-                am.setEmail(item.optString("Email"));
-                am.setId(item.optInt("id"));
-                am.setLastAccess(item.optString("LastAccess"));
+                am.setFirstName(person.getString("firstName"));
+                Log.e("firstName",person.getString("firstName"));
+
+                am.setLastName(person.getString("LastName"));
+                am.setUsername(person.getString("Username"));
+                Log.e("username",am.getUsername());
+
+                am.setPassword(person.getString("Password"));
+                am.setEmail(person.getString("Email"));
+                am.setId(person.getInt("id"));
+                Log.e("ID", String.valueOf(am.getId()));
+
+                am.setLastAccess(person.getString("LastAccess"));
+
                 acc.add(am);
             }
         }
-        catch(Exception e){
+        catch(JSONException e){
             e.printStackTrace();
+            Toast.makeText(getApplicationContext(),
+                    "Error: " + e.getMessage(),
+                    Toast.LENGTH_LONG).show();
         }
 
 

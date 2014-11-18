@@ -17,6 +17,10 @@
         android:title="Volley2"
         android:showAsAction="collapseActionView"/>
 
+    <item android:id="@+id/action_testPost"
+        android:title="Test Post"
+        android:showAsAction="collapseActionView"/>
+
     <!--<item android:id="@+id/action_todolist"
         android:title="To Do List"
         android:icon="@drawable/todoactive"
