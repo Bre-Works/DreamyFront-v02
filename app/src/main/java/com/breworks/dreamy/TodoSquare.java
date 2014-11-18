@@ -151,6 +151,8 @@ public class TodoSquare extends Activity {
             Log.e("miles id", String.valueOf(mil.getId()));
             milesId[incM] = mil.getId();
             milesList[incM] = mil.getName();
+            String result = mil.getName();
+            List<Todo> todos = Todo.searchByMilestone(mil);
 
             TextView Dc = new TextView(this);
 
@@ -166,9 +168,13 @@ public class TodoSquare extends Activity {
                 ((GradientDrawable)Dc.getBackground()).setColor(Color.parseColor("#FFEAFFE1"));
             }
 
+            for(Todo td : todos){
+                result = result + "\n" + td.getText().toString();
+            }
+
             //Dc.setPadding(60,10,60,10);
             Dc.setLayoutParams(llp);
-            Dc.setText(mil.getName());
+            Dc.setText(result);
             Dc.setGravity(Gravity.CENTER);
             Dc.setTypeface(null, Typeface.BOLD_ITALIC);
             //Dc.setTextAppearance(this, android.R.style.TextAppearance_Small);
@@ -179,81 +185,6 @@ public class TodoSquare extends Activity {
                 layout2.addView(Dc);
             }
             incM++;
-        }
-/*        // spinner miles
-        Spinner SpinnerMiles = (Spinner) findViewById(R.id.MilestoneSpinner);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
-                R.layout.todolist_miles, R.id.milesArray, milesList);
-        SpinnerMiles.setAdapter(adapter2);
-
-        // spinner miles listener
-        SpinnerMiles.setOnItemSelectedListener(
-                new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        Log.e("choose miles index ", String.valueOf(i));
-                        selectedMilesIndex = i;
-                        selectedMiles = milesId[selectedMilesIndex];
-                        Milestone m = Milestone.findById(Milestone.class,milesId[selectedMilesIndex]);
-                        Log.e("save miles index ", String.valueOf(selectedMilesIndex));
-                        container.removeAllViewsInLayout();
-                        ToDoSetUp(m);
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-                        Log.e("nothing", "selected");
-                    }
-                }
-        );*/
-    }
-
-    public void ToDoSetUp(Milestone mil){
-
-
-        List<Todo>Todos = Todo.searchByMilestone(mil);
-        for(final Todo td : Todos){
-            LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService
-                    (Context.LAYOUT_INFLATER_SERVICE);
-
-            final View addView = inflater.inflate(R.layout.todo_row,null);
-
-            toDetail = (ImageButton) addView.findViewById(R.id.toDetail);
-
-            CheckBox todoc = (CheckBox) addView.findViewById(R.id.milestoneOut);
-
-            final EditText editText = (EditText) addView.findViewById(R.id.Inputted);
-
-            editText.setText(td.getText().toString());
-
-            if(td.getStatus()){
-                todoc.setChecked(true);
-                editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            }
-
-            todoc.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    if (((CheckBox) v).isChecked()) {
-                        Log.e("lol", "wooooi");
-                        td.setStatus(true);
-                        editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    } else {
-                        td.setStatus(false);
-                        editText.setPaintFlags(editText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
-                    }
-                }
-            });
-
-            toDetail.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v1) {
-                    Intent intent = new Intent(TodoSquare.this, ToDoDetail.class);
-                    startActivity(intent);
-                }
-            });
-
-            layout.addView(addView);
         }
     }
 
