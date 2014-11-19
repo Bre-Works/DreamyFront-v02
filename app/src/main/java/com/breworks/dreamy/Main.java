@@ -50,10 +50,7 @@ public class Main extends DreamyActivity {
 
         actionBar.setTitle("Hello, "+ login.getUsername());
 
-        TabHostProvider tabProvider = new MyTabHostProvider(Main.this);
-        TabView tabView = tabProvider.getTabHost("Home");
-        tabView.setCurrentView(R.layout.activity_main);
-        setContentView(tabView.render(0));
+        setContentView(R.layout.activity_main);
         //ImageView bg = (ImageView) findViewById(R.id.bg);
         //bg.setScaleType(ImageView.ScaleType.CENTER_CROP);
         layout = (LinearLayout) findViewById(R.id.listLayout);
@@ -111,15 +108,15 @@ public class Main extends DreamyActivity {
             //setContentView(R.layout.layoutname);
         }
         */
+        if (id == R.id.action_todolist) {
+            Intent intent = new Intent(this, TodoSquare.class);
+            startActivity(intent);
+            finish();
+        }
         if (id == R.id.action_logout) {
             session.logoutUser();
             finish();
         }
-        //if (id == R.id.action_todolist) {
-        //    Intent intent = new Intent(this, ToDoList.class);
-        //    startActivity(intent);
-        //    finish();
-        //}
 
         return super.onOptionsItemSelected(item);
     }

@@ -14,6 +14,8 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -68,12 +70,12 @@ public class TodoSquare extends DreamyActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        session = new SessionManager(getApplicationContext());
+        dreamyAccount login = session.getUser();
         TabHostProvider tabProvider = new MyTabHostProvider(TodoSquare.this);
         TabView tabView = tabProvider.getTabHost("Todo");
         tabView.setCurrentView(R.layout.todo_square);
         setContentView(tabView.render(1));
-        session = new SessionManager(getApplicationContext());
-        dreamyAccount login = session.getUser();
 
         // DREAMS
         // get dream from database
@@ -124,6 +126,39 @@ public class TodoSquare extends DreamyActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        /*
+        if (id == R.id.action_settings) {
+            //Intent intent = new Intent(Main.this, ClassName.class);
+            //startActivity(intent);
+            //setContentView(R.layout.layoutname);
+        }
+        */
+        if (id == R.id.action_logout) {
+            session.logoutUser();
+            finish();
+        }
+        if (id == R.id.action_main) {
+            Intent intent = new Intent(this, Main.class);
+            startActivity(intent);
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     public void checkDreamIndex(String[] dreamList, long[] dreamId) {
         if (dreamList[selectedDreamIndex] != null) {
             Log.e("index ", "amazingly not null");
@@ -169,7 +204,7 @@ public class TodoSquare extends DreamyActivity {
 
             //set up textview and image
             ImageView iv = new ImageView(this);
-            TextView milest = new TextView(this);
+            final TextView milest = new TextView(this);
             //Dc.setLayoutParams(llp);
             //iv.setImageResource(R.drawable.todoidle);
             //iv.setLayoutParams(imageparam);
@@ -184,27 +219,34 @@ public class TodoSquare extends DreamyActivity {
             //random color
             int rand = random();
             if(rand == 1){
-                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFE8FAFF"));
+                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFE8FAFF"));//blue
             }else if(rand == 2){
-                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFFFFCEA"));
+                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFEDFF6E"));//pus color
             }else{
-                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFEAFFE1"));
+                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFEAFFE1"));//green
             }
 
+            
             //row.addView(iv);
             row.addView(milest);
             tl.addView(row);
 
+            if(todos.size()<1){
+                TableRow rowtd = new TableRow(this);
+                rowtd.setGravity(Gravity.CENTER);
+                TextView tdtxt = new TextView(this);
+                tdtxt.setGravity(Gravity.CENTER);
+                tdtxt.setText("No Task");
+                rowtd.addView(tdtxt);
+                tl.addView(rowtd);
+            }
             for(Todo td : todos){
                 //result = result + "\n" + td.getText().toString();
                 TableRow rowtd = new TableRow(this);
                 rowtd.setGravity(Gravity.CENTER);
                 TextView tdtxt = new TextView(this);
-                if(todos.size()<1){
-                    tdtxt.setText("No Task");
-                }else {
-                    tdtxt.setText(td.getText().toString());
-                }
+                tdtxt.setGravity(Gravity.CENTER);
+                tdtxt.setText(td.getText().toString());
                 if(td.getStatus()){
                     tdtxt.setPaintFlags(tdtxt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 }else{
@@ -220,6 +262,12 @@ public class TodoSquare extends DreamyActivity {
             else {
                 layout2.addView(tl);
             }
+            tl.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(), milest.getText().toString(), Toast.LENGTH_SHORT).show();
+                }
+            });
             incM++;
         }
     }

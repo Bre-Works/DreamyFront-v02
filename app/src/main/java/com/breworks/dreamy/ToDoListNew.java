@@ -61,10 +61,7 @@ public class ToDoListNew extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        TabHostProvider tabProvider = new MyTabHostProvider(ToDoListNew.this);
-        TabView tabView = tabProvider.getTabHost("Todo");
-        tabView.setCurrentView(R.layout.todolist_new);
-        setContentView(tabView.render(1));
+        setContentView(R.layout.todolist_new);
         session = new SessionManager(getApplicationContext());
         dreamyAccount login = session.getUser();
 
