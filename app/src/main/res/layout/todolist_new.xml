@@ -80,29 +80,18 @@
         android:clickable="false"
         android:onClick="ClearDone"></Button>
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView2" />
-
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/relativeLayout"
-        android:layout_below="@+id/btnClear"
-        android:layout_alignParentBottom="true">
+        android:layout_marginTop="220dp"
+        android:id="@+id/relativeLayout">
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/Inputted"
-            android:layout_toStartOf="@+id/textTitle"
             android:singleLine="true"
             android:autoText="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:hint="What do you want to do ?" />
 
     </RelativeLayout>
@@ -116,6 +105,7 @@
     </LinearLayout>
 
     <ScrollView
+        android:layout_marginTop="50dp"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/scrolled"

@@ -22,8 +22,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +49,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 /**
  * Created by aidifauzan on 12/11/2014.
  */
-public class TodoSquare extends Activity {
+public class TodoSquare extends DreamyActivity {
 
     SessionManager session;
     int selectedDreamIndex = 0;
@@ -141,7 +144,9 @@ public class TodoSquare extends Activity {
 
         LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         llp.setMargins(10, 10, 10, 10);
+        LinearLayout.LayoutParams imageparam = new LinearLayout.LayoutParams(100, 100);
 
+        //store miles data
         List<Milestone> miles = Milestone.searchByDream(dr);
         final long[] milesId = new long[miles.size()];
         String[] milesList = new String[miles.size()];
@@ -151,109 +156,71 @@ public class TodoSquare extends Activity {
             Log.e("miles id", String.valueOf(mil.getId()));
             milesId[incM] = mil.getId();
             milesList[incM] = mil.getName();
+            List<Todo> todos = Todo.searchByMilestone(mil);
 
-            TextView Dc = new TextView(this);
+            //set up table
+            TableLayout tl = new TableLayout(this);
+            TableRow row = new TableRow(this);
+            row.setGravity(Gravity.CENTER);
+            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(10,10,10,10);
+            tl.setLayoutParams(lp);
+            tl.setPadding(10,10,10,10);
 
+            //set up textview and image
+            ImageView iv = new ImageView(this);
+            TextView milest = new TextView(this);
+            //Dc.setLayoutParams(llp);
+            //iv.setImageResource(R.drawable.todoidle);
+            //iv.setLayoutParams(imageparam);
+            milest.setText(mil.getName());
+            //milest.setGravity(Gravity.CENTER);
+            milest.setTypeface(null, Typeface.BOLD_ITALIC);
+
+            //border layout
             Drawable rect = getResources().getDrawable(R.drawable.rectangle_border);
-            Dc.setBackground(rect);
+            tl.setBackground(rect);
 
+            //random color
             int rand = random();
             if(rand == 1){
-                ((GradientDrawable)Dc.getBackground()).setColor(Color.parseColor("#FFE8FAFF"));
+                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFE8FAFF"));
             }else if(rand == 2){
-                ((GradientDrawable)Dc.getBackground()).setColor(Color.parseColor("#FFFFFCEA"));
+                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFFFFCEA"));
             }else{
-                ((GradientDrawable)Dc.getBackground()).setColor(Color.parseColor("#FFEAFFE1"));
+                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFEAFFE1"));
             }
 
-            //Dc.setPadding(60,10,60,10);
-            Dc.setLayoutParams(llp);
-            Dc.setText(mil.getName());
-            Dc.setGravity(Gravity.CENTER);
-            Dc.setTypeface(null, Typeface.BOLD_ITALIC);
-            //Dc.setTextAppearance(this, android.R.style.TextAppearance_Small);
+            //row.addView(iv);
+            row.addView(milest);
+            tl.addView(row);
+
+            for(Todo td : todos){
+                //result = result + "\n" + td.getText().toString();
+                TableRow rowtd = new TableRow(this);
+                rowtd.setGravity(Gravity.CENTER);
+                TextView tdtxt = new TextView(this);
+                if(todos.size()<1){
+                    tdtxt.setText("No Task");
+                }else {
+                    tdtxt.setText(td.getText().toString());
+                }
+                if(td.getStatus()){
+                    tdtxt.setPaintFlags(tdtxt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                }else{
+                    tdtxt.setPaintFlags(tdtxt.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                }
+                rowtd.addView(tdtxt);
+                tl.addView(rowtd);
+            }
+
             if(incM % 2 == 0) {
-                layout.addView(Dc);
+                layout.addView(tl);
             }
             else {
-                layout2.addView(Dc);
+                layout2.addView(tl);
             }
             incM++;
-        }
-/*        // spinner miles
-        Spinner SpinnerMiles = (Spinner) findViewById(R.id.MilestoneSpinner);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
-                R.layout.todolist_miles, R.id.milesArray, milesList);
-        SpinnerMiles.setAdapter(adapter2);
-
-        // spinner miles listener
-        SpinnerMiles.setOnItemSelectedListener(
-                new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        Log.e("choose miles index ", String.valueOf(i));
-                        selectedMilesIndex = i;
-                        selectedMiles = milesId[selectedMilesIndex];
-                        Milestone m = Milestone.findById(Milestone.class,milesId[selectedMilesIndex]);
-                        Log.e("save miles index ", String.valueOf(selectedMilesIndex));
-                        container.removeAllViewsInLayout();
-                        ToDoSetUp(m);
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-                        Log.e("nothing", "selected");
-                    }
-                }
-        );*/
-    }
-
-    public void ToDoSetUp(Milestone mil){
-
-
-        List<Todo>Todos = Todo.searchByMilestone(mil);
-        for(final Todo td : Todos){
-            LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService
-                    (Context.LAYOUT_INFLATER_SERVICE);
-
-            final View addView = inflater.inflate(R.layout.todo_row,null);
-
-            toDetail = (ImageButton) addView.findViewById(R.id.toDetail);
-
-            CheckBox todoc = (CheckBox) addView.findViewById(R.id.milestoneOut);
-
-            final EditText editText = (EditText) addView.findViewById(R.id.Inputted);
-
-            editText.setText(td.getText().toString());
-
-            if(td.getStatus()){
-                todoc.setChecked(true);
-                editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            }
-
-            todoc.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    if (((CheckBox) v).isChecked()) {
-                        Log.e("lol", "wooooi");
-                        td.setStatus(true);
-                        editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    } else {
-                        td.setStatus(false);
-                        editText.setPaintFlags(editText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
-                    }
-                }
-            });
-
-            toDetail.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v1) {
-                    Intent intent = new Intent(TodoSquare.this, ToDoDetail.class);
-                    startActivity(intent);
-                }
-            });
-
-            layout.addView(addView);
         }
     }
 

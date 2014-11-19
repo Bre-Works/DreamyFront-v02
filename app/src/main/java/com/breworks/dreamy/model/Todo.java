@@ -12,20 +12,12 @@ public class Todo extends SugarRecord<Todo> {
 
     String todoText;
     boolean todoStatus;
-    Date taskdeadline;
 
     //build relationship
     String miles;
 
     // constructors
     public Todo() {
-    }
-
-    public Todo(String text, boolean status, Milestone mil, Date taskDeadline){
-        this.todoText = text;
-        this.todoStatus = status;
-        this.miles = mil.getId().toString();
-        this.taskdeadline = taskDeadline;
     }
 
 
@@ -76,11 +68,4 @@ public class Todo extends SugarRecord<Todo> {
         List<Todo> todo = Todo.findWithQuery(Todo.class, "Select * from Todo Where miles = ?", mil.getId().toString());
         return todo;
     }
-
-    public void saveDeadline(Date taskDeadline, long currentID){
-        Todo td = Todo.findById(Todo.class, currentID);
-        td.taskdeadline = taskdeadline;
-        td.save();
-    }
-
 }
