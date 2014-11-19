@@ -49,7 +49,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 /**
  * Created by aidifauzan on 12/11/2014.
  */
-public class TodoSquare extends Activity {
+public class TodoSquare extends DreamyActivity {
 
     SessionManager session;
     int selectedDreamIndex = 0;
@@ -146,6 +146,7 @@ public class TodoSquare extends Activity {
         llp.setMargins(10, 10, 10, 10);
         LinearLayout.LayoutParams imageparam = new LinearLayout.LayoutParams(100, 100);
 
+        //store miles data
         List<Milestone> miles = Milestone.searchByDream(dr);
         final long[] milesId = new long[miles.size()];
         String[] milesList = new String[miles.size()];
@@ -155,15 +156,18 @@ public class TodoSquare extends Activity {
             Log.e("miles id", String.valueOf(mil.getId()));
             milesId[incM] = mil.getId();
             milesList[incM] = mil.getName();
-            String result = mil.getName();
             List<Todo> todos = Todo.searchByMilestone(mil);
 
+            //set up table
             TableLayout tl = new TableLayout(this);
             TableRow row = new TableRow(this);
+            row.setGravity(Gravity.CENTER);
             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.WRAP_CONTENT);
             lp.setMargins(10,10,10,10);
             tl.setLayoutParams(lp);
             tl.setPadding(10,10,10,10);
+
+            //set up textview and image
             ImageView iv = new ImageView(this);
             TextView milest = new TextView(this);
             //Dc.setLayoutParams(llp);
@@ -173,9 +177,11 @@ public class TodoSquare extends Activity {
             //milest.setGravity(Gravity.CENTER);
             milest.setTypeface(null, Typeface.BOLD_ITALIC);
 
+            //border layout
             Drawable rect = getResources().getDrawable(R.drawable.rectangle_border);
             tl.setBackground(rect);
 
+            //random color
             int rand = random();
             if(rand == 1){
                 ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFE8FAFF"));
@@ -184,6 +190,7 @@ public class TodoSquare extends Activity {
             }else{
                 ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFEAFFE1"));
             }
+
             //row.addView(iv);
             row.addView(milest);
             tl.addView(row);
@@ -191,14 +198,22 @@ public class TodoSquare extends Activity {
             for(Todo td : todos){
                 //result = result + "\n" + td.getText().toString();
                 TableRow rowtd = new TableRow(this);
+                rowtd.setGravity(Gravity.CENTER);
                 TextView tdtxt = new TextView(this);
-                tdtxt.setText(td.getText().toString());
+                if(todos.size()<1){
+                    tdtxt.setText("No Task");
+                }else {
+                    tdtxt.setText(td.getText().toString());
+                }
+                if(td.getStatus()){
+                    tdtxt.setPaintFlags(tdtxt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                }else{
+                    tdtxt.setPaintFlags(tdtxt.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                }
                 rowtd.addView(tdtxt);
                 tl.addView(rowtd);
             }
 
-            //Dc.setPadding(60,10,60,10);
-            //Dc.setTextAppearance(this, android.R.style.TextAppearance_Small);
             if(incM % 2 == 0) {
                 layout.addView(tl);
             }
