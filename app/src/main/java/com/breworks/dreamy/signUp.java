@@ -7,6 +7,7 @@ package com.breworks.dreamy;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
@@ -19,21 +20,27 @@ import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.dreamyAccount;
 
 import java.security.NoSuchAlgorithmException;
+import java.security.Timestamp;
 import java.security.spec.InvalidKeySpecException;
+import java.sql.Date;
+import java.sql.Time;
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 public class signUp extends DreamyActivity {
     Button createAccount;
-    EditText usernameInput, emailInput, passwordInput, passwordConfInput;
-    String username, email, password, passwordConf;
+    EditText usernameInput, emailInput, passwordInput, passwordConfInput, fNameInput, lNameInput;
+    String username, email, password, passwordConf, firstName, lastName;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.sign_up);
         usernameInput = (EditText) findViewById(R.id.username);
+        fNameInput = (EditText) findViewById(R.id.firstName);
+        lNameInput = (EditText) findViewById(R.id.lastName);
         emailInput = (EditText) findViewById(R.id.email);
         passwordInput = (EditText) findViewById(R.id.password);
         passwordConfInput = (EditText) findViewById(R.id.passwordConf);
@@ -43,6 +50,8 @@ public class signUp extends DreamyActivity {
     public void createAccount(View v) throws InvalidKeySpecException, NoSuchAlgorithmException {
         email = emailInput.getText().toString();
         username = usernameInput.getText().toString();
+        firstName = fNameInput.getText().toString();
+        lastName = lNameInput.getText().toString();
         password = passwordInput.getText().toString();
         passwordConf = passwordConfInput.getText().toString();
         if (!email.equals("") && !username.equals("") && !password.equals("") && !passwordConf.equals("")) {
@@ -64,7 +73,11 @@ public class signUp extends DreamyActivity {
                             if (!password.equals(passwordConf)) {
                                 Toast.makeText(getApplicationContext(), "Password and password confirmation did not match!", Toast.LENGTH_SHORT).show();
                             } else {
-                                dreamyAccount.createAccount(email, username, password);
+                                Calendar cal = Calendar.getInstance();
+                                java.util.Date cDate = cal.getTime();
+                                java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(cDate.getTime());
+                                Log.e("timestamp", String.valueOf(currentTimestamp));
+                                dreamyAccount.createAccount(email, username, firstName, lastName, currentTimestamp, password);
                                 finish();
                                 Toast toast= Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);

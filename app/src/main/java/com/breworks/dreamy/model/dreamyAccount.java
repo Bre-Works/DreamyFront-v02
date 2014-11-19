@@ -7,6 +7,7 @@ import com.orm.query.Select;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -15,45 +16,51 @@ import java.util.List;
 
 public class dreamyAccount extends SugarRecord<dreamyAccount> {
 
-        String email;
-        String username;
-        String password;
+    String email;
+    String username;
+    String password;
+    String firstName;
+    String lastName;
+    Timestamp tStamp;
 
-        // constructors
-        public dreamyAccount() {
-        }
 
-        public dreamyAccount(String email, String username ,String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
-            this.email = email;
-            this.password = PasswordHash.createHash(password);
-            this.username = username;
-        }
+    // constructors
+    public dreamyAccount() {
+    }
 
-        public String getEmail(){
-            return this.email;
-        }
+    public dreamyAccount(String email, String username, String firstName, String lastName, Timestamp tStamp, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
+        this.email = email;
+        this.password = PasswordHash.createHash(password);
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.tStamp = tStamp;
+    }
 
-        public String getPassword(){
-            return this.password;
-        }
+    public String getEmail() {
+        return this.email;
+    }
 
-        public String getUsername(){
-            return this.username;
-        }
+    public String getPassword() {
+        return this.password;
+    }
 
-        public static dreamyAccount createAccount(String email, String username, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
-            dreamyAccount account = new dreamyAccount(email, username, password);
-            account.save();
-            return account;
-        }
+    public String getUsername() {
+        return this.username;
+    }
 
-        public static dreamyAccount findByUsername(String Username){
-            List<dreamyAccount> acc = dreamyAccount.find(dreamyAccount.class,"username = ?",Username);
-            if(acc.size() == 1){
-                return acc.get(0);
-            }
-            else return null;
-        }
+    public static dreamyAccount createAccount(String email, String username, String firstName, String lastName, Timestamp tStamp, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
+        dreamyAccount account = new dreamyAccount(email, username, firstName, lastName, tStamp, password);
+        account.save();
+        return account;
+    }
+
+    public static dreamyAccount findByUsername(String Username) {
+        List<dreamyAccount> acc = dreamyAccount.find(dreamyAccount.class, "username = ?", Username);
+        if (acc.size() == 1) {
+            return acc.get(0);
+        } else return null;
+    }
 
 }
 

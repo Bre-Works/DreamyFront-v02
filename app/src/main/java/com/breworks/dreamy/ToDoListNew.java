@@ -132,6 +132,11 @@ public class ToDoListNew extends Activity {
                             String toDoInput = TodoInput.getText().toString();
 
                             Milestone selectedMilestone = Milestone.findById(Milestone.class, selectedMiles);
+
+                            String miles = selectedMilestone.getId().toString();
+
+                            Log.e("current Milestone", miles);
+                            
                             final Todo todo = Todo.createTodo(toDoInput, false, selectedMilestone);
 
                             todoc.setOnClickListener(new View.OnClickListener() {

@@ -61,6 +61,26 @@
             android:typeface="sans"/>
 
         <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="first name"
+            android:textSize="18dp"
+            android:typeface="sans"
+            android:ems="10"
+            android:id="@+id/firstName" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="last name"
+            android:textSize="18dp"
+            android:typeface="sans"
+            android:ems="10"
+            android:id="@+id/lastName" />
+
+        <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/password"
