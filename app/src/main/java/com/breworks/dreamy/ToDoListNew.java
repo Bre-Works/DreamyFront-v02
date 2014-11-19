@@ -32,6 +32,8 @@ import com.breworks.dreamy.tabpanel.MyTabHostProvider;
 import com.breworks.dreamy.tabpanel.TabHostProvider;
 import com.breworks.dreamy.tabpanel.TabView;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static android.widget.Toast.LENGTH_SHORT;
@@ -136,8 +138,10 @@ public class ToDoListNew extends Activity {
                             String miles = selectedMilestone.getId().toString();
 
                             Log.e("current Milestone", miles);
-                            
-                            final Todo todo = Todo.createTodo(toDoInput, false, selectedMilestone);
+
+                            Calendar calendar = Calendar.getInstance();
+                            Date currentDate = calendar.getTime();
+                            final Todo todo = Todo.createTodo(toDoInput, false, selectedMilestone, currentDate);
 
                             todoc.setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
@@ -159,6 +163,7 @@ public class ToDoListNew extends Activity {
                                 @Override
                                 public void onClick(View v1) {
                                     Intent intent = new Intent(ToDoListNew.this, ToDoDetail.class);
+                                    intent.putExtra("taskID", todo.getId());
                                     startActivity(intent);
                                 }
                             });

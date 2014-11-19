@@ -1,5 +1,7 @@
 package com.breworks.dreamy.model;
 
+import android.util.Log;
+
 import com.orm.SugarRecord;
 
 import java.util.Date;
@@ -12,9 +14,11 @@ public class Todo extends SugarRecord<Todo> {
 
     String todoText;
     boolean todoStatus;
+    Date taskdeadline;
 
     //build relationship
     String miles;
+
 
     // constructors
     public Todo() {
@@ -33,10 +37,11 @@ public class Todo extends SugarRecord<Todo> {
         this.save();
     }
 
-    public Todo(String name, boolean status, Milestone mil) {
+    public Todo(String name, boolean status, Milestone mil, Date taskDeadline) {
         this.todoText = name;
         this.todoStatus = status;
         this.miles = mil.getId().toString();
+        this.taskdeadline = taskDeadline;
         this.save();
     }
 
@@ -50,8 +55,8 @@ public class Todo extends SugarRecord<Todo> {
         return this.todoStatus;
     }
 
-    public static Todo createTodo(String name, boolean status, Milestone miles) {
-        Todo todo = new Todo(name, status, miles);
+    public static Todo createTodo(String name, boolean status, Milestone miles, Date taskDeadline) {
+        Todo todo = new Todo(name, status, miles, taskDeadline);
         todo.save();
         return todo;
     }
@@ -68,4 +73,31 @@ public class Todo extends SugarRecord<Todo> {
         List<Todo> todo = Todo.findWithQuery(Todo.class, "Select * from Todo Where miles = ?", mil.getId().toString());
         return todo;
     }
+
+    public Date getDeadline(Long taskID){
+        Todo t = new Todo();
+        t = t.findById(Todo.class, taskID);
+        return t.taskdeadline;
+    }
+
+    public String getTask(Long taskID){
+        Todo t = new Todo();
+        t = t.findById(Todo.class, taskID);
+        return t.todoText;
+    }
+
+
+
+    public static Todo saveDeadline(Date taskDeadline, Long currentID){
+        Log.e("Current ID", String.valueOf(currentID));
+        Todo td = Todo.findById(Todo.class, currentID);
+        Log.e("TASK DEADLINE FROM TDDETAIL", String.valueOf(taskDeadline));
+        Log.e("The task", td.todoText);
+        Log.e("task Deadline save deadline", String.valueOf(td.taskdeadline));
+        td.taskdeadline = taskDeadline;
+
+        td.save();
+        return td;
+    }
+
 }
