@@ -22,8 +22,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -141,6 +144,7 @@ public class TodoSquare extends Activity {
 
         LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         llp.setMargins(10, 10, 10, 10);
+        LinearLayout.LayoutParams imageparam = new LinearLayout.LayoutParams(100, 100);
 
         List<Milestone> miles = Milestone.searchByDream(dr);
         final long[] milesId = new long[miles.size()];
@@ -154,35 +158,52 @@ public class TodoSquare extends Activity {
             String result = mil.getName();
             List<Todo> todos = Todo.searchByMilestone(mil);
 
-            TextView Dc = new TextView(this);
+            TableLayout tl = new TableLayout(this);
+            TableRow row = new TableRow(this);
+            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(10,10,10,10);
+            tl.setLayoutParams(lp);
+            tl.setPadding(10,10,10,10);
+            ImageView iv = new ImageView(this);
+            TextView milest = new TextView(this);
+            //Dc.setLayoutParams(llp);
+            //iv.setImageResource(R.drawable.todoidle);
+            //iv.setLayoutParams(imageparam);
+            milest.setText(mil.getName());
+            //milest.setGravity(Gravity.CENTER);
+            milest.setTypeface(null, Typeface.BOLD_ITALIC);
 
             Drawable rect = getResources().getDrawable(R.drawable.rectangle_border);
-            Dc.setBackground(rect);
+            tl.setBackground(rect);
 
             int rand = random();
             if(rand == 1){
-                ((GradientDrawable)Dc.getBackground()).setColor(Color.parseColor("#FFE8FAFF"));
+                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFE8FAFF"));
             }else if(rand == 2){
-                ((GradientDrawable)Dc.getBackground()).setColor(Color.parseColor("#FFFFFCEA"));
+                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFFFFCEA"));
             }else{
-                ((GradientDrawable)Dc.getBackground()).setColor(Color.parseColor("#FFEAFFE1"));
+                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFEAFFE1"));
             }
+            //row.addView(iv);
+            row.addView(milest);
+            tl.addView(row);
 
             for(Todo td : todos){
-                result = result + "\n" + td.getText().toString();
+                //result = result + "\n" + td.getText().toString();
+                TableRow rowtd = new TableRow(this);
+                TextView tdtxt = new TextView(this);
+                tdtxt.setText(td.getText().toString());
+                rowtd.addView(tdtxt);
+                tl.addView(rowtd);
             }
 
             //Dc.setPadding(60,10,60,10);
-            Dc.setLayoutParams(llp);
-            Dc.setText(result);
-            Dc.setGravity(Gravity.CENTER);
-            Dc.setTypeface(null, Typeface.BOLD_ITALIC);
             //Dc.setTextAppearance(this, android.R.style.TextAppearance_Small);
             if(incM % 2 == 0) {
-                layout.addView(Dc);
+                layout.addView(tl);
             }
             else {
-                layout2.addView(Dc);
+                layout2.addView(tl);
             }
             incM++;
         }

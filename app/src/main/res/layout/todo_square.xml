@@ -72,13 +72,6 @@
 
             </LinearLayout>
 
-            <TableLayout
-                android:id="@+id/tabellayout"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="@drawable/rectangle_border"
-                android:layout_centerHorizontal="true"></TableLayout>
-
         </RelativeLayout>
 
         <RelativeLayout
@@ -91,13 +84,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_centerHorizontal="true"/>
-
-            <TableLayout
-                android:id="@+id/tabellayout2"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="@drawable/rectangle_border"
-                android:layout_centerHorizontal="true"></TableLayout>
 
         </RelativeLayout>
     </LinearLayout>
