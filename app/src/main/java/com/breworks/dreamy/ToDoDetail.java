@@ -43,6 +43,7 @@ public class ToDoDetail extends DreamyActivity {
     EditText timeField;
     TextView taskText;
 
+
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tododetails_form);
@@ -50,10 +51,11 @@ public class ToDoDetail extends DreamyActivity {
         timeField = (EditText) findViewById(R.id.timeField);
         taskText = (TextView) findViewById(R.id.taskText);
 
-
         Intent intent = getIntent();
         taskID = intent.getLongExtra("taskID", 0);
         Log.e("tududud ID!!", String.valueOf(taskID));
+
+        final Todo t = Todo.findByTaskID(taskID);
 
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -62,13 +64,12 @@ public class ToDoDetail extends DreamyActivity {
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
 
-        Todo t = new Todo();
 
-        taskText.setText(t.getTask(taskID));
+        taskText.setText(t.getTask(t));
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        dateField.setText(dateFormat.format(t.getDeadline(taskID)));
+        dateField.setText(dateFormat.format(t.getDeadline(t)));
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm ");
-        timeField.setText(timeFormat.format(t.getDeadline(taskID)));
+        timeField.setText(timeFormat.format(t.getDeadline(t)));
 
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -79,7 +80,7 @@ public class ToDoDetail extends DreamyActivity {
                 calendar.set(Calendar.MONTH, monthOfYear);
                 calendar.set(Calendar.YEAR, year);
                 taskDeadline = calendar.getTime();
-                updateDeadline();
+                updateDeadline(t);
             }
         };
 
@@ -100,7 +101,7 @@ public class ToDoDetail extends DreamyActivity {
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 calendar.set(Calendar.MINUTE, minute);
                 taskDeadline = calendar.getTime();
-                updateDeadline();
+                updateDeadline(t);
             }
         };
 
@@ -117,13 +118,12 @@ public class ToDoDetail extends DreamyActivity {
 
     }
 
-    public void updateDeadline(){
+    public void updateDeadline(Todo t){
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateField.setText(dateFormat.format(calendar.getTime()));
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm ");
         timeField.setText(timeFormat.format(calendar.getTime()));
-        Todo td = new Todo();
-        td.saveDeadline(taskDeadline, taskID);
+        t.saveDeadline(taskDeadline, t);
     }
 
 }

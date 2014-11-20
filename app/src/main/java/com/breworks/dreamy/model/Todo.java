@@ -74,23 +74,23 @@ public class Todo extends SugarRecord<Todo> {
         return todo;
     }
 
-    public Date getDeadline(Long taskID){
-        Todo t = new Todo();
-        t = t.findById(Todo.class, taskID);
+    public Date getDeadline(Todo t){
         return t.taskdeadline;
     }
 
-    public String getTask(Long taskID){
-        Todo t = new Todo();
-        t = t.findById(Todo.class, taskID);
+    public String getTask(Todo t){
         return t.todoText;
+    }
+
+    public static Todo findByTaskID(Long currentID){
+        Todo td = Todo.findById(Todo.class, currentID);
+        return td;
     }
 
 
 
-    public static Todo saveDeadline(Date taskDeadline, Long currentID){
-        Log.e("Current ID", String.valueOf(currentID));
-        Todo td = Todo.findById(Todo.class, currentID);
+
+    public static Todo saveDeadline(Date taskDeadline, Todo td){
         Log.e("TASK DEADLINE FROM TDDETAIL", String.valueOf(taskDeadline));
         Log.e("The task", td.todoText);
         Log.e("task Deadline save deadline", String.valueOf(td.taskdeadline));

@@ -67,19 +67,6 @@
 
     </LinearLayout>
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="clear done"
-        android:id="@+id/btnClear"
-        android:layout_column="2"
-        android:layout_marginTop="170dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:clickable="false"
-        android:onClick="ClearDone"></Button>
-
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -105,13 +92,12 @@
     </LinearLayout>
 
     <ScrollView
-        android:layout_marginTop="50dp"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/scrolled"
         android:layout_alignParentLeft="true"
         android:fillViewport="false"
-        android:layout_below="@+id/btnClear">
+        android:layout_below="@+id/relativeLayout">
 
         <LinearLayout
             android:orientation="vertical"
