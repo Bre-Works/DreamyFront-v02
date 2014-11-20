@@ -37,10 +37,11 @@ public class ToDoListNew extends DreamyActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TabHostProvider tabProvider = new MyTabHostProvider(ToDoListNew.this);
-        TabView tabView = tabProvider.getTabHost("Todo");
-        tabView.setCurrentView(R.layout.todolist_new);
-        setContentView(tabView.render(1));
+        //TabHostProvider tabProvider = new MyTabHostProvider(ToDoListNew.this);
+        //TabView tabView = tabProvider.getTabHost("Todo");
+        //tabView.setCurrentView(R.layout.todolist_new);
+        //setContentView(tabView.render(1));
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         // DREAMS
         // get dream from database

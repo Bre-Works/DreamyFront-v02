@@ -18,6 +18,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
+        android:paddingTop="10dp"
         android:background="@drawable/bgportrait">
 
         <ImageButton
@@ -41,22 +42,14 @@
             android:layout_alignParentStart="true"
             android:paddingTop="5dp">
 
-            <LinearLayout
-                android:id="@+id/listLayout"
-                android:orientation="vertical"
+            <TableLayout
+                android:id="@+id/dreamsLayout"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_centerHorizontal="true"/>
+                android:layout_height="fill_parent">
+
+                </TableLayout>
         </ScrollView>
 
     </RelativeLayout>
-
-    <AdapterViewFlipper
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/adapterViewFlipper"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
