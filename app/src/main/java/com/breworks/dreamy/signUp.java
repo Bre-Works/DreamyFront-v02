@@ -77,7 +77,7 @@ public class signUp extends DreamyActivity {
                                 java.util.Date cDate = cal.getTime();
                                 java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(cDate.getTime());
                                 Log.e("timestamp", String.valueOf(currentTimestamp));
-                                dreamyAccount.createAccount(email, username, firstName, lastName, currentTimestamp, password);
+                                dreamyAccount.createAccount(email, username, firstName, lastName, currentTimestamp, currentTimestamp, password);
                                 finish();
                                 Toast toast= Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);

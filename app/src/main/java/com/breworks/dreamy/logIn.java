@@ -23,6 +23,7 @@ import com.breworks.dreamy.SessionManager;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Calendar;
 
 public class logIn extends DreamyActivity {
     EditText usernameInput, passwordInput;
@@ -31,6 +32,10 @@ public class logIn extends DreamyActivity {
     SessionManager session;
 
     String username, password;
+
+    Calendar cal = Calendar.getInstance();
+    java.util.Date cDate = cal.getTime();
+    java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(cDate.getTime());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +116,8 @@ public class logIn extends DreamyActivity {
                 Log.e("encpass", acc.getPassword());
 
                 if (authentication(password, userPass) == true) {
+                    acc.updateLastAccess(acc, currentTimestamp);
+
                     Intent intent = new Intent(this, Main.class);
                     startActivity(intent);
 

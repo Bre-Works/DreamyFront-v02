@@ -22,19 +22,21 @@ public class dreamyAccount extends SugarRecord<dreamyAccount> {
     String firstName;
     String lastName;
     Timestamp tStamp;
+    Timestamp tsLastAccess;
 
 
     // constructors
     public dreamyAccount() {
     }
 
-    public dreamyAccount(String email, String username, String firstName, String lastName, Timestamp tStamp, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
+    public dreamyAccount(String email, String username, String firstName, String lastName, Timestamp tStamp, Timestamp tsLastAccess, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
         this.email = email;
         this.password = PasswordHash.createHash(password);
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.tStamp = tStamp;
+        this.tsLastAccess = tsLastAccess;
     }
 
     public String getEmail() {
@@ -49,8 +51,8 @@ public class dreamyAccount extends SugarRecord<dreamyAccount> {
         return this.username;
     }
 
-    public static dreamyAccount createAccount(String email, String username, String firstName, String lastName, Timestamp tStamp, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
-        dreamyAccount account = new dreamyAccount(email, username, firstName, lastName, tStamp, password);
+    public static dreamyAccount createAccount(String email, String username, String firstName, String lastName, Timestamp tStamp, Timestamp tsLastAccess, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
+        dreamyAccount account = new dreamyAccount(email, username, firstName, lastName, tStamp, tsLastAccess, password);
         account.save();
         return account;
     }
@@ -61,6 +63,11 @@ public class dreamyAccount extends SugarRecord<dreamyAccount> {
             return acc.get(0);
         } else return null;
     }
+
+    public void updateLastAccess(dreamyAccount acc, Timestamp lastAccess){
+        acc.tsLastAccess = lastAccess;
+    }
+
 
 }
 
