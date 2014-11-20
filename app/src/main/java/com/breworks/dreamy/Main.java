@@ -4,21 +4,22 @@ import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.GridLayout;
 import android.widget.LinearLayout;
-import android.widget.TableRow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ImageView;
-import android.view.LayoutInflater;
 
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
@@ -28,6 +29,10 @@ import com.breworks.dreamy.tabpanel.TabHostProvider;
 import com.breworks.dreamy.tabpanel.TabView;
 import com.breworks.dreamy.SessionManager;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -37,15 +42,8 @@ import java.util.List;
 public class Main extends DreamyActivity {
 
     SessionManager session;
-    TableLayout table;
+    LinearLayout layout;
     dreamyAccount login;
-    final boolean EVEN = false;
-    final boolean ODD = true;
-    boolean pattern = EVEN;
-    final boolean LEFT = false;
-    final boolean RIGHT = true;
-    boolean position = LEFT;
-
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -60,43 +58,46 @@ public class Main extends DreamyActivity {
         setContentView(R.layout.activity_main);
 
         //actionBar.setTitle("Hello, "+ login.getUsername());
-
-        //TabHostProvider tabProvider = new MyTabHostProvider(Main.this);
-        //TabView tabView = tabProvider.getTabHost("Home");
-        //tabView.setCurrentView(R.layout.activity_main);
-        //setContentView(tabView.render(0));
         //ImageView bg = (ImageView) findViewById(R.id.bg);
         //bg.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        
-        Drawable shape = getResources().getDrawable(R.drawable.diamond);
-        table = (TableLayout) findViewById(R.id.dreamsLayout);
-        TableRow row = new TableRow(this);
-        shape.setBounds(250,250,250,250);
-
+        layout = (LinearLayout) findViewById(R.id.listLayout);
+        Drawable circle = getResources().getDrawable(R.drawable.circle);
         LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         llp.setMargins(30, 30, 30, 30);
+        RelativeLayout.LayoutParams alignLeft = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        alignLeft.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        alignLeft.setMargins(30, 30, 30, 30);
+        RelativeLayout.LayoutParams alignRight = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        alignRight.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        alignRight.setMargins(30, 30, 30, 30);
 
-        LinearLayout.LayoutParams shift = new LinearLayout.LayoutParams(250, 250);
-        shift.setMargins(250,0,0,0);
+        RelativeLayout bgLayout = (RelativeLayout) findViewById(R.id.blurbg);
+        Animation blurAnimation = AnimationUtils.loadAnimation(this, R.anim.bluranim);
+        for (int i = 0; i < bgLayout.getChildCount(); i++) {
+            ImageView blur = (ImageView) bgLayout.getChildAt(i);
+            blur.startAnimation(blurAnimation);
+        }
 
         Log.d("Reading: ", "Reading all contacts..");
+
+        //List<Dream> dreams = Dream.searchByUser(login);
         List<Dream> dreams = Dream.listAll(Dream.class);
 
+        boolean left = true;
         for (final Dream dr : dreams) {
-            TextView textView = new TextView(this);
-            //textView.setBackground(shape);
-            //textView.setPadding(60,10,60,10);
-            //textView.setLayoutParams(llp);
-            
+            TextView Dc = new TextView(this);
+            Dc.setLines(5);
+            Dc.setBackground(circle);
+            Dc.setPadding(60,10,60,10);
             Log.e("lol", dr.getName());
             if (!dr.getStatus()) {
-                textView.setText(dr.getName() + "\n- ONGOING ");
+                Dc.setText(dr.getName() + "\n- ONGOING ");
             } else {
-                textView.setText(dr.getName() + "\n- COMPLETED");
+                Dc.setText(dr.getName() + "\n- COMPLETED");
             }
-            textView.setGravity(Gravity.CENTER);
-            textView.isClickable();
-            textView.setOnClickListener(new View.OnClickListener() {
+            Dc.setGravity(Gravity.CENTER);
+            Dc.isClickable();
+            Dc.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(Main.this, DreamyFormUpdate.class);
@@ -105,36 +106,19 @@ public class Main extends DreamyActivity {
                     finish();
                 }
             });
-            textView.setTextAppearance(this, android.R.style.TextAppearance_Small);
 
-            //row.addView(textView);
-            //table.addView(textView);
-
-            if (pattern == EVEN) {
-                if (position == LEFT) {
-                    //row = new TableRow(this);
-                    //row.addView(textView);
-                    //table.addView(row);
-                    textView.setBackground(shape);
-                    table.addView(textView);
-                    position = RIGHT;
-                } else { //RIGHT
-                    textView.setLayoutParams(shift);
-                    textView.setBackground(shape);
-                    //row.addView(textView);
-                    table.addView(textView);
-                    position = LEFT;
-                    pattern = ODD;
-                }
-            } else { // ODD
-                textView.setLayoutParams(shift);
-                textView.setBackground(shape);
-                //row = new TableRow(this);
-                //row.addView(textView);
-                //table.addView(row);
-                table.addView(textView);
-                pattern = EVEN;
+            if(left) {
+                Dc.setLayoutParams(alignLeft);
+                left = false;
+            } else {
+                Dc.setLayoutParams(alignRight);
+                left = true;
             }
+            Dc.setTextAppearance(this, android.R.style.TextAppearance_Small);
+            layout.addView(Dc);
+
+            Animation dreamsAnimation = AnimationUtils.loadAnimation(this, R.anim.dreamsanim);
+            Dc.startAnimation(dreamsAnimation);
 
         }
     }
@@ -152,12 +136,13 @@ public class Main extends DreamyActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        /*
         if (id == R.id.action_settings) {
             //Intent intent = new Intent(Main.this, ClassName.class);
             //startActivity(intent);
             //setContentView(R.layout.layoutname);
         }
+        */
         if (id == R.id.action_logout) {
             session.logoutUser();
             finish();
