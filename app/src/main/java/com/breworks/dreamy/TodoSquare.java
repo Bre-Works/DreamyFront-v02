@@ -72,10 +72,7 @@ public class TodoSquare extends DreamyActivity {
         super.onCreate(savedInstanceState);
         session = new SessionManager(getApplicationContext());
         dreamyAccount login = session.getUser();
-        TabHostProvider tabProvider = new MyTabHostProvider(TodoSquare.this);
-        TabView tabView = tabProvider.getTabHost("Todo");
-        tabView.setCurrentView(R.layout.todo_square);
-        setContentView(tabView.render(1));
+        setContentView(R.layout.todo_square);
 
         // DREAMS
         // get dream from database
@@ -179,9 +176,11 @@ public class TodoSquare extends DreamyActivity {
 
         LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         llp.setMargins(10, 10, 10, 10);
-        LinearLayout.LayoutParams imageparam = new LinearLayout.LayoutParams(100, 100);
+        TableRow.LayoutParams imglp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+        imglp.setMargins(-50, 0, 0, 0);
 
-        //store miles data
+
+        //get miles data
         List<Milestone> miles = Milestone.searchByDream(dr);
         final long[] milesId = new long[miles.size()];
         String[] milesList = new String[miles.size()];
@@ -200,16 +199,11 @@ public class TodoSquare extends DreamyActivity {
             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.WRAP_CONTENT);
             lp.setMargins(10,10,10,10);
             tl.setLayoutParams(lp);
-            tl.setPadding(10,10,10,10);
+            tl.setPadding(0,10,10,10);
 
             //set up textview and image
-            ImageView iv = new ImageView(this);
             final TextView milest = new TextView(this);
-            //Dc.setLayoutParams(llp);
-            //iv.setImageResource(R.drawable.todoidle);
-            //iv.setLayoutParams(imageparam);
             milest.setText(mil.getName());
-            //milest.setGravity(Gravity.CENTER);
             milest.setTypeface(null, Typeface.BOLD_ITALIC);
 
             //border layout
@@ -226,8 +220,10 @@ public class TodoSquare extends DreamyActivity {
                 ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFEAFFE1"));//green
             }
 
-            
-            //row.addView(iv);
+            if(todos.size()>=1){
+                milest.setPaintFlags(milest.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            }
+
             row.addView(milest);
             tl.addView(row);
 
@@ -237,20 +233,21 @@ public class TodoSquare extends DreamyActivity {
                 TextView tdtxt = new TextView(this);
                 tdtxt.setGravity(Gravity.CENTER);
                 tdtxt.setText("No Task");
+                tdtxt.setTextColor(Color.parseColor("#FFCCCCCC"));
                 rowtd.addView(tdtxt);
                 tl.addView(rowtd);
             }
             for(Todo td : todos){
-                //result = result + "\n" + td.getText().toString();
                 TableRow rowtd = new TableRow(this);
                 rowtd.setGravity(Gravity.CENTER);
                 TextView tdtxt = new TextView(this);
                 tdtxt.setGravity(Gravity.CENTER);
                 tdtxt.setText(td.getText().toString());
                 if(td.getStatus()){
-                    tdtxt.setPaintFlags(tdtxt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    tdtxt.setTextColor(Color.parseColor("#FF22C133"));
+                    //tdtxt.setPaintFlags(tdtxt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 }else{
-                    tdtxt.setPaintFlags(tdtxt.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                    //tdtxt.setPaintFlags(tdtxt.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
                 }
                 rowtd.addView(tdtxt);
                 tl.addView(rowtd);

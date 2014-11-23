@@ -5,7 +5,13 @@
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:focusableInTouchMode="true">
-
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -43,7 +49,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="70dp">
+        android:layout_marginTop="10dp">
 
         <Spinner
             android:id="@+id/DreamSpinner"
@@ -57,8 +63,8 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp">
+        android:layout_marginTop="20dp"
+        android:baselineAligned="false">
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -87,23 +93,6 @@
 
         </RelativeLayout>
     </LinearLayout>
-
-
-
-
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/scrolled"
-        android:layout_alignParentLeft="true"
-        android:fillViewport="false"
-        android:layout_below="@+id/relativeLayout">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/container"></LinearLayout>
-    </ScrollView>
-
+</LinearLayout>
+</ScrollView>
 </RelativeLayout>
