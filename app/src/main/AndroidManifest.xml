@@ -75,6 +75,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".TodoSquare"></activity>
+
         <activity
             android:name=".Notes"
             android:label="@string/app_name"

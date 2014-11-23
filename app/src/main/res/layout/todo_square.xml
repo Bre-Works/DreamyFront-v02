@@ -5,7 +5,13 @@
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:focusableInTouchMode="true">
-
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -21,8 +27,7 @@
                 android:layout_height="wrap_content"
                 android:text="List"
                 android:id="@+id/listbutton"
-                android:onClick="gotoSquare"
-                android:clickable="false"/>
+                android:onClick="gotoList"/>
 
         </RelativeLayout>
         <RelativeLayout
@@ -35,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:text="Square"
                 android:id="@+id/squarebutton"
-                android:onClick="gotoSquare"></Button>
+                android:onClick="gotoSquare"
+                android:clickable="false"></Button>
         </RelativeLayout>
     </LinearLayout>
 
@@ -43,67 +49,50 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="70dp">
+        android:layout_marginTop="10dp">
 
         <Spinner
             android:id="@+id/DreamSpinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-        />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="120dp"
-        android:id="@+id/linearLayout">
-
-        <Spinner
-            android:id="@+id/MilestoneSpinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             />
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="220dp"
-        android:id="@+id/relativeLayout">
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/Inputted"
-            android:singleLine="true"
-            android:autoText="true"
-            android:hint="What do you want to do ?" />
-
-    </RelativeLayout>
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/scrolled">
-
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/scrolled"
-        android:layout_alignParentLeft="true"
-        android:fillViewport="false"
-        android:layout_below="@+id/relativeLayout">
+        android:layout_marginTop="20dp"
+        android:baselineAligned="false">
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <LinearLayout
+                android:id="@+id/listLayout"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerHorizontal="true">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/container"></LinearLayout>
-    </ScrollView>
+            </LinearLayout>
 
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <LinearLayout
+                android:id="@+id/listLayout2"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
+</ScrollView>
 </RelativeLayout>

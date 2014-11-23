@@ -9,6 +9,7 @@
         android:title="Log out"
         android:showAsAction="collapseActionView"/>
 
+<<<<<<< HEAD
     <item android:id="@+id/action_volley"
         android:title="Volley"
         android:showAsAction="collapseActionView"/>
@@ -22,8 +23,17 @@
         android:showAsAction="collapseActionView"/>
 
     <!--<item android:id="@+id/action_todolist"
+=======
+    <item android:id="@+id/action_main"
+        android:title="Main"
+        android:icon="@drawable/homeactive"
+        android:showAsAction="always"/>
+
+    <item android:id="@+id/action_todolist"
+>>>>>>> origin/ReadyToPublish
         android:title="To Do List"
         android:icon="@drawable/todoactive"
-        android:showAsAction="always"/>-->
+        android:showAsAction="always"/>
+
 
 </menu>
