@@ -33,10 +33,10 @@ import java.util.List;
 public class HttpHelper {
 
     private String TAG = this.getClass().getSimpleName();
-    String AccountUrl = "http://dreamy-server.herokuapp.com/api/accounts";
+    static String AccountUrl = "http://dreamy-server.herokuapp.com/api/accounts";
     String LogUrl = "http://dreamy-server.herokuapp.com/api/logs";
 
-    public static String POSTtoAccount(String url, Person person){
+    public static String POSTtoAccount(Person person){
         InputStream inputStream = null;
         String result = "";
         try {
@@ -44,7 +44,7 @@ public class HttpHelper {
             HttpClient httpclient = new DefaultHttpClient();
 
             // 2. make POST request to the given URL
-            HttpPost httpPost = new HttpPost(url);
+            HttpPost httpPost = new HttpPost(AccountUrl);
             String json = "";
 
             // 3. build jsonObject
