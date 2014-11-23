@@ -8,8 +8,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +19,7 @@ import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.dreamyAccount;
+import com.breworks.dreamy.SessionManager;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -27,16 +27,24 @@ import java.security.spec.InvalidKeySpecException;
 public class logIn extends DreamyActivity {
     EditText usernameInput, passwordInput;
     public static Activity loginpage;
-    public static final String MyPREFERENCES = "DreamyPrefs" ;
-    String username, password;
-    SharedPreferences sharedPref;
 
+    SessionManager session;
+
+    String username, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         loginpage = this;
 
-        sharedPref = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        session = new SessionManager(getApplicationContext());
+
+        //Check if there are login user or not
+            if (session.isLoggedIn()) {
+                Intent intent = new Intent(this, Main.class);
+                Log.e("rightThere", String.valueOf(session.isLoggedIn()));
+                startActivity(intent);
+                finish();
+            }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_in);
@@ -45,11 +53,12 @@ public class logIn extends DreamyActivity {
         Log.e("pol", "TEST");
 
         //Populate Data
-
         dreamyAccount ac1 = null;
         dreamyAccount ac2 = null;
         dreamyAccount ac3 = null;
+         /*
         try {
+            dreamyAccount.deleteAll(dreamyAccount.class);
             ac1 = dreamyAccount.createAccount("a@123.com", "a", "123");
             ac2 = dreamyAccount.createAccount("om@omi.com", "OMi", "123456");
             ac3 = dreamyAccount.createAccount("om@omu.com", "OMu", "123456");
@@ -65,16 +74,16 @@ public class logIn extends DreamyActivity {
             Dream.createDream("Around the World", true, ac1);
 
             Milestone.deleteAll(Milestone.class);
-            Milestone mil1 = Milestone.createMilestone("Finish Database", true, dr1);
-            Milestone.createMilestone("Finish UI", true, dr1);
-            Milestone.createMilestone("Finish BackEnd", true, dr1);
-            Milestone.createMilestone("Finish FrontEnd", true, dr1);
+            Milestone mil1 = Milestone.createMilestone("Finish Database", false, dr1);
+            Milestone.createMilestone("Finish UI", false, dr1);
+            Milestone.createMilestone("Finish BackEnd", false, dr1);
+            Milestone.createMilestone("Finish FrontEnd", false, dr1);
 
         } catch (InvalidKeySpecException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-        }
+        }*/
 
         usernameInput = (EditText) findViewById(R.id.usernameInput);
         passwordInput = (EditText) findViewById(R.id.passwordInput);
@@ -103,10 +112,8 @@ public class logIn extends DreamyActivity {
                 if (authentication(password, userPass) == true) {
                     Intent intent = new Intent(this, Main.class);
                     startActivity(intent);
-                    SharedPreferences.Editor editor = sharedPref.edit();
 
-                    editor.putLong("DreamID",acc.getId());
-                    editor.commit();
+                    session.createLoginSession(acc.getUsername(), acc.getId());
 
                     finish();
                 }
@@ -122,6 +129,7 @@ public class logIn extends DreamyActivity {
     public static boolean authentication(String password, String userPass) throws InvalidKeySpecException, NoSuchAlgorithmException {
         return PasswordHash.validatePassword(password, userPass);
     }
+
 
     public void goToMain(View vi) {
         Intent intent = new Intent(this, Main.class);

@@ -15,8 +15,7 @@
             android:id="@+id/icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/dreamlogo"
-            android:layout_gravity="center" />
+            android:src="@drawable/mileslogo" />
 
     </LinearLayout>
 
@@ -26,7 +25,7 @@
         android:layout_height="fill_parent">
 
         <TextView
-            android:id="@+id/dreamArray"
+            android:id="@+id/milesArray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"

@@ -1,12 +1,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Main" >
-    <item android:id="@+id/action_settings"
+    <!--item android:id="@+id/action_settings"
         android:title="@string/action_settings"
-        android:icon="@drawable/nextbutton"/>
+        android:showAsAction="collapseActionView"/>-->
 
     <item android:id="@+id/action_logout"
         android:title="Log out"
-        android:icon="@drawable/nextbutton"/>
+        android:showAsAction="collapseActionView"/>
+
+    <item android:id="@+id/action_volley"
+        android:title="Volley"
+        android:showAsAction="collapseActionView"/>
+
+    <item android:id="@+id/action_volley2"
+        android:title="Volley2"
+        android:showAsAction="collapseActionView"/>
+
+    <item android:id="@+id/action_testPost"
+        android:title="Test Post"
+        android:showAsAction="collapseActionView"/>
+
+    <!--<item android:id="@+id/action_todolist"
+        android:title="To Do List"
+        android:icon="@drawable/todoactive"
+        android:showAsAction="always"/>-->
 
 </menu>

@@ -6,8 +6,7 @@
     android:clickable="false"
     android:focusableInTouchMode="false"
     android:focusable="false"
-    android:longClickable="false"
-    android:background="@drawable/bgportrait">
+    android:longClickable="false">
 
     <!--<ImageView
         android:id="@+id/bg"
@@ -18,10 +17,20 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/adddreamButton">
+        android:layout_height="fill_parent">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/adddreamButton"
+            android:layout_toEndOf="@+id/textAdd"
+            android:background="@drawable/adddream"
+            android:onClick="gotoDreamyForm"
+            android:layout_below="@+id/textAdd"
+            android:layout_toRightOf="@+id/textAdd" />
 
         <ScrollView
+            android:layout_marginTop="50dp"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/scrolled"
@@ -31,29 +40,15 @@
             android:layout_alignParentStart="true"
             android:paddingTop="5dp">
 
-            <GridLayout
+            <LinearLayout
+                android:id="@+id/listLayout"
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="1"
-                android:id="@+id/grid"
-                android:columnCount="1"
-                android:layout_below="@+id/adddreamButton">
-
-
-            </GridLayout>
+                android:layout_height="fill_parent"
+                android:layout_centerHorizontal="true"/>
         </ScrollView>
-    </RelativeLayout>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/adddreamButton"
-        android:layout_toEndOf="@+id/textAdd"
-        android:background="@drawable/adddream"
-        android:onClick="gotoDreamyForm"
-        android:layout_below="@+id/textAdd"
-        android:layout_toRightOf="@+id/textAdd" />
+    </RelativeLayout>
 
     <AdapterViewFlipper
         android:layout_width="wrap_content"

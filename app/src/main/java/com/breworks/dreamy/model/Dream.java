@@ -13,7 +13,7 @@ public class Dream extends SugarRecord<Dream>{
     boolean dreamStatus;
 
     //build the relationship
-    dreamyAccount account;
+    String account;
 
     // constructors
     public Dream() {
@@ -22,7 +22,7 @@ public class Dream extends SugarRecord<Dream>{
     public Dream(String name, boolean status,dreamyAccount acc) {
         this.dreamName = name;
         this.dreamStatus = status;
-        this.account = acc;
+        this.account = acc.getId().toString();
     }
 
     public String getName(){
@@ -53,6 +53,11 @@ public class Dream extends SugarRecord<Dream>{
             return dr.get(0);
         }
         else return null;
+    }
+
+    public static List<Dream> searchByUser(dreamyAccount acc) {
+        List<Dream> dr  = Dream.findWithQuery(Dream.class,"Select * from Dream Where account = ?", acc.getId().toString());
+        return dr;
     }
 
     @Override

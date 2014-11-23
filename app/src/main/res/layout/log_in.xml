@@ -44,7 +44,8 @@
             android:layout_marginTop="40dp"
             android:layout_below="@+id/textTitle"
             android:layout_centerHorizontal="true"
-            android:typeface="sans" />
+            android:typeface="sans"
+            android:singleLine="true" />
 
         <EditText
             android:layout_width="200dp"
@@ -57,12 +58,17 @@
             android:layout_below="@+id/usernameInput"
             android:layout_alignLeft="@+id/usernameInput"
             android:layout_alignStart="@+id/usernameInput"
-            android:typeface="sans" />
+            android:typeface="sans"
+            android:singleLine="true" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             android:background="@android:color/transparent"
+=======
+            android:background="@drawable/btn_white"
+>>>>>>> volley
             android:text="Login"
             android:id="@+id/signin"
             android:onClick="loginAccount"
@@ -71,6 +77,7 @@
             android:typeface="sans" />
 
     </RelativeLayout>
+<<<<<<< HEAD
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -79,6 +86,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
+=======
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_white"
+>>>>>>> volley
         android:text="Sign Up"
         android:id="@+id/signup"
         android:onClick="goToSignUp"

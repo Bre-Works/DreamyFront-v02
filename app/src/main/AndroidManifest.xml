@@ -32,7 +32,7 @@
         </activity>
 
         <activity
-            android:theme="@android:style/Theme.Holo.Light.Dialog"
+            android:theme="@style/DialogWithCorners"
             android:name=".signUp" >
         </activity>
 
@@ -58,6 +58,15 @@
         <activity android:name=".DreamyFormUpdate" />
 
         <activity android:name=".ToDoList"
+            android:label="@string/app_name"
+            android:launchMode="standard">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ToDoListNew"
             android:label="@string/app_name"
             android:launchMode="standard">
             <intent-filter>
@@ -92,7 +101,24 @@
             android:label="@string/app_name" >
         </activity>
 
+        <activity
+            android:name=".VolleyTest"
+            android:label="@string/app_name" >
+        </activity>
+
+        <activity
+            android:name=".VolleyTest2"
+            android:label="@string/app_name" >
+        </activity>
+
+        <activity
+            android:name=".HttpPosting"
+            android:label="@string/app_name" >
+        </activity>
+
 
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
 </manifest>
