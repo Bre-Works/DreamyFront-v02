@@ -380,10 +380,4 @@ public class ToDoList extends DreamyActivity {
             }
         });
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> volley
-
-
 }

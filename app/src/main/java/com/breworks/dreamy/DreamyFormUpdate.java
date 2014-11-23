@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -17,12 +16,6 @@ import android.widget.LinearLayout;
 
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
-<<<<<<< HEAD
-import com.breworks.dreamy.model.dreamyAccount;
-import com.orm.query.Condition;
-import com.orm.query.Select;
-=======
->>>>>>> volley
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +31,6 @@ public class DreamyFormUpdate extends Activity{
     EditText dreamInput;
     SessionManager session;
     Dream dreamMain;
-
-    List<String> mils = new ArrayList<String>();
 
     List<String> mils = new ArrayList<String>();
 
@@ -73,11 +64,8 @@ public class DreamyFormUpdate extends Activity{
                 }
             });
 
-<<<<<<< HEAD
-=======
             List<Milestone> miles = Milestone.searchByDream(dr);
 
->>>>>>> volley
             Log.e("lol1", String.valueOf(dr.getId()));
 
             for (final Milestone mil : miles) {
@@ -90,28 +78,22 @@ public class DreamyFormUpdate extends Activity{
 
                 CheckBox milestoneOut = (CheckBox) addView.findViewById(R.id.milestoneOut);
 
-                final EditText editText = (EditText) addView.findViewById(R.id.Inputted);
-
-                editText.setText(mil.getName());
-
                 if(mil.getStatus()){
                     milestoneOut.setChecked(true);
-                    editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 }
 
                 milestoneOut.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        if (((CheckBox) v).isChecked()) {
+                        if (((CheckBox) v).isChecked())
                             mil.setStatus(true);
-                            editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                        }
-                        else {
+                        else
                             mil.setStatus(false);
-                            editText.setPaintFlags(editText.getPaintFlags() & ~ Paint.STRIKE_THRU_TEXT_FLAG);
-                        }
                     }
                 });
 
+                final EditText editText = (EditText) addView.findViewById(R.id.Inputted);
+
+                editText.setText(mil.getName());
 
                 editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                     @Override
@@ -124,11 +106,6 @@ public class DreamyFormUpdate extends Activity{
                     }
                 });
 
-<<<<<<< HEAD
-                milestoneOut.setText(mil.getName());
-
-=======
->>>>>>> volley
                 removeMilestone.setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -167,8 +144,6 @@ public class DreamyFormUpdate extends Activity{
 
                         final Milestone mil = Milestone.createMilestone(MileInput, false,dreamMain);
 
-                        String MileInput = milestoneInput.getText().toString();
-
                         removeMilestone.setOnClickListener(new View.OnClickListener() {
 
                             @Override
@@ -191,35 +166,10 @@ public class DreamyFormUpdate extends Activity{
         });
     }
 
-    public void removeMile(String mil){
-        List<String> mm = new ArrayList<String>();
-        for(String m : mils){
-            if(!m.equals(mil)){
-                mm.add(m);
-                continue;
-            }
-        }
-        mils = mm;
-    }
-
     public void saveBackToHome(View v){
         Intent intent = new Intent(this, Main.class);
-<<<<<<< HEAD
-        String dreamName = dreamInput.getText().toString();
-
-        dreamyAccount dr = dreamyAccount.findById(dreamyAccount.class, sharedPref.getLong("DreamID",0));
-        Dream dream = Dream.createDream(dreamName,false,dr);
-
-        if(!dreamName.equals("")){
-            for(String m : mils){
-                Milestone.createMilestone(m,false,dream);
-            }
-        }
-        startActivity(intent);
-=======
         startActivity(intent);
         getCurrentFocus().clearFocus();
->>>>>>> volley
         finish();
     }
 
@@ -232,4 +182,3 @@ public class DreamyFormUpdate extends Activity{
         finish();
     }
 }
-

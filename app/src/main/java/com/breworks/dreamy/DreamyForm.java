@@ -18,11 +18,6 @@ import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.dreamyAccount;
 
 import java.util.ArrayList;
-<<<<<<< HEAD
-import java.util.Hashtable;
-import java.util.LinkedList;
-=======
->>>>>>> volley
 import java.util.List;
 
 /**
@@ -57,13 +52,7 @@ public class DreamyForm extends Activity {
 
             milestoneInput.setOnKeyListener(new View.OnKeyListener() {
 
-<<<<<<< HEAD
-        int i = 0;
-
-        milestoneInput.setOnKeyListener(new View.OnKeyListener() {
-=======
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
->>>>>>> volley
 
                     if (event.getAction() == KeyEvent.ACTION_DOWN) {
                         if (keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -78,29 +67,12 @@ public class DreamyForm extends Activity {
 
                             final EditText editText = (EditText) addView.findViewById(R.id.Inputted);
 
-<<<<<<< HEAD
-                        final String MileInput = milestoneInput.getText().toString();
-
-                        milestoneOut.setText(MileInput);
-                        miles.add(MileInput);
-=======
                             final String MileInput = milestoneInput.getText().toString();
->>>>>>> volley
 
                             editText.setText(MileInput);
                             miles.add(MileInput);
 
-<<<<<<< HEAD
-                            @Override
-                            public void onClick(View v1) {
-                                ((LinearLayout) addView.getParent()).removeView(addView);
-                                removeMile(MileInput);
-
-                            }
-                        });
-=======
                             removeMilestone.setOnClickListener(new View.OnClickListener() {
->>>>>>> volley
 
                                 @Override
                                 public void onClick(View v1) {
@@ -109,11 +81,8 @@ public class DreamyForm extends Activity {
                                 }
                             });
 
-<<<<<<< HEAD
-=======
                             container.addView(addView);
                             milestoneInput.setText("");
->>>>>>> volley
 
 
                             return true;
@@ -121,31 +90,17 @@ public class DreamyForm extends Activity {
                     }
                     return false;
                 }
-<<<<<<< HEAD
-                return false;
-            }
-        });}
-        catch(Exception e){
-=======
             });
         } catch (Exception e) {
->>>>>>> volley
             Log.e("error", String.valueOf(e));
         }
 
     }
 
-<<<<<<< HEAD
-    public void removeMile(String mil){
-        List<String> mm = new ArrayList<String>();
-        for(String m : miles){
-            if(!m.equals(mil)){
-=======
     public void removeMile(String mil) {
         List<String> mm = new ArrayList<String>();
         for (String m : miles) {
             if (!m.equals(mil)) {
->>>>>>> volley
                 mm.add(m);
                 continue;
             }
@@ -154,11 +109,7 @@ public class DreamyForm extends Activity {
     }
 
 
-<<<<<<< HEAD
-    public void saveBackToHome(View v){
-=======
     public void saveBackToHome(View v) {
->>>>>>> volley
         Intent intent = new Intent(this, Main.class);
         String dreamName = dreamInput.getText().toString();
 
