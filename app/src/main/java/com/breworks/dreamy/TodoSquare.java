@@ -53,6 +53,7 @@ import static android.widget.Toast.LENGTH_SHORT;
  */
 public class TodoSquare extends DreamyActivity {
 
+    public static Activity ts;
     SessionManager session;
     int selectedDreamIndex = 0;
     int selectedMilesIndex = 0;
@@ -73,6 +74,7 @@ public class TodoSquare extends DreamyActivity {
         session = new SessionManager(getApplicationContext());
         dreamyAccount login = session.getUser();
         setContentView(R.layout.todo_square);
+        ts = this;
 
         // DREAMS
         // get dream from database
@@ -102,8 +104,6 @@ public class TodoSquare extends DreamyActivity {
                         Log.e("Choose dream index ", String.valueOf(i));
                         selectedDreamIndex = i;
                         Log.e("index saved ", String.valueOf(selectedDreamIndex));
-                        layout.removeAllViewsInLayout();
-                        layout2.removeAllViewsInLayout();
                         checkDreamIndex(dreamList, dreamId);
                     }
 
@@ -169,7 +169,10 @@ public class TodoSquare extends DreamyActivity {
         }
     }
 
-    public void milestonesSetUp(Dream dr) {
+    public void milestonesSetUp(final Dream dr) {
+        layout.removeAllViewsInLayout();
+        layout2.removeAllViewsInLayout();
+
         // MILESTONES
         // get miles from database
         Log.e("arrive here ", "LOH");
@@ -186,14 +189,14 @@ public class TodoSquare extends DreamyActivity {
         String[] milesList = new String[miles.size()];
         int incM = 0;
 
-        for (Milestone mil : miles) {
+        for (final Milestone mil : miles) {
             Log.e("miles id", String.valueOf(mil.getId()));
             milesId[incM] = mil.getId();
             milesList[incM] = mil.getName();
             List<Todo> todos = Todo.searchByMilestone(mil);
 
             //set up table
-            TableLayout tl = new TableLayout(this);
+            final TableLayout tl = new TableLayout(this);
             TableRow row = new TableRow(this);
             row.setGravity(Gravity.CENTER);
             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.WRAP_CONTENT);
@@ -211,7 +214,7 @@ public class TodoSquare extends DreamyActivity {
             tl.setBackground(rect);
 
             //random color
-            int rand = random();
+            final int rand = random();
             if(rand == 1){
                 ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFE8FAFF"));//blue
             }else if(rand == 2){
@@ -262,7 +265,13 @@ public class TodoSquare extends DreamyActivity {
             tl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getApplicationContext(), milest.getText().toString(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), milest.getText().toString(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(TodoSquare.this, SelectedMiles.class);
+                    intent.putExtra("dream", dr.getId());
+                    intent.putExtra("miles", mil.getId());
+                    intent.putExtra("color", rand);
+                    startActivity(intent);
+                    finish();
                 }
             });
             incM++;
