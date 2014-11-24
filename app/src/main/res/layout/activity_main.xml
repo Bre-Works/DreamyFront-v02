@@ -121,12 +121,12 @@
             android:layout_alignParentStart="true"
             android:paddingTop="5dp">
 
-            <LinearLayout
+            <GridLayout
                 android:id="@+id/listLayout"
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerHorizontal="true" />
         </ScrollView>
 
     </RelativeLayout>
