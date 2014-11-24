@@ -36,13 +36,10 @@ public class signUp extends DreamyActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.sign_up);
-<<<<<<< HEAD
         usernameInput = (EditText) findViewById(R.id.lastAccess);
-=======
-        usernameInput = (EditText) findViewById(R.id.username);
+        //usernameInput = (EditText) findViewById(R.id.username);
         fNameInput = (EditText) findViewById(R.id.firstName);
         lNameInput = (EditText) findViewById(R.id.lastName);
->>>>>>> origin/ReadyToPublish
         emailInput = (EditText) findViewById(R.id.email);
         passwordInput = (EditText) findViewById(R.id.password);
         passwordConfInput = (EditText) findViewById(R.id.passwordConf);

@@ -50,10 +50,10 @@ public class DreamyForm extends Activity {
 
             int i = 0;
 
+
             milestoneInput.setOnKeyListener(new View.OnKeyListener() {
 
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
-
                     if (event.getAction() == KeyEvent.ACTION_DOWN) {
                         if (keyCode == KeyEvent.KEYCODE_ENTER) {
                             LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService

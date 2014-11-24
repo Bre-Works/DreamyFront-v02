@@ -117,7 +117,6 @@ public class Main extends DreamyActivity {
             session.logoutUser();
             finish();
         }
-<<<<<<< HEAD
 
         if (id == R.id.action_volley) {
             Intent intent = new Intent(this, VolleyTest.class);
@@ -142,8 +141,6 @@ public class Main extends DreamyActivity {
         //    startActivity(intent);
         //    finish();
         //}
-=======
->>>>>>> origin/ReadyToPublish
 
         return super.onOptionsItemSelected(item);
     }

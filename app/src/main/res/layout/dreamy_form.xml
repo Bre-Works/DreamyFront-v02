@@ -67,6 +67,7 @@
         android:hint="add your milestones"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:width="200dp"
+        android:singleLine="true"
         android:layout_marginTop="30dp"
         android:layout_below="@+id/dreamInput"
         android:layout_alignParentLeft="true"

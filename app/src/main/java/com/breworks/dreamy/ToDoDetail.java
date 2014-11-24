@@ -3,16 +3,21 @@ package com.breworks.dreamy;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -37,11 +42,13 @@ public class ToDoDetail extends DreamyActivity {
     int minute;
     Calendar calendar;
     Date taskDeadline;
+    Date theDeadline;
     long taskID;
 
     EditText dateField;
     EditText timeField;
     TextView taskText;
+    Switch notificationSwitch;
 
 
     protected void onCreate(Bundle savedInstanceState){
@@ -50,6 +57,8 @@ public class ToDoDetail extends DreamyActivity {
         dateField = (EditText) findViewById(R.id.dateField);
         timeField = (EditText) findViewById(R.id.timeField);
         taskText = (TextView) findViewById(R.id.taskText);
+        notificationSwitch = (Switch) findViewById(R.id.notification);
+
 
         Intent intent = getIntent();
         taskID = intent.getLongExtra("taskID", 0);
@@ -66,10 +75,12 @@ public class ToDoDetail extends DreamyActivity {
 
 
         taskText.setText(t.getTask(t));
+        theDeadline = t.getDeadline(t);
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        dateField.setText(dateFormat.format(t.getDeadline(t)));
+        dateField.setText(dateFormat.format(theDeadline));
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm ");
-        timeField.setText(timeFormat.format(t.getDeadline(t)));
+        timeField.setText(timeFormat.format(theDeadline));
 
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -113,6 +124,17 @@ public class ToDoDetail extends DreamyActivity {
                 new TimePickerDialog(ToDoDetail.this, time, hour, minute, false).show();
             }
         });;
+
+        notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // If the notification is turned on
+                if (isChecked) {
+                    //If the current date and time match the saved deadline, notify user
+                    if(calendar.getTime().equals(theDeadline)){
+                    }
+                }
+            }
+        });
 
 
 
