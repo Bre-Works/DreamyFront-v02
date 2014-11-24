@@ -1,7 +1,9 @@
 package com.breworks.dreamy;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -11,11 +13,15 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.breworks.dreamy.model.dreamyAccount;
 
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,6 +32,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.GZIPInputStream;
+
+import static android.widget.Toast.*;
 
 /**
  * Created by Ryan Avila on 19/11/2014.
@@ -33,29 +42,49 @@ import java.util.List;
 public class HttpHelper {
 
     private String TAG = this.getClass().getSimpleName();
-    static String AccountUrl = "http://dreamy-server.herokuapp.com/api/accounts";
+    Context _context;
+    String AccountUrl = "http://dreamy-server.herokuapp.com/api/accounts";
     String LogUrl = "http://dreamy-server.herokuapp.com/api/logs";
 
-    public static String POSTtoAccount(Person person){
+    public HttpHelper(){
+    }
+
+    public HttpHelper(Context context){
+        this._context = context;
+    }
+
+    public String POSTtoAccount(dreamyAccount person){
         InputStream inputStream = null;
         String result = "";
+        JSONObject jsonObject = new JSONObject();
+        try{
+            // 3. build jsonObject
+            jsonObject = new JSONObject();
+            jsonObject.accumulate("Username", person.getUsername());
+            Log.e("username", jsonObject.getString("Username"));
+            jsonObject.accumulate("Password", person.getPassword());
+            Log.e("pass", jsonObject.getString("Password"));
+            jsonObject.accumulate("Email", person.getEmail());
+            Log.e("email", jsonObject.getString("Email"));
+            jsonObject.accumulate("firstName", person.getFirstName());
+            Log.e("firstName", jsonObject.getString("firstName"));
+            jsonObject.accumulate("LastName", person.getLastName());
+            Log.e("LastName", jsonObject.getString("LastName"));
+            jsonObject.accumulate("LastAccess", person.getLastAccess());
+            Log.e("LastAccess", jsonObject.getString("LastAccess"));
+            jsonObject.accumulate("id", person.getId());
+            Log.e("id",jsonObject.getString("id"));
+
+        }catch (JSONException ex){
+            Log.e("JSON","Error when building JSON");
+        }
         try {
             // 1. create HttpClient
-            HttpClient httpclient = new DefaultHttpClient();
+            DefaultHttpClient httpclient = new DefaultHttpClient();
 
             // 2. make POST request to the given URL
             HttpPost httpPost = new HttpPost(AccountUrl);
             String json = "";
-
-            // 3. build jsonObject
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.accumulate("Username", person.getUsername());
-            jsonObject.accumulate("Password", person.getPassword());
-            jsonObject.accumulate("Email", person.getEmail());
-            jsonObject.accumulate("firstName", person.getFirstName());
-            jsonObject.accumulate("LastName", person.getLastName());
-            jsonObject.accumulate("LastAccess", person.getLastAccess());
-            jsonObject.accumulate("id", person.getId());
 
             // 4. convert JSONObject to JSON to String
             json = jsonObject.toString();
@@ -83,13 +112,12 @@ public class HttpHelper {
                 result = "Did not work!";
 
         } catch (Exception e) {
-            Log.d("InputStream", e.getLocalizedMessage());
+            Log.e("InputStream",e.toString());
         }
-        // 11. return result
         return result;
     }
 
-    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException{
         BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
         String line = "";
         String result = "";
@@ -98,28 +126,47 @@ public class HttpHelper {
 
         inputStream.close();
         return result;
+
     }
 
-    public accountModel findAccountByName(Context context,String username){
-        List<accountModel>acc = reqAccount(context,AccountUrl+"?filter[where][Username]="+username);
-        if(acc.size() == 0){
+    public void POSTAccount(dreamyAccount dc){
+        new JSONAccount().execute(dc);
+    }
+
+    private class JSONAccount extends AsyncTask<dreamyAccount,Void,String>{
+        @Override
+        protected String doInBackground(dreamyAccount... dc) {
+
+            return POSTtoAccount(dc[0]);
+        }
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(String result) {
+            Log.e("DATA SENT","SENT LHO YA");
+        }
+
+    }
+
+    public dreamyAccount findAccountByUserName(String username){
+        List<dreamyAccount>acc = reqAccount(AccountUrl+"?filter[where][Username]="+username);
+        if(acc.size() != 0){
             return acc.get(0);
         }
         return null;
     }
 
-    public accountModel findAccountByID(Context context, int id){
-        List<accountModel> acc = reqAccount(context,AccountUrl+"?filter[where][id]="+id);
-        if(acc.size() == 0){
+    public dreamyAccount findAccountByID(Long id){
+        List<dreamyAccount> acc = reqAccount(AccountUrl+"?filter[where][id]="+id);
+        if(acc.size() != 0){
             return acc.get(0);
         }
         return null;
     }
 
-    public List<accountModel> reqAccount(Context context,String url){
+    public List<dreamyAccount> reqAccount(String url){
         RequestQueue queue;
-        queue =  Volley.newRequestQueue(context);
-        final List<accountModel> result = new ArrayList<accountModel>();
+        queue =  Volley.newRequestQueue(_context);
+        final List<dreamyAccount> result = new ArrayList<dreamyAccount>();
                 JsonArrayRequest req = new JsonArrayRequest(url,
                         new Response.Listener<JSONArray>() {
                             @Override
@@ -138,14 +185,14 @@ public class HttpHelper {
         return result;
     }
 
-    private void parseJSONtoAccount(JSONArray response,List<accountModel> acc){
+    private void parseJSONtoAccount(JSONArray response,List<dreamyAccount> acc){
         try{
             for (int i = 0; i < response.length(); i++) {
 
                 JSONObject person = (JSONObject) response
                         .get(i);
 
-                accountModel am = new accountModel();
+                dreamyAccount am = new dreamyAccount();
 
                 am.setFirstName(person.getString("firstName"));
                 Log.e("firstName",person.getString("firstName"));
@@ -156,7 +203,7 @@ public class HttpHelper {
 
                 am.setPassword(person.getString("Password"));
                 am.setEmail(person.getString("Email"));
-                am.setId(person.getInt("id"));
+                am.setId(person.getLong("id"));
                 Log.e("ID", String.valueOf(am.getId()));
 
                 am.setLastAccess(person.getString("LastAccess"));

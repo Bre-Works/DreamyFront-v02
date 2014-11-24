@@ -19,6 +19,8 @@ import android.widget.ImageView;
 
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
+import com.breworks.dreamy.model.Milestone;
+import com.breworks.dreamy.model.Todo;
 import com.breworks.dreamy.model.dreamyAccount;
 import com.breworks.dreamy.tabpanel.MyTabHostProvider;
 import com.breworks.dreamy.tabpanel.TabHostProvider;
@@ -108,32 +110,13 @@ public class Main extends DreamyActivity {
             //setContentView(R.layout.layoutname);
         }
         */
-        if (id == R.id.action_todolist) {
-            Intent intent = new Intent(this, TodoSquare.class);
-            startActivity(intent);
-            finish();
-        }
+
         if (id == R.id.action_logout) {
             session.logoutUser();
-            finish();
-        }
-<<<<<<< HEAD
-
-        if (id == R.id.action_volley) {
-            Intent intent = new Intent(this, VolleyTest.class);
-            startActivity(intent);
-            finish();
-        }
-
-        if (id == R.id.action_volley2) {
-            Intent intent = new Intent(this, VolleyTest2.class);
-            startActivity(intent);
-            finish();
-        }
-
-        if (id == R.id.action_testPost) {
-            Intent intent = new Intent(this, HttpPosting.class);
-            startActivity(intent);
+            dreamyAccount.deleteAll(dreamyAccount.class);
+            Dream.deleteAll(Dream.class);
+            Todo.deleteAll(Todo.class);
+            Milestone.deleteAll(Milestone.class);
             finish();
         }
 
@@ -142,8 +125,7 @@ public class Main extends DreamyActivity {
         //    startActivity(intent);
         //    finish();
         //}
-=======
->>>>>>> origin/ReadyToPublish
+
 
         return super.onOptionsItemSelected(item);
     }
