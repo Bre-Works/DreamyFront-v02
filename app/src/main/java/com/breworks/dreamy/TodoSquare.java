@@ -147,11 +147,11 @@ public class TodoSquare extends DreamyActivity {
             session.logoutUser();
             finish();
         }
-        if (id == R.id.action_main) {
-            Intent intent = new Intent(this, Main.class);
-            startActivity(intent);
-            finish();
-        }
+//        if (id == R.id.action_main) {
+//            Intent intent = new Intent(this, Main.class);
+//            startActivity(intent);
+//            finish();
+//        }
 
         return super.onOptionsItemSelected(item);
     }

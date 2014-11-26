@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Time :"
-        android:id="@+id/lastAccess"
+        android:id="@+id/username"
         android:layout_toEndOf="@+id/bigUsername"
         android:layout_below="@+id/bigUsername"
         android:layout_alignLeft="@+id/bigUsername"
@@ -46,7 +46,7 @@
         android:inputType="date"
         android:ems="10"
         android:id="@+id/dateField"
-        android:layout_toEndOf="@+id/lastAccess"
+        android:layout_toEndOf="@+id/username"
         android:layout_below="@+id/bigUsername"
         android:layout_alignLeft="@+id/bigUsername"
         android:layout_alignStart="@+id/bigUsername" />
@@ -57,9 +57,9 @@
         android:inputType="time"
         android:ems="10"
         android:id="@+id/timeField"
-        android:layout_below="@+id/lastAccess"
-        android:layout_alignLeft="@+id/lastAccess"
-        android:layout_alignStart="@+id/lastAccess" />
+        android:layout_below="@+id/username"
+        android:layout_alignLeft="@+id/username"
+        android:layout_alignStart="@+id/username" />
 
     <Switch
         android:layout_width="wrap_content"

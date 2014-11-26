@@ -53,7 +53,7 @@
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/lastAccess"
+            android:id="@+id/username"
             android:layout_column="2"
             android:hint="username"
             android:layout_below="@+id/email"
@@ -87,7 +87,7 @@
             android:layout_column="2"
             android:hint="password"
             android:inputType="textPassword"
-            android:layout_below="@+id/lastAccess"
+            android:layout_below="@+id/username"
             android:textSize="18dp"
             android:autoText="false"
             android:typeface="sans"/>

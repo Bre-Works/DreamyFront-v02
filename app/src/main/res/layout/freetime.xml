@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="FREE TIME IDEAS"
-            android:id="@+id/lastAccess"
+            android:id="@+id/username"
             android:layout_below="@+id/titleagain"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="106dp"
