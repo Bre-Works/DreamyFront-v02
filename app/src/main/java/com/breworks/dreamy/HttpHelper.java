@@ -146,22 +146,6 @@ public class HttpHelper {
 
     }
 
-    public dreamyAccount findAccountByUserName(String username){
-        List<dreamyAccount>acc = reqAccount(AccountUrl+"?filter[where][Username]="+username);
-        if(acc.size() != 0){
-            return acc.get(0);
-        }
-        return null;
-    }
-
-    public dreamyAccount findAccountByID(Long id){
-        List<dreamyAccount> acc = reqAccount(AccountUrl+"?filter[where][id]="+id);
-        if(acc.size() != 0){
-            return acc.get(0);
-        }
-        return null;
-    }
-
     public List<dreamyAccount> reqAccount(String url){
         RequestQueue queue;
         queue =  Volley.newRequestQueue(_context);
@@ -216,5 +200,24 @@ public class HttpHelper {
                     "Error: " + e.getMessage());
         }
     }
+
+    // Usable Code
+    public dreamyAccount findAccountByUserName(String username){
+        List<dreamyAccount>acc = reqAccount(AccountUrl+"?filter[where][Username]="+username);
+        if(acc.size() != 0){
+            return acc.get(0);
+        }
+        return null;
+    }
+
+    public dreamyAccount findAccountByID(Long id){
+        List<dreamyAccount> acc = reqAccount(AccountUrl+"?filter[where][id]="+id);
+        if(acc.size() != 0){
+            return acc.get(0);
+        }
+        return null;
+    }
+
+
 
 }

@@ -31,6 +31,8 @@ public class logIn extends DreamyActivity {
 
     SessionManager session;
 
+    HttpHelper httphelper;
+
     String username, password;
 
     Calendar cal = Calendar.getInstance();
@@ -42,6 +44,7 @@ public class logIn extends DreamyActivity {
         loginpage = this;
 
         session = new SessionManager(getApplicationContext());
+        httphelper = new HttpHelper(getApplicationContext());
 
         //Check if there are login user or not
             if (session.isLoggedIn()) {
@@ -99,16 +102,23 @@ public class logIn extends DreamyActivity {
         password = passwordInput.getText().toString();
         Log.e("pip", username);
         Log.e("pop", password);
+        Log.e("lolali",httphelper.findAccountByUserName(username).getUsername());
 
         try {
-            if (!username.equals("") && dreamyAccount.findByUsername(username) == null) {
+            if (!username.equals("") && httphelper.findAccountByUserName(username) == null) {
                 Toast.makeText(getApplicationContext(), "Username does not exist!", Toast.LENGTH_SHORT).show();
             }
-            if (dreamyAccount.find(dreamyAccount.class, "username = ?", username) != null) {
-                dreamyAccount acc = dreamyAccount.findByUsername(username);
+            if (httphelper.findAccountByUserName(username) != null) {
+                dreamyAccount acc;
+                if(dreamyAccount.findByUsername(username) == null){
+                    acc = httphelper.findAccountByUserName(username);
+                    acc.save();
+                }
+                else {
+                    acc = dreamyAccount.findByUsername(username);
+                }
 
                 String userPass = acc.getPassword();
-
 
                 Log.e("lol", acc.getUsername());
                 Log.e("pass", password);
