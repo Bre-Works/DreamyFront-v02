@@ -68,14 +68,7 @@ public class Main extends DreamyActivity {
         ActionBar actionBar = getActionBar();
         login = session.getUser();
         setContentView(R.layout.activity_main);
-
-<<<<<<< HEAD
-        actionBar.setTitle("Hello, "+ login.getUsername());
-
-        setContentView(R.layout.activity_main);
-=======
         //actionBar.setTitle("Hello, "+ login.getUsername());
->>>>>>> ui-design
         //ImageView bg = (ImageView) findViewById(R.id.bg);
         //bg.setScaleType(ImageView.ScaleType.CENTER_CROP);
         layout = (GridLayout) findViewById(R.id.listLayout);
@@ -112,14 +105,7 @@ public class Main extends DreamyActivity {
         }
 
         Log.d("Reading: ", "Reading all contacts..");
-<<<<<<< HEAD
         List<Dream> dreams = Dream.searchByUser(login);
-=======
-
-        //List<Dream> dreams = Dream.searchByUser(login);
-        List<Dream> dreams = Dream.listAll(Dream.class);
->>>>>>> ui-design
-
         int col = 0, row = 0;
         int colCount = 2;
         int rowCount = (dreams.size() / colCount) + 1;
@@ -192,10 +178,6 @@ public class Main extends DreamyActivity {
             //setContentView(R.layout.layoutname);
         }
         */
-<<<<<<< HEAD
-
-=======
->>>>>>> ui-design
         if (id == R.id.action_logout) {
             session.logoutUser();
             dreamyAccount.deleteAll(dreamyAccount.class);
@@ -204,15 +186,12 @@ public class Main extends DreamyActivity {
             Milestone.deleteAll(Milestone.class);
             finish();
         }
-<<<<<<< HEAD
 
-        //if (id == R.id.action_todolist) {
-        //    Intent intent = new Intent(this, ToDoList.class);
-        //    startActivity(intent);
-        //    finish();
-        //}
-=======
->>>>>>> ui-design
+        if (id == R.id.action_todolist) {
+            Intent intent = new Intent(this, ToDoList.class);
+            startActivity(intent);
+            finish();
+        }
 
         return super.onOptionsItemSelected(item);
     }
