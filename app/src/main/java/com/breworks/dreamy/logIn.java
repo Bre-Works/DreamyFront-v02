@@ -20,6 +20,7 @@ import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.dreamyAccount;
 import com.breworks.dreamy.SessionManager;
+import com.breworks.dreamy.model.Logs;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
