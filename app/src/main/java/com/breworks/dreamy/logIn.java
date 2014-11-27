@@ -20,6 +20,7 @@ import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.dreamyAccount;
 import com.breworks.dreamy.SessionManager;
+import com.breworks.dreamy.model.Logs;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -119,7 +120,16 @@ public class logIn extends DreamyActivity {
                 }
 
                 String userPass = acc.getPassword();
+                //String userID = acc.getUsername();
+                //String accessDate = acc.getAccessDate();
 
+<<<<<<< HEAD
+=======
+                //Logs log = new Logs(userID,accessDate,userID);
+
+                //HttpHelper.POSTtoLogs(log);
+
+>>>>>>> 82f9fccce45fe19a2089ddb3b151399f84b1eead
                 Log.e("lol", acc.getUsername());
                 Log.e("pass", password);
                 Log.e("encpass", acc.getPassword());

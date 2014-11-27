@@ -11,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.breworks.dreamy.model.Logs;
 import com.breworks.dreamy.model.dreamyAccount;
 
 import org.apache.http.Header;
@@ -43,8 +44,8 @@ public class HttpHelper {
 
     private String TAG = this.getClass().getSimpleName();
     Context _context;
-    String AccountUrl = "http://dreamy-server.herokuapp.com/api/accounts";
-    String LogUrl = "http://dreamy-server.herokuapp.com/api/logs";
+    static String AccountUrl = "http://dreamy-server.herokuapp.com/api/accounts";
+    static String LogUrl = "http://dreamy-server.herokuapp.com/api/logs";
 
     public HttpHelper(){
     }
@@ -117,7 +118,58 @@ public class HttpHelper {
         return result;
     }
 
-    private static String convertInputStreamToString(InputStream inputStream) throws IOException{
+    public static String POSTtoLogs (Logs logs){
+        InputStream inputStream = null;
+        String Result = "";
+
+        try {
+            // 1. create HttpClient
+            HttpClient httpclient = new DefaultHttpClient();
+
+            // 2. make POST request to the given URL
+            HttpPost httpPost = new HttpPost(LogUrl);
+            String json = "";
+
+            // 3. build jsonObject
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.accumulate("userID", logs.getUserID());
+            jsonObject.accumulate("accessDate", logs.getAccessDate());
+            jsonObject.accumulate("id", logs.getId());
+
+            // 4. convert JSONObject to JSON to String
+            json = jsonObject.toString();
+
+            // 5. set json to StringEntity
+            StringEntity se = new StringEntity(json);
+
+            // 6. set httpPost Entity
+            httpPost.setEntity(se);
+
+            // 7. Set some headers to inform server about the type of the content
+            httpPost.setHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
+
+            // 8. Execute POST request to the given URL
+            HttpResponse httpResponse = httpclient.execute(httpPost);
+
+            // 9. receive response as inputStream
+            inputStream = httpResponse.getEntity().getContent();
+
+            // 10. convert inputstream to string
+            if(inputStream != null)
+                Result = convertInputStreamToString(inputStream);
+            else
+                Result = "Did not work!";
+
+        } catch (Exception e) {
+            Log.d("InputStream", e.getLocalizedMessage());
+        }
+        // 11. return result
+        return Result;
+
+        }
+
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
         BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
         String line = "";
         String result = "";

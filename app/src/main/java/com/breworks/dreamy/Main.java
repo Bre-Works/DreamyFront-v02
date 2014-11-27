@@ -202,4 +202,11 @@ public class Main extends DreamyActivity {
         finish();
     }
 
+    //just for testing
+    public void gotoTodo(View v) {
+        Intent intent = new Intent(this, ToDoListNew.class);
+        startActivity(intent);
+        finish();
+    }
+
 }
