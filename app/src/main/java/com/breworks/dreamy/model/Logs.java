@@ -1,17 +1,17 @@
 package com.breworks.dreamy.model;
 
-//import com.orm.SugarRecord;
+import java.sql.Timestamp;
 
 public class Logs{
        String userId;
-       String accessDate;
+       Timestamp accessDate;
        String id;
 
         public Logs(){
 
         }
 
-        public Logs(String userId, String accessDate, String id){
+        public Logs(String userId, Timestamp accessDate, String id){
             this.userId = userId;
             this.accessDate = accessDate;
             this.id = id;
@@ -19,7 +19,7 @@ public class Logs{
 
         public String getUserID() {return this.userId;}
 
-        public String getAccessDate() {return this.accessDate;}
+        public Timestamp getAccessDate() {return this.accessDate;}
 
         public String getId() {return this.id;}
 
