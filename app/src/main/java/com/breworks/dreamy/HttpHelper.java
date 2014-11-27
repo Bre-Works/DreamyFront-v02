@@ -35,11 +35,11 @@ public class HttpHelper {
 
     private String TAG = this.getClass().getSimpleName();
     static String AccountUrl = "http://dreamy-server.herokuapp.com/api/accounts";
-<<<<<<< HEAD
+//<<<<<<< HEAD
     static String LogUrl = "http://dreamy-server.herokuapp.com/api/logs";
-=======
-    String LogUrl = "http://dreamy-server.herokuapp.com/api/logs";
->>>>>>> 98f9ae80d0b4754ef8f869c5a958ca5725569d60
+//=======
+    //String LogUrl = "http://dreamy-server.herokuapp.com/api/logs";
+//>>>>>>> 98f9ae80d0b4754ef8f869c5a958ca5725569d60
 
     public static String POSTtoAccount(Person person){
         InputStream inputStream = null;
@@ -94,7 +94,7 @@ public class HttpHelper {
         return result;
     }
 
-    private static String POSTtoLogs (Logs logs){
+    public static String POSTtoLogs (Logs logs){
         InputStream inputStream = null;
         String Result = "";
 

@@ -104,7 +104,12 @@ public class logIn extends DreamyActivity {
                 dreamyAccount acc = dreamyAccount.findByUsername(username);
 
                 String userPass = acc.getPassword();
+                //String userID = acc.getUsername();
+                //String accessDate = acc.getAccessDate();
 
+                //Logs log = new Logs(userID,accessDate,userID);
+
+                //HttpHelper.POSTtoLogs(log);
 
                 Log.e("lol", acc.getUsername());
                 Log.e("pass", password);
