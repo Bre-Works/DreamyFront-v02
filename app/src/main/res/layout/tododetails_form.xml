@@ -61,5 +61,17 @@
         android:layout_alignLeft="@+id/username"
         android:layout_alignStart="@+id/username" />
 
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notification"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/notification"
+        android:checked="false"
+        android:layout_below="@+id/timeField"
+        android:layout_alignLeft="@+id/timeField"
+        android:layout_alignStart="@+id/timeField"
+        android:layout_marginTop="39dp" />
+
 
 </RelativeLayout>

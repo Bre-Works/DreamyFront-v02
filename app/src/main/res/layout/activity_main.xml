@@ -8,12 +8,96 @@
     android:focusable="false"
     android:longClickable="false">
 
-    <!--<ImageView
-        android:id="@+id/bg"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg"/>-->
+        android:id="@+id/blurbg"
+        android:background="@drawable/bgportrait">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/circle"
+            android:id="@+id/imageView2" />
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/circle"
+            android:id="@+id/imageView6"
+            android:layout_above="@+id/imageView7"
+            android:layout_alignLeft="@+id/imageView4"
+            android:layout_alignStart="@+id/imageView4"
+            android:layout_marginBottom="34dp" />
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/circle"
+            android:layout_toEndOf="@+id/imageView2"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/imageView3"
+            android:layout_alignStart="@+id/imageView3"
+            android:id="@+id/imageView7" />
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@drawable/circle"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/imageView3"
+            android:layout_toEndOf="@+id/imageView3"
+            android:layout_marginLeft="48dp"
+            android:layout_marginTop="56dp"
+            android:id="@+id/imageView4" />
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/circle"
+            android:layout_below="@+id/imageView2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="61dp"
+            android:layout_marginTop="118dp"
+            android:id="@+id/imageView3" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/circle"
+            android:id="@+id/imageView8"
+            android:layout_above="@+id/imageView6"
+            android:layout_toLeftOf="@+id/imageView4"
+            android:layout_toStartOf="@+id/imageView4" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/circle"
+            android:id="@+id/imageView11"
+            android:layout_toStartOf="@+id/imageView4"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/imageView3" />
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/circle"
+            android:id="@+id/imageView12"
+            android:layout_alignBottom="@+id/imageView6"
+            android:layout_alignRight="@+id/imageView8"
+            android:layout_alignEnd="@+id/imageView8" />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/circle"
+            android:id="@+id/imageView9"
+            android:layout_toStartOf="@+id/imageView6"
+            android:layout_toEndOf="@+id/imageView2"
+            android:layout_alignBottom="@+id/imageView4"
+            android:layout_alignRight="@+id/imageView3"
+            android:layout_alignEnd="@+id/imageView3" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -23,11 +107,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/adddreamButton"
-            android:layout_toEndOf="@+id/textAdd"
             android:background="@drawable/adddream"
-            android:onClick="gotoDreamyForm"
-            android:layout_below="@+id/textAdd"
-            android:layout_toRightOf="@+id/textAdd" />
+            android:onClick="gotoDreamyForm" />
 
         <ScrollView
             android:layout_marginTop="50dp"
@@ -40,22 +121,21 @@
             android:layout_alignParentStart="true"
             android:paddingTop="5dp">
 
-            <LinearLayout
+            <GridLayout
                 android:id="@+id/listLayout"
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerHorizontal="true" />
         </ScrollView>
 
     </RelativeLayout>
 
-    <AdapterViewFlipper
+    <!--<ImageView
+        android:id="@+id/bg"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/adapterViewFlipper"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_height="fill_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg"/>-->
 
 </RelativeLayout>

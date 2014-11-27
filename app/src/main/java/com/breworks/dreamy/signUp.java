@@ -35,7 +35,6 @@ public class signUp extends DreamyActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.sign_up);
-
         http = new HttpHelper(getApplicationContext());
         usernameInput = (EditText) findViewById(R.id.username);
         fNameInput = (EditText) findViewById(R.id.firstName);
