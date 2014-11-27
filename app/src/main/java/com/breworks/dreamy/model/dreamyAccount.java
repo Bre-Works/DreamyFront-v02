@@ -82,7 +82,6 @@ public class dreamyAccount extends SugarRecord<dreamyAccount> {
         }
         id++;
         return setUniqueID(id);
-
     }
 
     public void updateLastAccess(dreamyAccount acc, Timestamp lastAccess){

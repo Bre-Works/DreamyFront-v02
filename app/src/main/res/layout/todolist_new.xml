@@ -94,16 +94,18 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/scrolled"
+        android:id="@+id/scrolled">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:fillViewport="false"
-        android:layout_below="@+id/relativeLayout">
+        android:layout_below="@+id/relativeLayout"
+        android:id="@+id/container"></LinearLayout>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/container"></LinearLayout>
+
     </ScrollView>
 
 </RelativeLayout>

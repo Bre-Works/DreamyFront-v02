@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -109,6 +110,7 @@ public class ToDoDetail extends DreamyActivity {
 
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                calendar.setTimeInMillis(System.currentTimeMillis());
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 calendar.set(Calendar.MINUTE, minute);
                 taskDeadline = calendar.getTime();
@@ -127,10 +129,16 @@ public class ToDoDetail extends DreamyActivity {
 
         notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Alarm a = new Alarm();
                 // If the notification is turned on
                 if (isChecked) {
-                    //If the current date and time match the saved deadline, notify user
-                    if(calendar.getTime().equals(theDeadline)){
+                    Log.e("The switch is on!", String.valueOf(isChecked));
+                    a.setDeadline(t.getDeadline(t));
+                    a.setAlarm(getApplicationContext());
+                } else{
+                    Log.e("The switch is off!", String.valueOf(isChecked));
+                    if (a!= null) {
+                        a.cancelAlarm(getApplicationContext());
                     }
                 }
             }
