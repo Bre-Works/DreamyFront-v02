@@ -6,10 +6,13 @@ package com.breworks.dreamy;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -22,6 +25,8 @@ import com.breworks.dreamy.model.dreamyAccount;
 import com.breworks.dreamy.SessionManager;
 import com.breworks.dreamy.model.Logs;
 
+import org.apache.http.impl.conn.LoggingSessionInputBuffer;
+
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Calendar;
@@ -33,6 +38,7 @@ public class logIn extends DreamyActivity {
     SessionManager session;
 
     HttpHelper httphelper;
+    ProgressDialog progressDialog;
 
     String username, password;
 
@@ -98,64 +104,90 @@ public class logIn extends DreamyActivity {
         passwordInput = (EditText) findViewById(R.id.passwordInput);
     }
 
+    private class LoggingIn extends AsyncTask<String,Void,String>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(logIn.this,"Please Wait...","Logging In.....");
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                if (!username.equals("") && httphelper.findAccountByUserName(username) == null) {
+                    progressDialog.dismiss();
+                    Looper.prepare();
+                    Toast.makeText(getApplicationContext(), "Username does not exist!", Toast.LENGTH_SHORT).show();
+                    Looper.loop();
+                }
+                dreamyAccount dr = httphelper.findAccountByUserName(username);
+                if (dr != null) {
+                    dreamyAccount acc;
+                    if(dreamyAccount.findByUsername(username) == null){
+                        acc = dr;
+                        dreamyAccount ac = dreamyAccount.getAccount(acc.getEmail(), acc.getUsername(), acc.getFirstName(), acc.getLastName(), currentTimestamp, acc.getPassword());
+                        Log.e("ID BELUM MASUK & GANTI", String.valueOf(acc.getId()));
+                        ac.setId(acc.getId());
+                        ac.save();
+                        Log.e("ID BELUM MASUK", String.valueOf(acc.getId()));
+                    }
+                    else {
+                        acc = dreamyAccount.findByUsername(username);
+                    }
+
+                    String userPass = acc.getPassword();
+                    Log.e("ID DI DATABASE",String.valueOf(dreamyAccount.findByUsername(acc.getUsername()).getId()));
+                    //String userID = acc.getUsername();
+                    //String accessDate = acc.getAccessDate();
+                    //Logs log = new Logs(userID,accessDate,userID);
+
+                    //HttpHelper.POSTtoLogs(log);
+
+
+                    Log.e("lol", acc.getUsername());
+                    Log.e("pass", password);
+                    Log.e("encpass", acc.getPassword());
+
+                    if (authentication(password, userPass) == true) {
+                        acc.updateLastAccess(acc, currentTimestamp);
+
+                        session.createLoginSession(acc.getUsername(), acc.getId());
+                        Log.e("ID MASUK SESSION", String.valueOf(acc.getId()));
+
+                        Intent intent = new Intent(logIn.this, Main.class);
+                        startActivity(intent);
+
+                        finish();
+                    }
+                    else{
+                        progressDialog.dismiss();
+                        Looper.prepare();
+                        Toast.makeText(getApplicationContext(), "Invalid Password!", Toast.LENGTH_SHORT).show();
+                        Looper.loop();
+                    }
+                }
+            }catch(NullPointerException ex){
+                Toast.makeText(getApplicationContext(),"No Username Found",Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Log.e("error", String.valueOf(e));
+            }
+            return null;
+        }
+
+        protected void onPostExecute(){
+            progressDialog.dismiss();
+        }
+
+
+    }
+
     public void loginAccount(View vi) throws InvalidKeySpecException, NoSuchAlgorithmException {
         username = usernameInput.getText().toString();
         password = passwordInput.getText().toString();
         Log.e("pip", username);
         Log.e("pop", password);
-
-        try {
-            if (!username.equals("") && httphelper.findAccountByUserName(username) == null) {
-                Toast.makeText(getApplicationContext(), "Username does not exist!", Toast.LENGTH_SHORT).show();
-            }
-            dreamyAccount dr = httphelper.findAccountByUserName(username);
-            if (dr != null) {
-                dreamyAccount acc;
-                if(dreamyAccount.findByUsername(username) == null){
-                    acc = dr;
-                    dreamyAccount ac = dreamyAccount.getAccount(acc.getEmail(), acc.getUsername(), acc.getFirstName(), acc.getLastName(), currentTimestamp, acc.getPassword());
-                    Log.e("ID BELUM MASUK & GANTI", String.valueOf(acc.getId()));
-                    ac.setId(acc.getId());
-                    ac.save();
-                    Log.e("ID BELUM MASUK", String.valueOf(acc.getId()));
-                }
-                else {
-                    acc = dreamyAccount.findByUsername(username);
-                }
-
-                String userPass = acc.getPassword();
-                Log.e("ID DI DATABASE",String.valueOf(dreamyAccount.findByUsername(acc.getUsername()).getId()));
-                //String userID = acc.getUsername();
-                //String accessDate = acc.getAccessDate();
-                //Logs log = new Logs(userID,accessDate,userID);
-
-                //HttpHelper.POSTtoLogs(log);
-
-
-                Log.e("lol", acc.getUsername());
-                Log.e("pass", password);
-                Log.e("encpass", acc.getPassword());
-
-                if (authentication(password, userPass) == true) {
-                    acc.updateLastAccess(acc, currentTimestamp);
-
-                    session.createLoginSession(acc.getUsername(), acc.getId());
-                    Log.e("ID MASUK SESSION", String.valueOf(acc.getId()));
-
-                    Intent intent = new Intent(this, Main.class);
-                    startActivity(intent);
-
-                    finish();
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "Invalid Password!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }catch(NullPointerException ex){
-            Toast.makeText(getApplicationContext(),"No Username Found",Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Log.e("error", String.valueOf(e));
-        }
+        new LoggingIn().execute();
     }
 
     public static boolean authentication(String password, String userPass) throws InvalidKeySpecException, NoSuchAlgorithmException {
