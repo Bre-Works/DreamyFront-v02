@@ -113,7 +113,7 @@ public class logIn extends DreamyActivity {
                 dreamyAccount acc;
                 if(dreamyAccount.findByUsername(username) == null){
                     acc = dr;
-                    dreamyAccount ac = dreamyAccount.createAccount(acc.getEmail(), acc.getUsername(), acc.getFirstName(), acc.getLastName(), currentTimestamp, acc.getPassword());
+                    dreamyAccount ac = dreamyAccount.getAccount(acc.getEmail(), acc.getUsername(), acc.getFirstName(), acc.getLastName(), currentTimestamp, acc.getPassword());
                     Log.e("ID BELUM MASUK & GANTI", String.valueOf(acc.getId()));
                     ac.setId(acc.getId());
                     ac.save();
