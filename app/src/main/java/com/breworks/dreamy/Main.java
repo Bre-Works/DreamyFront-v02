@@ -69,7 +69,7 @@ public class Main extends DreamyActivity {
         login = session.getUser();
         Log.e("ID MASUK MAIN", String.valueOf(login.getId()));
         setContentView(R.layout.activity_main);
-        //actionBar.setTitle("Hello, "+ login.getUsername());
+        actionBar.setTitle("Hello, "+ login.getUsername());
         //ImageView bg = (ImageView) findViewById(R.id.bg);
         //bg.setScaleType(ImageView.ScaleType.CENTER_CROP);
         layout = (GridLayout) findViewById(R.id.listLayout);
