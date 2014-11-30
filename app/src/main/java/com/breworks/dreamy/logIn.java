@@ -103,16 +103,16 @@ public class logIn extends DreamyActivity {
         password = passwordInput.getText().toString();
         Log.e("pip", username);
         Log.e("pop", password);
-        Log.e("lolali",httphelper.findAccountByUserName(username).getUsername());
 
         try {
             if (!username.equals("") && httphelper.findAccountByUserName(username) == null) {
                 Toast.makeText(getApplicationContext(), "Username does not exist!", Toast.LENGTH_SHORT).show();
             }
-            if (httphelper.findAccountByUserName(username) != null) {
+            dreamyAccount dr = httphelper.findAccountByUserName(username);
+            if (dr != null) {
                 dreamyAccount acc;
                 if(dreamyAccount.findByUsername(username) == null){
-                    acc = httphelper.findAccountByUserName(username);
+                    acc = dr;
                     dreamyAccount ac = dreamyAccount.createAccount(acc.getEmail(), acc.getUsername(), acc.getFirstName(), acc.getLastName(), currentTimestamp, acc.getPassword());
                     Log.e("ID BELUM MASUK & GANTI", String.valueOf(acc.getId()));
                     ac.setId(acc.getId());
@@ -151,6 +151,8 @@ public class logIn extends DreamyActivity {
                     Toast.makeText(getApplicationContext(), "Invalid Password!", Toast.LENGTH_SHORT).show();
                 }
             }
+        }catch(NullPointerException ex){
+            Toast.makeText(getApplicationContext(),"No Username Found",Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Log.e("error", String.valueOf(e));
         }
