@@ -290,4 +290,11 @@ public class TodoSquare extends DreamyActivity {
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, Main.class);
+        startActivity(intent);
+        finish();
+    }
+
 }

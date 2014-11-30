@@ -188,7 +188,13 @@ public class Main extends DreamyActivity {
         }
 
         if (id == R.id.action_todolist) {
-            Intent intent = new Intent(this, ToDoList.class);
+            Intent intent = new Intent(this, TodoSquare.class);
+            startActivity(intent);
+            finish();
+        }
+
+        if (id == R.id.action_createdream) {
+            Intent intent = new Intent(this, DreamyForm.class);
             startActivity(intent);
             finish();
         }
