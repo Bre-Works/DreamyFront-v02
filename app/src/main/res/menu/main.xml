@@ -31,7 +31,6 @@
 
     <item android:id="@+id/action_createdream"
         android:title="add dream"
-        android:icon="@drawable/adddream"
-        android:showAsAction="always"/>
+        android:icon="@drawable/adddream"/>
 
 </menu>
