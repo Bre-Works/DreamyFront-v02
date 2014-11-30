@@ -62,7 +62,7 @@ public class TodoSquare extends DreamyActivity {
     LinearLayout layout2;
 
     long selectedDreams = 0;
-    long selectedMiles = 0;
+    String[] colorPallete ={"#FFFFFFFF","#FFE8FAFF","#FFEDFF6E","#FFEAFFE1"};
 
 
     @Override
@@ -237,11 +237,11 @@ public class TodoSquare extends DreamyActivity {
             //random color
             final int rand = random();
             if(rand == 1){
-                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFE8FAFF"));//blue
+                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor(colorPallete[rand]));//blue
             }else if(rand == 2){
-                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFEDFF6E"));//pus color
+                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor(colorPallete[rand]));//puspita color
             }else{
-                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFEAFFE1"));//green
+                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor(colorPallete[rand]));//green
             }
 
             if(todos.size()>=1){
@@ -268,10 +268,10 @@ public class TodoSquare extends DreamyActivity {
                 tdtxt.setGravity(Gravity.CENTER);
                 tdtxt.setText(td.getText().toString());
                 if(td.getStatus()){
-                    tdtxt.setTextColor(Color.parseColor("#FF22C133"));
-                    //tdtxt.setPaintFlags(tdtxt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    //tdtxt.setTextColor(Color.parseColor("#FF22C133"));
+                    tdtxt.setPaintFlags(tdtxt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 }else{
-                    //tdtxt.setPaintFlags(tdtxt.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                    tdtxt.setPaintFlags(tdtxt.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
                 }
                 rowtd.addView(tdtxt);
                 tl.addView(rowtd);
@@ -290,7 +290,7 @@ public class TodoSquare extends DreamyActivity {
                     Intent intent = new Intent(TodoSquare.this, SelectedMiles.class);
                     intent.putExtra("dream", dr.getId());
                     intent.putExtra("miles", mil.getId());
-                    intent.putExtra("color", rand);
+                    intent.putExtra("color", colorPallete[rand]);
                     startActivity(intent);
                     finish();
                 }
