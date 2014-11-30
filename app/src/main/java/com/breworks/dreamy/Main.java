@@ -127,7 +127,7 @@ public class Main extends DreamyActivity {
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(Main.this, DreamyFormUpdate.class);
+                    Intent intent = new Intent(Main.this, TodoSquare.class);
                     intent.putExtra("key", dr.getId());
                     startActivity(intent);
                     finish();

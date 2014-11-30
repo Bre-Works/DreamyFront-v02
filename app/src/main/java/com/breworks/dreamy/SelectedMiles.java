@@ -46,6 +46,7 @@ public class SelectedMiles extends Activity {
 
     String[] colorsample = {"#FFFFFFFF","#FFE8FAFF","#FFEDFF6E","#FFEAFFE1"};
 
+    long selectedDream = 0;
     long selectedMiles = 0;
 
 
@@ -59,7 +60,9 @@ public class SelectedMiles extends Activity {
         int color = intent.getIntExtra("color",0);
         long dream = intent.getLongExtra("dream", 0);
         long milest = intent.getLongExtra("miles", 0);
+        selectedDream = dream;
         selectedMiles = milest;
+
         Log.e("dream ID!!", String.valueOf(dream));
 
         final Dream dr = Dream.findById(Dream.class, dream);
@@ -204,6 +207,7 @@ public class SelectedMiles extends Activity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, TodoSquare.class);
+        intent.putExtra("key", selectedDream);
         startActivity(intent);
         finish();
     }

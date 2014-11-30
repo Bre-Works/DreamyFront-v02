@@ -43,6 +43,8 @@ import com.breworks.dreamy.tabpanel.MyTabHostProvider;
 import com.breworks.dreamy.tabpanel.TabHostProvider;
 import com.breworks.dreamy.tabpanel.TabView;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -56,10 +58,6 @@ public class TodoSquare extends DreamyActivity {
     public static Activity ts;
     SessionManager session;
     int selectedDreamIndex = 0;
-    int selectedMilesIndex = 0;
-    EditText TodoInput;
-    CheckBox TodoCheck;
-    ImageButton toDetail;
     LinearLayout layout;
     LinearLayout layout2;
 
@@ -75,6 +73,15 @@ public class TodoSquare extends DreamyActivity {
         dreamyAccount login = session.getUser();
         setContentView(R.layout.todo_square);
         ts = this;
+
+        // Data From Main
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if(extras != null) {
+            long dreamInput = intent.getLongExtra("key", 0);
+            selectedDreams = dreamInput;
+            Log.e("dream ID!!", String.valueOf(dreamInput));
+        }
 
         // DREAMS
         // get dream from database
@@ -95,6 +102,16 @@ public class TodoSquare extends DreamyActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 R.layout.todolist_dream, R.id.dreamArray, dreamList);
         SpinnerDream.setAdapter(adapter);
+
+        // set main dreams
+        int indexOfDream = 0;
+        for(int i = 0; i<dreamId.length; i++){
+            if(dreamId[i] == selectedDreams){
+                indexOfDream = i;
+            }
+        }
+        Log.e("THIS ARRAY INDEX!!", String.valueOf(indexOfDream));
+        SpinnerDream.setSelection(indexOfDream);
 
         // spinner dream listener
         SpinnerDream.setOnItemSelectedListener(
