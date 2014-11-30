@@ -57,6 +57,8 @@ public class logIn extends DreamyActivity {
             if (session.isLoggedIn()) {
                 Intent intent = new Intent(this, Main.class);
                 Log.e("rightThere", String.valueOf(session.isLoggedIn()));
+                Logs log = Logs.createLogs(session.getUser().getUsername());
+                httphelper.POSTLogs(log);
                 startActivity(intent);
                 finish();
             }
@@ -155,6 +157,9 @@ public class logIn extends DreamyActivity {
                         session.createLoginSession(acc.getUsername(), acc.getId());
                         Log.e("ID MASUK SESSION", String.valueOf(acc.getId()));
 
+                        Logs log = Logs.createLogs(acc.getUsername());
+                        httphelper.POSTtoLogs(log);
+
                         Intent intent = new Intent(logIn.this, Main.class);
                         startActivity(intent);
 
@@ -178,8 +183,6 @@ public class logIn extends DreamyActivity {
         protected void onPostExecute(){
             progressDialog.dismiss();
         }
-
-
     }
 
     public void loginAccount(View vi) throws InvalidKeySpecException, NoSuchAlgorithmException {

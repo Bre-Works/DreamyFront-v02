@@ -120,7 +120,7 @@ public class HttpHelper {
 
             // 3. build jsonObject
             JSONObject jsonObject = new JSONObject();
-            jsonObject.accumulate("userID", logs.getUserID());
+            jsonObject.accumulate("userID", logs.getUsername());
             jsonObject.accumulate("accessDate", logs.getAccessDate());
             jsonObject.accumulate("id", logs.getId());
 
@@ -183,13 +183,29 @@ public class HttpHelper {
         protected void onPostExecute(String result) {
             Log.e("DATA SENT","SENT LHO YA");
         }
+    }
 
+    public void POSTLogs(Logs lg){
+        new JSONLogs().execute(lg);
+    }
+
+    private class JSONLogs extends AsyncTask<Logs,Void,String>{
+        @Override
+        protected String doInBackground(Logs... lg) {
+
+            return POSTtoLogs(lg[0]);
+        }
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(String result) {
+            Log.e("DATA SENT","SENT LHO YA");
+        }
     }
 
     public ArrayList<dreamyAccount> reqAccount(String url){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String result = getAway(url);
+        String result = getJSONCommand(url);
         ArrayList<dreamyAccount> param = new ArrayList<dreamyAccount>();
         try {
             JSONArray js = new JSONArray(result);
@@ -222,7 +238,7 @@ public class HttpHelper {
         return param;
     }
 
-    public String getAway(String url){
+    public String getJSONCommand(String url){
         HttpGet request = new HttpGet(url);
         HttpResponse response;
         request.setHeader("Accept", "application/json");

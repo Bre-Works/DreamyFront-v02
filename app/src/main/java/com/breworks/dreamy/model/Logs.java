@@ -1,26 +1,42 @@
 package com.breworks.dreamy.model;
 
-import java.sql.Timestamp;
+import com.breworks.dreamy.HttpHelper;
+import com.orm.SugarRecord;
 
-public class Logs{
-       String userId;
-       Timestamp accessDate;
-       String id;
+import java.sql.Timestamp;
+import java.util.Date;
+
+public class Logs extends SugarRecord<Logs>{
+       String username;
+       Date accessDate;
+       String LogId;
+       static HttpHelper http = new HttpHelper();
 
         public Logs(){
-
         }
 
-        public Logs(String userId, Timestamp accessDate, String id){
-            this.userId = userId;
-            this.accessDate = accessDate;
-            this.id = id;
+        public Logs(String username){
+            this.username = username;
+            Date nowadays = new Date();
+            this.accessDate = nowadays;
         }
 
-        public String getUserID() {return this.userId;}
+        public static Logs createLogs(String username){
+            Logs log = new Logs(username);
+            log.save();
+            Logs.setUniqueID(log.getId());
+            return log;
+        }
 
-        public Timestamp getAccessDate() {return this.accessDate;}
+        public String getUsername() {return this.username;}
 
-        public String getId() {return this.id;}
+        public Date getAccessDate() {return this.accessDate;}
 
+        public static long setUniqueID(Long id){
+            if(http.findAccountByID(id)== null){
+                return id;
+            }
+            id++;
+        return setUniqueID(id);
+    }
 }
