@@ -32,6 +32,12 @@ public class dreamyAccount extends SugarRecord<dreamyAccount> {
 
     // constructors
     public dreamyAccount() {
+        email = null;
+        username = null;
+        password = null;
+        firstName = null;
+        lastName = null;
+        tsLastAccess = null;
     }
 
     public dreamyAccount(String email, String username, String firstName, String lastName, Timestamp tsLastAccess, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
@@ -59,9 +65,9 @@ public class dreamyAccount extends SugarRecord<dreamyAccount> {
         return this.firstName;
     }
 
-    public static dreamyAccount createAccount(Context applicationContext, String email, String username, String firstName, String lastName, Timestamp tsLastAccess, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
+    public static dreamyAccount createAccount(String email, String username, String firstName, String lastName, Timestamp tsLastAccess, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
         dreamyAccount account = new dreamyAccount(email, username, firstName, lastName, tsLastAccess, password);
-        http = new HttpHelper(applicationContext);
+        http = new HttpHelper();
         account.save();
         account.setId(setUniqueID(account.getId()));
         account.save();

@@ -35,7 +35,7 @@ public class signUp extends DreamyActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.sign_up);
-        http = new HttpHelper(getApplicationContext());
+        http = new HttpHelper();
         usernameInput = (EditText) findViewById(R.id.username);
         fNameInput = (EditText) findViewById(R.id.firstName);
         lNameInput = (EditText) findViewById(R.id.lastName);
@@ -75,7 +75,7 @@ public class signUp extends DreamyActivity {
                                 java.util.Date cDate = cal.getTime();
                                 java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(cDate.getTime());
                                 Log.e("timestamp", String.valueOf(currentTimestamp));
-                                dreamyAccount dc = dreamyAccount.createAccount(getApplicationContext(),email, username, firstName, lastName, currentTimestamp, password);
+                                dreamyAccount dc = dreamyAccount.createAccount(email, username, firstName, lastName, currentTimestamp, password);
                                 http.POSTAccount(dc);
                                 finish();
                                 Toast toast= Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_LONG);

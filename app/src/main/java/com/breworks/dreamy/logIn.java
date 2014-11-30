@@ -45,7 +45,7 @@ public class logIn extends DreamyActivity {
         loginpage = this;
 
         session = new SessionManager(getApplicationContext());
-        httphelper = new HttpHelper(getApplicationContext());
+        httphelper = new HttpHelper();
 
         //Check if there are login user or not
             if (session.isLoggedIn()) {
@@ -113,13 +113,18 @@ public class logIn extends DreamyActivity {
                 dreamyAccount acc;
                 if(dreamyAccount.findByUsername(username) == null){
                     acc = httphelper.findAccountByUserName(username);
+                    dreamyAccount ac = dreamyAccount.createAccount(acc.getEmail(), acc.getUsername(), acc.getFirstName(), acc.getLastName(), currentTimestamp, acc.getPassword());
+                    Log.e("ID BELUM MASUK & GANTI", String.valueOf(acc.getId()));
+                    ac.setId(acc.getId());
                     acc.save();
+                    Log.e("ID BELUM MASUK", String.valueOf(acc.getId()));
                 }
                 else {
                     acc = dreamyAccount.findByUsername(username);
                 }
 
                 String userPass = acc.getPassword();
+                Log.e("ID DI DATABASE",String.valueOf(dreamyAccount.findByUsername(acc.getUsername()).getId()));
                 //String userID = acc.getUsername();
                 //String accessDate = acc.getAccessDate();
                 //Logs log = new Logs(userID,accessDate,userID);
@@ -134,10 +139,11 @@ public class logIn extends DreamyActivity {
                 if (authentication(password, userPass) == true) {
                     acc.updateLastAccess(acc, currentTimestamp);
 
+                    session.createLoginSession(acc.getUsername(), acc.getId());
+                    Log.e("ID MASUK SESSION", String.valueOf(acc.getId()));
+
                     Intent intent = new Intent(this, Main.class);
                     startActivity(intent);
-
-                    session.createLoginSession(acc.getUsername(), acc.getId());
 
                     finish();
                 }

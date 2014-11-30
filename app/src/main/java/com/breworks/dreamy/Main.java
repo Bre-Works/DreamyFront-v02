@@ -67,6 +67,7 @@ public class Main extends DreamyActivity {
 
         ActionBar actionBar = getActionBar();
         login = session.getUser();
+        Log.e("ID MASUK MAIN", String.valueOf(login.getId()));
         setContentView(R.layout.activity_main);
         //actionBar.setTitle("Hello, "+ login.getUsername());
         //ImageView bg = (ImageView) findViewById(R.id.bg);
