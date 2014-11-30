@@ -162,7 +162,7 @@ public class Main extends DreamyActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem refreshItem = menu.findItem(R.id.action_createdream); refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        MenuItem refreshItem = menu.findItem(R.id.action_createdream); refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS); refreshItem.setVisible(true);
         return true;
     }
 
@@ -181,19 +181,12 @@ public class Main extends DreamyActivity {
         */
         if (id == R.id.action_logout) {
             session.logoutUser();
-            dreamyAccount.deleteAll(dreamyAccount.class);
+            /*dreamyAccount.deleteAll(dreamyAccount.class);
             Dream.deleteAll(Dream.class);
             Todo.deleteAll(Todo.class);
-            Milestone.deleteAll(Milestone.class);
+            Milestone.deleteAll(Milestone.class);*/
             finish();
         }
-
-        if (id == R.id.action_todolist) {
-            Intent intent = new Intent(this, TodoSquare.class);
-            startActivity(intent);
-            finish();
-        }
-
         if (id == R.id.action_createdream) {
             Intent intent = new Intent(this, DreamyForm.class);
             startActivity(intent);

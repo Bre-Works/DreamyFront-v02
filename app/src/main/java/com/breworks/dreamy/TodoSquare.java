@@ -144,6 +144,7 @@ public class TodoSquare extends DreamyActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem refreshItem = menu.findItem(R.id.action_editdream); refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS); refreshItem.setVisible(true);
         return true;
     }
 
@@ -164,19 +165,22 @@ public class TodoSquare extends DreamyActivity {
             session.logoutUser();
             finish();
         }
-//        if (id == R.id.action_main) {
-//            Intent intent = new Intent(this, Main.class);
-//            startActivity(intent);
-//            finish();
-//        }
+
+        if (id == R.id.action_editdream) {
+            Intent intent = new Intent(this, DreamyFormUpdate.class);
+            intent.putExtra("key",selectedDreams);
+            startActivity(intent);
+            finish();
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
     public void checkDreamIndex(String[] dreamList, long[] dreamId) {
+        selectedDreams = dreamId[selectedDreamIndex];
         if (dreamList[selectedDreamIndex] != null) {
             Log.e("index ", "amazingly not null");
-            Dream dr = Dream.findById(Dream.class, dreamId[selectedDreamIndex]);// ALERT!!
+            Dream dr = Dream.findById(Dream.class, dreamId[selectedDreamIndex]);
             milestonesSetUp(dr);
         } else {
             Log.e("index ", "is incredibly null");

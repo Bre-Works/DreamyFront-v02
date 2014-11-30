@@ -32,6 +32,8 @@ public class DreamyFormUpdate extends Activity{
     SessionManager session;
     Dream dreamMain;
 
+    long selectedDream = 0;
+
     List<String> mils = new ArrayList<String>();
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class DreamyFormUpdate extends Activity{
         try {
             intent = getIntent();
             long dream = intent.getLongExtra("key",0);
+            selectedDream = dream;
             Log.e("lol", String.valueOf(dream));
             final Dream dr = Dream.findById(Dream.class,dream);
             dreamInput.setText(dr.getName());
@@ -167,7 +170,8 @@ public class DreamyFormUpdate extends Activity{
     }
 
     public void saveBackToHome(View v){
-        Intent intent = new Intent(this, Main.class);
+        Intent intent = new Intent(this, TodoSquare.class);
+        intent.putExtra("key", selectedDream);
         startActivity(intent);
         getCurrentFocus().clearFocus();
         finish();
@@ -176,7 +180,8 @@ public class DreamyFormUpdate extends Activity{
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, Main.class);
+        Intent intent = new Intent(this, TodoSquare.class);
+        intent.putExtra("key", selectedDream);
         startActivity(intent);
         getCurrentFocus().clearFocus();
         finish();
