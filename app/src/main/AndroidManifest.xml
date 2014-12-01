@@ -55,6 +55,12 @@
         <activity
             android:name=".DreamyForm" />
 
+        <activity
+            android:name=".Help" />
+
+        <activity
+            android:name=".Help2" />
+
         <activity android:name=".DreamyFormUpdate"
             android:parentActivityName=".Main"/>
 

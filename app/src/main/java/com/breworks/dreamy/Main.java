@@ -207,6 +207,12 @@ public class Main extends DreamyActivity {
             finish();
         }
 
+        if (id == R.id.action_help) {
+            Intent intent = new Intent(this, Help.class);
+            startActivity(intent);
+
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

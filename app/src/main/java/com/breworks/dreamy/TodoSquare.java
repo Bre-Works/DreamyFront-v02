@@ -183,6 +183,12 @@ public class TodoSquare extends DreamyActivity {
             finish();
         }
 
+        if (id == R.id.action_help) {
+            Intent intent = new Intent(this, Help2.class);
+            startActivity(intent);
+
+        }
+
         if(id == android.R.id.home) {
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
