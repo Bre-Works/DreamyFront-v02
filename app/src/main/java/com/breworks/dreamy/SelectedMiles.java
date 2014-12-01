@@ -35,17 +35,12 @@ import static android.widget.Toast.LENGTH_SHORT;
  */
 public class SelectedMiles extends Activity {
 
-    SessionManager session;
-    int selectedDreamIndex = 0;
-    int selectedMilesIndex = 0;
     EditText TodoInput;
-    CheckBox TodoCheck;
     LinearLayout container;
     ImageButton toDetail;
     RelativeLayout llayout;
 
-    String[] colorsample = {"#FFFFFFFF","#FFE8FAFF","#FFEDFF6E","#FFEAFFE1"};
-
+    long selectedDream = 0;
     long selectedMiles = 0;
 
 
@@ -56,10 +51,12 @@ public class SelectedMiles extends Activity {
 
         //get data from intent
         Intent intent = getIntent();
-        int color = intent.getIntExtra("color",0);
+        String color = intent.getExtras().getString("color");
         long dream = intent.getLongExtra("dream", 0);
         long milest = intent.getLongExtra("miles", 0);
+        selectedDream = dream;
         selectedMiles = milest;
+
         Log.e("dream ID!!", String.valueOf(dream));
 
         final Dream dr = Dream.findById(Dream.class, dream);
@@ -70,7 +67,7 @@ public class SelectedMiles extends Activity {
         TextView tv2 = (TextView)findViewById(R.id.milestv);
         tv2.setText(m.getName().toString());
         llayout = (RelativeLayout)findViewById(R.id.layoutbox);
-        llayout.setBackgroundColor(Color.parseColor(colorsample[color]));
+        llayout.setBackgroundColor(Color.parseColor(color));
 
         TodoInput = (EditText) findViewById(R.id.Inputted);
         container = (LinearLayout) findViewById(R.id.container);
@@ -204,6 +201,7 @@ public class SelectedMiles extends Activity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, TodoSquare.class);
+        intent.putExtra("key", selectedDream);
         startActivity(intent);
         finish();
     }

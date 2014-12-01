@@ -43,6 +43,8 @@ import com.breworks.dreamy.tabpanel.MyTabHostProvider;
 import com.breworks.dreamy.tabpanel.TabHostProvider;
 import com.breworks.dreamy.tabpanel.TabView;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -56,15 +58,11 @@ public class TodoSquare extends DreamyActivity {
     public static Activity ts;
     SessionManager session;
     int selectedDreamIndex = 0;
-    int selectedMilesIndex = 0;
-    EditText TodoInput;
-    CheckBox TodoCheck;
-    ImageButton toDetail;
     LinearLayout layout;
     LinearLayout layout2;
 
     long selectedDreams = 0;
-    long selectedMiles = 0;
+    String[] colorPalette ={"#FFFFFFFF","#FFE8FAFF","#FFEDFF6E","#FFEAFFE1"};
 
 
     @Override
@@ -75,6 +73,15 @@ public class TodoSquare extends DreamyActivity {
         dreamyAccount login = session.getUser();
         setContentView(R.layout.todo_square);
         ts = this;
+
+        // Data From Main
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if(extras != null) {
+            long dreamInput = intent.getLongExtra("key", 0);
+            selectedDreams = dreamInput;
+            Log.e("dream ID!!", String.valueOf(dreamInput));
+        }
 
         // DREAMS
         // get dream from database
@@ -96,6 +103,16 @@ public class TodoSquare extends DreamyActivity {
                 R.layout.todolist_dream, R.id.dreamArray, dreamList);
         SpinnerDream.setAdapter(adapter);
 
+        // set main dreams
+        int indexOfDream = 0;
+        for(int i = 0; i<dreamId.length; i++){
+            if(dreamId[i] == selectedDreams){
+                indexOfDream = i;
+            }
+        }
+        Log.e("THIS ARRAY INDEX!!", String.valueOf(indexOfDream));
+        SpinnerDream.setSelection(indexOfDream);
+
         // spinner dream listener
         SpinnerDream.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
@@ -114,8 +131,7 @@ public class TodoSquare extends DreamyActivity {
                 }
         );
 
-        Intent intent = getIntent();
-        long dream = intent.getLongExtra("key",0);
+        //long dream = intent.getLongExtra("key",0);
         // Todo code
         // find Index of dream from the key
         // and set it as the selected item in the spinner
@@ -134,6 +150,7 @@ public class TodoSquare extends DreamyActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem refreshItem = menu.findItem(R.id.action_editdream); refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS); refreshItem.setVisible(true);
         return true;
     }
 
@@ -154,19 +171,22 @@ public class TodoSquare extends DreamyActivity {
             session.logoutUser();
             finish();
         }
-//        if (id == R.id.action_main) {
-//            Intent intent = new Intent(this, Main.class);
-//            startActivity(intent);
-//            finish();
-//        }
+
+        if (id == R.id.action_editdream) {
+            Intent intent = new Intent(this, DreamyFormUpdate.class);
+            intent.putExtra("key",selectedDreams);
+            startActivity(intent);
+            finish();
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
     public void checkDreamIndex(String[] dreamList, long[] dreamId) {
+        selectedDreams = dreamId[selectedDreamIndex];
         if (dreamList[selectedDreamIndex] != null) {
             Log.e("index ", "amazingly not null");
-            Dream dr = Dream.findById(Dream.class, dreamId[selectedDreamIndex]);// ALERT!!
+            Dream dr = Dream.findById(Dream.class, dreamId[selectedDreamIndex]);
             milestonesSetUp(dr);
         } else {
             Log.e("index ", "is incredibly null");
@@ -223,11 +243,11 @@ public class TodoSquare extends DreamyActivity {
             //random color
             final int rand = random();
             if(rand == 1){
-                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFE8FAFF"));//blue
+                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor(colorPalette[rand]));//blue
             }else if(rand == 2){
-                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFEDFF6E"));//pus color
+                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor(colorPalette[rand]));//puspita color
             }else{
-                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor("#FFEAFFE1"));//green
+                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor(colorPalette[rand]));//green
             }
 
             if(todos.size()>=1){
@@ -254,10 +274,10 @@ public class TodoSquare extends DreamyActivity {
                 tdtxt.setGravity(Gravity.CENTER);
                 tdtxt.setText(td.getText().toString());
                 if(td.getStatus()){
-                    tdtxt.setTextColor(Color.parseColor("#FF22C133"));
-                    //tdtxt.setPaintFlags(tdtxt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    //tdtxt.setTextColor(Color.parseColor("#FF22C133"));
+                    tdtxt.setPaintFlags(tdtxt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 }else{
-                    //tdtxt.setPaintFlags(tdtxt.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                    tdtxt.setPaintFlags(tdtxt.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
                 }
                 rowtd.addView(tdtxt);
                 tl.addView(rowtd);
@@ -276,7 +296,7 @@ public class TodoSquare extends DreamyActivity {
                     Intent intent = new Intent(TodoSquare.this, SelectedMiles.class);
                     intent.putExtra("dream", dr.getId());
                     intent.putExtra("miles", mil.getId());
-                    intent.putExtra("color", rand);
+                    intent.putExtra("color", colorPalette[rand]);
                     startActivity(intent);
                     finish();
                 }
@@ -293,6 +313,13 @@ public class TodoSquare extends DreamyActivity {
 
     public void gotoList(View v){
         Intent intent = new Intent(this, ToDoListNew.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, Main.class);
         startActivity(intent);
         finish();
     }

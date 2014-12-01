@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:focusableInTouchMode="true"
-    tools:context=".DreamyHome"
-    android:id="@+id/abc"
-    android:layout_marginTop="70dp">
+    android:focusableInTouchMode="true">
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp">
 
         <TextView
             android:text="Let's Dream"
@@ -39,49 +41,36 @@
             android:baselineAlignBottom="false"
             android:clickable="false"
             android:cropToPadding="false"
-            android:focusable="false"
             android:layout_alignParentRight="true"
             android:focusableInTouchMode="false" />
     </RelativeLayout>
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView2" />
-
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/dreamInput"
-        android:layout_marginTop="55dp"
+        android:layout_centerInParent="true"
+        android:ellipsize="start"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20dp"
         android:hint="add your dream"
         android:layout_gravity="center_horizontal"
-        android:width="250dp"
-        android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_below="@+id/saveDreamForm"
         android:layout_centerHorizontal="true" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/milestoneInput"
         android:hint="add your milestones"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:width="200dp"
+        android:layout_centerInParent="true"
+        android:ellipsize="start"
+        android:gravity="center_horizontal"
         android:singleLine="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/dreamInput"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/scrolled"
-        android:layout_alignEnd="@+id/scrolled" />
+        android:layout_gravity="center_horizontal"/>
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrolled"
-        android:layout_below="@+id/milestoneInput"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
 
         <LinearLayout
             android:orientation="vertical"
@@ -91,7 +80,7 @@
             android:layout_alignRight="@+id/saveDream"
             android:layout_alignEnd="@+id/saveDream"
             android:layout_below="@+id/milestoneInput"></LinearLayout>
-
-       </ScrollView>
+    </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

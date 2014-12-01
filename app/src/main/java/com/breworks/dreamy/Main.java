@@ -67,8 +67,9 @@ public class Main extends DreamyActivity {
 
         ActionBar actionBar = getActionBar();
         login = session.getUser();
+        Log.e("ID MASUK MAIN", String.valueOf(login.getId()));
         setContentView(R.layout.activity_main);
-        //actionBar.setTitle("Hello, "+ login.getUsername());
+        actionBar.setTitle("Hello, "+ login.getUsername());
         //ImageView bg = (ImageView) findViewById(R.id.bg);
         //bg.setScaleType(ImageView.ScaleType.CENTER_CROP);
         layout = (GridLayout) findViewById(R.id.listLayout);
@@ -175,6 +176,7 @@ public class Main extends DreamyActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem refreshItem = menu.findItem(R.id.action_createdream); refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS); refreshItem.setVisible(true);
         return true;
     }
 
@@ -193,10 +195,15 @@ public class Main extends DreamyActivity {
         */
         if (id == R.id.action_logout) {
             session.logoutUser();
-            dreamyAccount.deleteAll(dreamyAccount.class);
+            /*dreamyAccount.deleteAll(dreamyAccount.class);
             Dream.deleteAll(Dream.class);
             Todo.deleteAll(Todo.class);
-            Milestone.deleteAll(Milestone.class);
+            Milestone.deleteAll(Milestone.class);*/
+            finish();
+        }
+        if (id == R.id.action_createdream) {
+            Intent intent = new Intent(this, DreamyForm.class);
+            startActivity(intent);
             finish();
         }
 

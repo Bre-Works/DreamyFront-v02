@@ -2,27 +2,20 @@ package com.breworks.dreamy;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.StrictMode;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
 import com.breworks.dreamy.model.Logs;
 import com.breworks.dreamy.model.dreamyAccount;
 
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,9 +26,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.GZIPInputStream;
 
-import static android.widget.Toast.*;
+import android.app.ProgressDialog;
 
 /**
  * Created by Ryan Avila on 19/11/2014.
@@ -46,12 +38,12 @@ public class HttpHelper {
     Context _context;
     static String AccountUrl = "http://dreamy-server.herokuapp.com/api/accounts";
     static String LogUrl = "http://dreamy-server.herokuapp.com/api/logs";
+    List<dreamyAccount> accounts;
+    ProgressDialog pDialog;
+    HttpClient client;
 
     public HttpHelper(){
-    }
-
-    public HttpHelper(Context context){
-        this._context = context;
+        client = new DefaultHttpClient();
     }
 
     public String POSTtoAccount(dreamyAccount person){
@@ -80,8 +72,6 @@ public class HttpHelper {
             Log.e("JSON","Error when building JSON");
         }
         try {
-            // 1. create HttpClient
-            DefaultHttpClient httpclient = new DefaultHttpClient();
 
             // 2. make POST request to the given URL
             HttpPost httpPost = new HttpPost(AccountUrl);
@@ -101,7 +91,7 @@ public class HttpHelper {
             httpPost.setHeader("Content-type", "application/json");
 
             // 8. Execute POST request to the given URL
-            HttpResponse httpResponse = httpclient.execute(httpPost);
+            HttpResponse httpResponse = client.execute(httpPost);
 
             // 9. receive response as inputStream
             inputStream = httpResponse.getEntity().getContent();
@@ -118,13 +108,11 @@ public class HttpHelper {
         return result;
     }
 
-    public static String POSTtoLogs (Logs logs){
+    public String POSTtoLogs(Logs logs){
         InputStream inputStream = null;
         String Result = "";
 
         try {
-            // 1. create HttpClient
-            HttpClient httpclient = new DefaultHttpClient();
 
             // 2. make POST request to the given URL
             HttpPost httpPost = new HttpPost(LogUrl);
@@ -132,7 +120,7 @@ public class HttpHelper {
 
             // 3. build jsonObject
             JSONObject jsonObject = new JSONObject();
-            jsonObject.accumulate("userID", logs.getUserID());
+            jsonObject.accumulate("userID", logs.getUsername());
             jsonObject.accumulate("accessDate", logs.getAccessDate());
             jsonObject.accumulate("id", logs.getId());
 
@@ -150,7 +138,7 @@ public class HttpHelper {
             httpPost.setHeader("Content-type", "application/json");
 
             // 8. Execute POST request to the given URL
-            HttpResponse httpResponse = httpclient.execute(httpPost);
+            HttpResponse httpResponse = client.execute(httpPost);
 
             // 9. receive response as inputStream
             inputStream = httpResponse.getEntity().getContent();
@@ -195,37 +183,35 @@ public class HttpHelper {
         protected void onPostExecute(String result) {
             Log.e("DATA SENT","SENT LHO YA");
         }
-
     }
 
-    public List<dreamyAccount> reqAccount(String url){
-        RequestQueue queue;
-        queue =  Volley.newRequestQueue(_context);
-        final List<dreamyAccount> result = new ArrayList<dreamyAccount>();
-                JsonArrayRequest req = new JsonArrayRequest(url,
-                        new Response.Listener<JSONArray>() {
-                            @Override
-                            public void onResponse(JSONArray response) {
-                                // Parsing json array response
-                                // loop through each json object
-                                parseJSONtoAccount(response,result);
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        VolleyLog.d(TAG, "Error: " + error.getMessage());
-                    }
-                });
-        queue.add(req);
-        return result;
+    public void POSTLogs(Logs lg){
+        new JSONLogs().execute(lg);
     }
 
-    private void parseJSONtoAccount(JSONArray response,List<dreamyAccount> acc){
-        try{
-            for (int i = 0; i < response.length(); i++) {
+    private class JSONLogs extends AsyncTask<Logs,Void,String>{
+        @Override
+        protected String doInBackground(Logs... lg) {
 
-                JSONObject person = (JSONObject) response
-                        .get(i);
+            return POSTtoLogs(lg[0]);
+        }
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(String result) {
+            Log.e("DATA SENT","SENT LHO YA");
+        }
+    }
+
+    public ArrayList<dreamyAccount> reqAccount(String url){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        String result = getJSONCommand(url);
+        ArrayList<dreamyAccount> param = new ArrayList<dreamyAccount>();
+        try {
+            JSONArray js = new JSONArray(result);
+
+            for(int i = 0;i < js.length();i++){
+                JSONObject person = (JSONObject) js.get(i);
 
                 dreamyAccount am = new dreamyAccount();
 
@@ -243,19 +229,53 @@ public class HttpHelper {
 
                 am.setLastAccess(person.getString("LastAccess"));
 
-                acc.add(am);
+                param.add(am);
+                Log.e("TROLL", String.valueOf(js.get(i)));
             }
-        }
-        catch(JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
-            Log.e("errorProblem",
-                    "Error: " + e.getMessage());
         }
+        return param;
+    }
+
+    public String getJSONCommand(String url){
+        HttpGet request = new HttpGet(url);
+        HttpResponse response;
+        request.setHeader("Accept", "application/json");
+        request.setHeader("Content-type", "application/json");
+        String result = null;
+        try {
+            response = client.execute(request);
+            HttpEntity entity = response.getEntity();
+
+            if (entity != null) {
+
+                // A Simple JSON Response Read
+                InputStream instream = entity.getContent();
+                result = convertInputStreamToString(instream);
+                // now you have the string representation of the HTML request
+                Log.e("RESPONSE: ","this is = " + result);
+                instream.close();
+            }
+            // Headers
+            org.apache.http.Header[] headers = response.getAllHeaders();
+            for (int i = 0; i < headers.length; i++) {
+                System.out.println(headers[i]);
+            }
+        } catch (ClientProtocolException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        return result;
     }
 
     // Usable Code
     public dreamyAccount findAccountByUserName(String username){
         List<dreamyAccount>acc = reqAccount(AccountUrl+"?filter[where][Username]="+username);
+        Log.e("SIZE", String.valueOf(acc.size()));
         if(acc.size() != 0){
             return acc.get(0);
         }

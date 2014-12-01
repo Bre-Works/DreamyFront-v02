@@ -55,7 +55,8 @@
         <activity
             android:name=".DreamyForm" />
 
-        <activity android:name=".DreamyFormUpdate" />
+        <activity android:name=".DreamyFormUpdate"
+            android:parentActivityName=".Main"/>
 
         <activity android:name=".ToDoList"
             android:launchMode="standard"

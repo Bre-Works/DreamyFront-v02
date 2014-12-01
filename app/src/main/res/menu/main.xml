@@ -9,14 +9,6 @@
         android:title="Log out"
         android:showAsAction="collapseActionView"/>
 
-    <item android:id="@+id/action_volley"
-        android:title="Volley"
-        android:showAsAction="collapseActionView"/>
-
-    <item android:id="@+id/action_volley2"
-        android:title="Volley2"
-        android:showAsAction="collapseActionView"/>
-
     <item android:id="@+id/action_testPost"
         android:title="Test Post"
         android:showAsAction="collapseActionView"/>
@@ -25,5 +17,15 @@
         android:title="To Do List"
         android:icon="@drawable/todoactive"
         android:showAsAction="collapseActionView"/>
+
+    <item android:id="@+id/action_createdream"
+        android:title="add dream"
+        android:icon="@drawable/adddream"
+        android:visible="false"/>
+
+    <item android:id="@+id/action_editdream"
+        android:title="edit dream"
+        android:icon="@drawable/mileslogo"
+        android:visible="false"/>
 
 </menu>
