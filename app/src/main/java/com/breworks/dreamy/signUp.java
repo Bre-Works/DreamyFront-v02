@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.breworks.dreamy.DreamyLibrary.ConnectionManager;
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Logs;
 import com.breworks.dreamy.model.dreamyAccount;
@@ -36,12 +37,14 @@ public class signUp extends DreamyActivity {
     EditText usernameInput, emailInput, passwordInput, passwordConfInput, fNameInput, lNameInput;
     String username, email, password, passwordConf, firstName, lastName;
     ProgressDialog progressDialog;
+    ConnectionManager con;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.sign_up);
         http = new HttpHelper();
+        con = new ConnectionManager(getApplicationContext());
         usernameInput = (EditText) findViewById(R.id.username);
         fNameInput = (EditText) findViewById(R.id.firstName);
         lNameInput = (EditText) findViewById(R.id.lastName);
@@ -76,6 +79,7 @@ public class signUp extends DreamyActivity {
         lastName = lNameInput.getText().toString();
         password = passwordInput.getText().toString();
         passwordConf = passwordConfInput.getText().toString();
+        if(con.isConnectedToInternet()){
         if (!email.equals("") && !username.equals("") && !password.equals("") && !passwordConf.equals("")) {
             if (checkEmail(email) == false) {
                 Toast toast = Toast.makeText(getApplicationContext(), "Invalid e-mail.", Toast.LENGTH_SHORT);
@@ -114,7 +118,13 @@ public class signUp extends DreamyActivity {
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             toast.show();
         }
+    }else{
+            Toast toast = Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.show();
+        }
     }
+
 
     private boolean checkEmail(String email) {
         Pattern pattern = Patterns.EMAIL_ADDRESS;
