@@ -10,22 +10,20 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
+import android.os.MessageQueue;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
-import com.breworks.dreamy.model.Dream;
-import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.dreamyAccount;
-import com.breworks.dreamy.SessionManager;
 import com.breworks.dreamy.model.Logs;
-
-import org.apache.http.impl.conn.LoggingSessionInputBuffer;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -52,13 +50,12 @@ public class logIn extends DreamyActivity {
 
         session = new SessionManager(getApplicationContext());
         httphelper = new HttpHelper();
-
+        Log.e("INTERNET", String.valueOf(isConnectedToInternet()));
         //Check if there are login user or not
             if (session.isLoggedIn()) {
                 Intent intent = new Intent(this, Main.class);
                 Log.e("rightThere", String.valueOf(session.isLoggedIn()));
-                Logs log = Logs.createLogs(session.getUser().getUsername());
-                httphelper.POSTLogs(log);
+                new SendLogs().execute();
                 startActivity(intent);
                 finish();
             }
@@ -106,24 +103,56 @@ public class logIn extends DreamyActivity {
         passwordInput = (EditText) findViewById(R.id.passwordInput);
     }
 
+    private class SendLogs extends AsyncTask<String,Void,String> {
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                Logs log = Logs.createLogs(session.getUser().getUsername());
+                httphelper.POSTLogs(log);
+            } catch (Exception e) {
+
+            }
+            return null;
+        }
+    }
+
     private class LoggingIn extends AsyncTask<String,Void,String>{
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = ProgressDialog.show(logIn.this,"Please Wait...","Logging In.....");
+            progressDialog.setCancelable(true);
+
         }
 
         @Override
         protected String doInBackground(String... params) {
             try {
-                if (!username.equals("") && httphelper.findAccountByUserName(username) == null) {
+                if(isConnectedToInternet()){
+                dreamyAccount dr = httphelper.findAccountByUserName(username);
+                if (!username.equals("") && dr == null) {
                     progressDialog.dismiss();
                     Looper.prepare();
+                    MessageQueue queue = Looper.myQueue();
+                    queue.addIdleHandler(new MessageQueue.IdleHandler() {
+                        int mReqCount = 0;
+
+                        @Override
+                        public boolean queueIdle() {
+                            if (++mReqCount == 2) {
+                                // Quit looper
+                                Looper.myLooper().quit();
+                                return false;
+                            } else
+                                return true;
+                        }
+                    });
+
                     Toast.makeText(getApplicationContext(), "Username does not exist!", Toast.LENGTH_SHORT).show();
                     Looper.loop();
                 }
-                dreamyAccount dr = httphelper.findAccountByUserName(username);
+
                 if (dr != null) {
                     dreamyAccount acc;
                     if(dreamyAccount.findByUsername(username) == null){
@@ -157,8 +186,7 @@ public class logIn extends DreamyActivity {
                         session.createLoginSession(acc.getUsername(), acc.getId());
                         Log.e("ID MASUK SESSION", String.valueOf(acc.getId()));
 
-                        Logs log = Logs.createLogs(acc.getUsername());
-                        httphelper.POSTtoLogs(log);
+                        new SendLogs().execute();
 
                         Intent intent = new Intent(logIn.this, Main.class);
                         startActivity(intent);
@@ -168,10 +196,109 @@ public class logIn extends DreamyActivity {
                     else{
                         progressDialog.dismiss();
                         Looper.prepare();
+                        MessageQueue queue = Looper.myQueue();
+                        queue.addIdleHandler(new MessageQueue.IdleHandler() {
+                            int mReqCount = 0;
+
+                            @Override
+                            public boolean queueIdle() {
+                                if (++mReqCount == 2) {
+                                    // Quit looper
+                                    Looper.myLooper().quit();
+                                    return false;
+                                } else
+                                    return true;
+                            }
+                        });
+
                         Toast.makeText(getApplicationContext(), "Invalid Password!", Toast.LENGTH_SHORT).show();
                         Looper.loop();
                     }
                 }
+                }else{
+                    dreamyAccount dr = dreamyAccount.findByUsername(username);
+                    if (!username.equals("") && dr == null) {
+                        this.cancel(true);
+                        progressDialog.dismiss();
+
+                        Looper.prepare();
+                        MessageQueue queue = Looper.myQueue();
+                        queue.addIdleHandler(new MessageQueue.IdleHandler() {
+                            int mReqCount = 0;
+
+                            @Override
+                            public boolean queueIdle() {
+                                if (++mReqCount == 2) {
+                                    // Quit looper
+                                    Looper.myLooper().quit();
+                                    return false;
+                                } else
+                                    return true;
+                            }
+                        });
+
+                        Toast.makeText(getApplicationContext(), "Username does not exist in this Device!", Toast.LENGTH_SHORT).show();
+                        Looper.loop();
+                        Log.e("MASUK", "MASUK1");
+
+
+                    }
+                    if (dr != null) {
+                        dreamyAccount acc;
+                        acc = dr;
+                        Log.e("MASUK", "MASUK2");
+                        String userPass = acc.getPassword();
+                        Log.e("ID DI DATABASE", String.valueOf(dreamyAccount.findByUsername(acc.getUsername()).getId()));
+                        //String userID = acc.getUsername();
+                        //String accessDate = acc.getAccessDate();
+                        //Logs log = new Logs(userID,accessDate,userID);
+
+                        //HttpHelper.POSTtoLogs(log);
+
+
+                        Log.e("lol", acc.getUsername());
+                        Log.e("pass", password);
+                        Log.e("encpass", acc.getPassword());
+
+                        if (authentication(password, userPass) == true) {
+                            acc.updateLastAccess(acc, currentTimestamp);
+                            Log.e("MASUK","MASUK3");
+                            session.createLoginSession(acc.getUsername(), acc.getId());
+                            Log.e("ID MASUK SESSION", String.valueOf(acc.getId()));
+
+                            new SendLogs().execute();
+
+                            Intent intent = new Intent(logIn.this, Main.class);
+                            startActivity(intent);
+
+                            finish();
+                        }
+                        else{
+                            progressDialog.dismiss();
+                            Looper.prepare();
+                            Log.e("MASUK","MASUK4");
+                            MessageQueue queue = Looper.myQueue();
+                            queue.addIdleHandler(new MessageQueue.IdleHandler() {
+                                int mReqCount = 0;
+
+                                @Override
+                                public boolean queueIdle() {
+                                    if (++mReqCount == 2) {
+                                        // Quit looper
+                                        Looper.myLooper().quit();
+                                        return false;
+                                    } else
+                                        return true;
+                                }
+                            });
+
+                            Toast.makeText(getApplicationContext(), "Invalid Password!", Toast.LENGTH_SHORT).show();
+                            Looper.loop();
+
+                        }
+                    }
+                }
+                Log.e("MASUK","MASUK5");
             }catch(NullPointerException ex){
                 Toast.makeText(getApplicationContext(),"No Username Found",Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
@@ -183,6 +310,7 @@ public class logIn extends DreamyActivity {
         protected void onPostExecute(){
             progressDialog.dismiss();
         }
+
     }
 
     public void loginAccount(View vi) throws InvalidKeySpecException, NoSuchAlgorithmException {
@@ -195,6 +323,22 @@ public class logIn extends DreamyActivity {
 
     public static boolean authentication(String password, String userPass) throws InvalidKeySpecException, NoSuchAlgorithmException {
         return PasswordHash.validatePassword(password, userPass);
+    }
+
+    public boolean isConnectedToInternet(){
+        ConnectivityManager connectivity = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null)
+        {
+            NetworkInfo[] info = connectivity.getAllNetworkInfo();
+            if (info != null)
+                for (int i = 0; i < info.length; i++)
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED)
+                    {
+                        return true;
+                    }
+
+        }
+        return false;
     }
 
 

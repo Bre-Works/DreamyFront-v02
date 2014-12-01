@@ -68,9 +68,9 @@ public class dreamyAccount extends SugarRecord<dreamyAccount> {
     public static dreamyAccount createAccount(String email, String username, String firstName, String lastName, Timestamp tsLastAccess, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
         password = PasswordHash.createHash(password);
         dreamyAccount account = new dreamyAccount(email, username, firstName, lastName, tsLastAccess, password);
-        http = new HttpHelper();
-        account.save();
-        account.setId(setUniqueID(account.getId()));
+//        http = new HttpHelper();
+//        account.save();
+//        account.setId(setUniqueID(account.getId()));
         account.save();
         return account;
     }

@@ -24,7 +24,7 @@ public class Logs extends SugarRecord<Logs>{
         public static Logs createLogs(String username){
             Logs log = new Logs(username);
             log.save();
-            Logs.setUniqueID(log.getId());
+//            Logs.setUniqueID(log.getId());
             return log;
         }
 
