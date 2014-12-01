@@ -114,6 +114,13 @@ public class TodoSquare extends DreamyActivity {
                 }
         );
 
+        Intent intent = getIntent();
+        long dream = intent.getLongExtra("key",0);
+        // Todo code
+        // find Index of dream from the key
+        // and set it as the selected item in the spinner
+        // SpinnerDream.setSelected();
+
         layout = (LinearLayout) findViewById(R.id.listLayout);
         layout2 = (LinearLayout) findViewById(R.id.listLayout2);
 

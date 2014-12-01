@@ -101,14 +101,16 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        >
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/adddreamButton"
             android:background="@drawable/adddream"
-            android:onClick="gotoDreamyForm" />
+            android:onClick="gotoDreamyForm"
+            android:layout_marginTop="60dp"/>
 
         <ScrollView
             android:layout_marginTop="50dp"
@@ -129,15 +131,6 @@
                 android:layout_centerHorizontal="true" />
         </ScrollView>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:onClick="gotoTodo"/>
 
     </RelativeLayout>
 

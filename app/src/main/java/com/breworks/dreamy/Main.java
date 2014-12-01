@@ -124,15 +124,28 @@ public class Main extends DreamyActivity {
             }
             textView.setGravity(Gravity.CENTER);
             textView.isClickable();
+
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(Main.this, DreamyFormUpdate.class);
+                    Intent intent = new Intent(Main.this, TodoSquare.class);
                     intent.putExtra("key", dr.getId());
                     startActivity(intent);
                     finish();
                 }
             });
+
+            textView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Intent intent = new Intent(Main.this, DreamyFormUpdate.class);
+                    intent.putExtra("key", dr.getId());
+                    startActivity(intent);
+                    finish();
+                    return true;
+                }
+            });
+
 
             layout.setColumnCount(colCount);
             layout.setRowCount(rowCount);
@@ -187,12 +200,6 @@ public class Main extends DreamyActivity {
             finish();
         }
 
-        if (id == R.id.action_todolist) {
-            Intent intent = new Intent(this, ToDoList.class);
-            startActivity(intent);
-            finish();
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -204,7 +211,7 @@ public class Main extends DreamyActivity {
 
     //just for testing
     public void gotoTodo(View v) {
-        Intent intent = new Intent(this, ToDoListNew.class);
+        Intent intent = new Intent(this, TodoSquare.class);
         startActivity(intent);
         finish();
     }
