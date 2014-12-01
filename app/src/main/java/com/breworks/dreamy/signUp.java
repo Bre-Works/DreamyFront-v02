@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
+import android.os.MessageQueue;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
@@ -53,7 +54,7 @@ public class signUp extends DreamyActivity {
         passwordConfInput = (EditText) findViewById(R.id.passwordConf);
     }
 
-    private class SigningUp extends AsyncTask<dreamyAccount,Void,String> {
+    private class SigningUp extends AsyncTask<String,Void,String> {
 
         @Override
         protected void onPreExecute() {
@@ -62,13 +63,92 @@ public class signUp extends DreamyActivity {
         }
 
         @Override
-        protected String doInBackground(dreamyAccount... dc) {
-            http.POSTAccount(dc[0]);
-            return null;
-        }
+        protected String doInBackground(String... str) {
+            if (http.findAccountByUserName(username) != null) {
+                Looper.prepare();
+                MessageQueue queue = Looper.myQueue();
+                queue.addIdleHandler(new MessageQueue.IdleHandler() {
+                    int mReqCount = 0;
 
-        protected void onPostExecute(){
-            progressDialog.dismiss();
+                    @Override
+                    public boolean queueIdle() {
+                        if (++mReqCount == 2) {
+                            // Quit looper
+                            Looper.myLooper().quit();
+                            return false;
+                        } else
+                            return true;
+                    }
+                });
+                Toast toast = Toast.makeText(getApplicationContext(), "Username is already taken.", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                toast.show();
+                Looper.loop();
+            } else {
+                if (checkPass(password) == false) {
+                    Looper.prepare();
+                    MessageQueue queue = Looper.myQueue();
+                    queue.addIdleHandler(new MessageQueue.IdleHandler() {
+                        int mReqCount = 0;
+
+                        @Override
+                        public boolean queueIdle() {
+                            if (++mReqCount == 2) {
+                                // Quit looper
+                                Looper.myLooper().quit();
+                                return false;
+                            } else
+                                return true;
+                        }
+                    });
+                    Toast toast= Toast.makeText(getApplicationContext(), "Password should have at least 6 character, uppercase, lowercase, and number", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                    toast.show();
+                    Looper.loop();
+                }else{
+                    if (!password.equals(passwordConf)) {
+                        Toast.makeText(getApplicationContext(), "Password and password confirmation did not match!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Calendar cal = Calendar.getInstance();
+                        java.util.Date cDate = cal.getTime();
+                        java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(cDate.getTime());
+                        Log.e("timestamp", String.valueOf(currentTimestamp));
+                        dreamyAccount dc = null;
+                        try {
+                            dc = dreamyAccount.createAccount(email, username, firstName, lastName, currentTimestamp, password);
+                        } catch (InvalidKeySpecException e) {
+                            e.printStackTrace();
+                        } catch (NoSuchAlgorithmException e) {
+                            e.printStackTrace();
+                        }
+                        http.POSTAccount(dc);
+
+                        Looper.prepare();
+                        MessageQueue queue = Looper.myQueue();
+                        queue.addIdleHandler(new MessageQueue.IdleHandler() {
+                            int mReqCount = 0;
+
+                            @Override
+                            public boolean queueIdle() {
+                                if (++mReqCount == 2) {
+                                    // Quit looper
+                                    Looper.myLooper().quit();
+                                    return false;
+                                } else
+                                    return true;
+                            }
+                        });
+                        progressDialog.dismiss();
+                        Toast toast= Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.show();
+                        Looper.loop();
+                        finish();
+                    }
+                }
+            }
+
+            return null;
         }
     }
 
@@ -86,32 +166,7 @@ public class signUp extends DreamyActivity {
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
             } else {
-                if (http.findAccountByUserName(username) != null) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Username is already taken.", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                    toast.show();
-                } else {
-                    if (checkPass(password) == false) {
-                        Toast toast= Toast.makeText(getApplicationContext(), "Password should have at least 6 character, uppercase, lowercase, and number", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                        toast.show();
-                    }else{
-                            if (!password.equals(passwordConf)) {
-                                Toast.makeText(getApplicationContext(), "Password and password confirmation did not match!", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Calendar cal = Calendar.getInstance();
-                                java.util.Date cDate = cal.getTime();
-                                java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(cDate.getTime());
-                                Log.e("timestamp", String.valueOf(currentTimestamp));
-                                dreamyAccount dc = dreamyAccount.createAccount(email, username, firstName, lastName, currentTimestamp, password);
-                                new SigningUp().execute(dc);
-                                finish();
-                                Toast toast= Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_LONG);
-                                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                                toast.show();
-                            }
-                        }
-                    }
+                    new SigningUp().execute();
                 }
         } else {
             Toast toast = Toast.makeText(getApplicationContext(), "Please complete the form.", Toast.LENGTH_SHORT);

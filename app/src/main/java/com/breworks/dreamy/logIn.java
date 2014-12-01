@@ -124,8 +124,6 @@ public class logIn extends DreamyActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = ProgressDialog.show(logIn.this,"Please Wait...","Logging In.....");
-            progressDialog.setCancelable(true);
-
         }
 
         @Override
@@ -133,7 +131,9 @@ public class logIn extends DreamyActivity {
             try {
                 if(con.isConnectedToInternet()){
                 dreamyAccount dr = httphelper.findAccountByUserName(username);
+                    Log.e("TROLLi",dr.getUsername());
                 if (!username.equals("") && dr == null) {
+                    Log.e("TROLLi2",dr.getUsername());
                     progressDialog.dismiss();
                     Looper.prepare();
                     MessageQueue queue = Looper.myQueue();
@@ -156,14 +156,11 @@ public class logIn extends DreamyActivity {
                 }
 
                 if (dr != null) {
-                    dreamyAccount acc;
+                    dreamyAccount acc = new dreamyAccount();
                     if(dreamyAccount.findByUsername(username) == null){
-                        acc = dr;
-                        dreamyAccount ac = dreamyAccount.getAccount(acc.getEmail(), acc.getUsername(), acc.getFirstName(), acc.getLastName(), currentTimestamp, acc.getPassword());
+                        acc = dreamyAccount.getAccount(dr.getEmail(), dr.getUsername(), dr.getFirstName(), dr.getLastName(), currentTimestamp, dr.getPassword());
                         Log.e("ID BELUM MASUK & GANTI", String.valueOf(acc.getId()));
-                        ac.setId(acc.getId());
-                        ac.save();
-                        Log.e("ID BELUM MASUK", String.valueOf(acc.getId()));
+
                     }
                     else {
                         acc = dreamyAccount.findByUsername(username);
@@ -301,8 +298,6 @@ public class logIn extends DreamyActivity {
                     }
                 }
                 Log.e("MASUK","MASUK5");
-            }catch(NullPointerException ex){
-                Toast.makeText(getApplicationContext(),"No Username Found",Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Log.e("error", String.valueOf(e));
             }
