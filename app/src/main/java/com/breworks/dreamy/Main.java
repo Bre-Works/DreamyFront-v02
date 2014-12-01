@@ -132,7 +132,6 @@ public class Main extends DreamyActivity {
                     Intent intent = new Intent(Main.this, TodoSquare.class);
                     intent.putExtra("key", dr.getId());
                     startActivity(intent);
-                    //finish();
                 }
             });
 
@@ -142,7 +141,6 @@ public class Main extends DreamyActivity {
                     Intent intent = new Intent(Main.this, DreamyFormUpdate.class);
                     intent.putExtra("key", dr.getId());
                     startActivity(intent);
-                    //finish();
                     return true;
                 }
             });
