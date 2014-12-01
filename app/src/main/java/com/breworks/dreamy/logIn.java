@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.breworks.dreamy.DreamyLibrary.ConnectionManager;
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.dreamyAccount;
 import com.breworks.dreamy.model.Logs;
@@ -32,7 +33,7 @@ import java.util.Calendar;
 public class logIn extends DreamyActivity {
     EditText usernameInput, passwordInput;
     public static Activity loginpage;
-
+    ConnectionManager con;
     SessionManager session;
 
     HttpHelper httphelper;
@@ -50,7 +51,8 @@ public class logIn extends DreamyActivity {
 
         session = new SessionManager(getApplicationContext());
         httphelper = new HttpHelper();
-        Log.e("INTERNET", String.valueOf(isConnectedToInternet()));
+        con = new ConnectionManager(getApplicationContext());
+        Log.e("INTERNET", String.valueOf(con.isConnectedToInternet()));
         //Check if there are login user or not
             if (session.isLoggedIn()) {
                 Intent intent = new Intent(this, Main.class);
@@ -129,7 +131,7 @@ public class logIn extends DreamyActivity {
         @Override
         protected String doInBackground(String... params) {
             try {
-                if(isConnectedToInternet()){
+                if(con.isConnectedToInternet()){
                 dreamyAccount dr = httphelper.findAccountByUserName(username);
                 if (!username.equals("") && dr == null) {
                     progressDialog.dismiss();
@@ -325,21 +327,7 @@ public class logIn extends DreamyActivity {
         return PasswordHash.validatePassword(password, userPass);
     }
 
-    public boolean isConnectedToInternet(){
-        ConnectivityManager connectivity = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivity != null)
-        {
-            NetworkInfo[] info = connectivity.getAllNetworkInfo();
-            if (info != null)
-                for (int i = 0; i < info.length; i++)
-                    if (info[i].getState() == NetworkInfo.State.CONNECTED)
-                    {
-                        return true;
-                    }
 
-        }
-        return false;
-    }
 
 
     public void goToMain(View vi) {
