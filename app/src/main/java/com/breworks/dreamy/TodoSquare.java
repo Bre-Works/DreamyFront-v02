@@ -31,6 +31,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v4.app.NavUtils;
 
 import com.breworks.dreamy.SessionManager;
 
@@ -73,6 +74,7 @@ public class TodoSquare extends DreamyActivity {
         dreamyAccount login = session.getUser();
         setContentView(R.layout.todo_square);
         ts = this;
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Data From Main
         Intent intent = getIntent();
@@ -150,7 +152,9 @@ public class TodoSquare extends DreamyActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem refreshItem = menu.findItem(R.id.action_editdream); refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS); refreshItem.setVisible(true);
+        MenuItem refreshItem = menu.findItem(R.id.action_editdream);
+        refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        refreshItem.setVisible(true);
         return true;
     }
 
@@ -177,6 +181,11 @@ public class TodoSquare extends DreamyActivity {
             intent.putExtra("key",selectedDreams);
             startActivity(intent);
             finish();
+        }
+
+        if(id == android.R.id.home) {
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

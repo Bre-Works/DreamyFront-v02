@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -42,7 +44,7 @@ public class DreamyFormUpdate extends Activity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dreamy_form);
-
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         milestoneInput = (EditText) findViewById(R.id.milestoneInput);
         container = (LinearLayout) findViewById(R.id.container);
@@ -168,6 +170,17 @@ public class DreamyFormUpdate extends Activity{
                 return false;
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home) {
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void saveBackToHome(View v){

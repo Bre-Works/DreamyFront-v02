@@ -132,7 +132,7 @@ public class Main extends DreamyActivity {
                     Intent intent = new Intent(Main.this, TodoSquare.class);
                     intent.putExtra("key", dr.getId());
                     startActivity(intent);
-                    finish();
+                    //finish();
                 }
             });
 
@@ -142,7 +142,7 @@ public class Main extends DreamyActivity {
                     Intent intent = new Intent(Main.this, DreamyFormUpdate.class);
                     intent.putExtra("key", dr.getId());
                     startActivity(intent);
-                    finish();
+                    //finish();
                     return true;
                 }
             });
@@ -176,7 +176,9 @@ public class Main extends DreamyActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem refreshItem = menu.findItem(R.id.action_createdream); refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS); refreshItem.setVisible(true);
+        MenuItem refreshItem = menu.findItem(R.id.action_createdream);
+        refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        refreshItem.setVisible(true);
         return true;
     }
 
