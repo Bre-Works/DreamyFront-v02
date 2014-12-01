@@ -127,16 +127,10 @@ public class DreamyForm extends Activity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            // do something on back.
+    public void onBackPressed() {
             Intent intent = new Intent(this, Main.class);
             startActivity(intent);
             finish();
-            return true;
-        }
-
-        return super.onKeyDown(keyCode, event);
     }
 
 

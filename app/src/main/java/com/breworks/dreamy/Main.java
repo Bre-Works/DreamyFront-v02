@@ -125,15 +125,26 @@ public class Main extends DreamyActivity {
             }
             textView.setGravity(Gravity.CENTER);
             textView.isClickable();
+
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(Main.this, TodoSquare.class);
                     intent.putExtra("key", dr.getId());
                     startActivity(intent);
-                    finish();
                 }
             });
+
+            textView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Intent intent = new Intent(Main.this, DreamyFormUpdate.class);
+                    intent.putExtra("key", dr.getId());
+                    startActivity(intent);
+                    return true;
+                }
+            });
+
 
             layout.setColumnCount(colCount);
             layout.setRowCount(rowCount);
@@ -163,7 +174,9 @@ public class Main extends DreamyActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem refreshItem = menu.findItem(R.id.action_createdream); refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS); refreshItem.setVisible(true);
+        MenuItem refreshItem = menu.findItem(R.id.action_createdream);
+        refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        refreshItem.setVisible(true);
         return true;
     }
 
@@ -194,6 +207,12 @@ public class Main extends DreamyActivity {
             finish();
         }
 
+        if (id == R.id.action_help) {
+            Intent intent = new Intent(this, Help.class);
+            startActivity(intent);
+
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -205,7 +224,7 @@ public class Main extends DreamyActivity {
 
     //just for testing
     public void gotoTodo(View v) {
-        Intent intent = new Intent(this, ToDoListNew.class);
+        Intent intent = new Intent(this, TodoSquare.class);
         startActivity(intent);
         finish();
     }

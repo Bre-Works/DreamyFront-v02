@@ -5,12 +5,12 @@
         android:title="@string/action_settings"
         android:showAsAction="collapseActionView"/>-->
 
-    <item android:id="@+id/action_logout"
-        android:title="Log out"
+    <item android:id="@+id/action_help"
+        android:title="Help"
         android:showAsAction="collapseActionView"/>
 
-    <item android:id="@+id/action_testPost"
-        android:title="Test Post"
+    <item android:id="@+id/action_logout"
+        android:title="Log out"
         android:showAsAction="collapseActionView"/>
 
     <item android:id="@+id/action_createdream"

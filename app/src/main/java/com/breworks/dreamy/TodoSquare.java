@@ -31,6 +31,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v4.app.NavUtils;
 
 import com.breworks.dreamy.SessionManager;
 
@@ -62,7 +63,7 @@ public class TodoSquare extends DreamyActivity {
     LinearLayout layout2;
 
     long selectedDreams = 0;
-    String[] colorPallete ={"#FFFFFFFF","#FFE8FAFF","#FFEDFF6E","#FFEAFFE1"};
+    String[] colorPalette ={"#FFFFFFFF","#FFE8FAFF","#FFEDFF6E","#FFEAFFE1"};
 
 
     @Override
@@ -73,6 +74,7 @@ public class TodoSquare extends DreamyActivity {
         dreamyAccount login = session.getUser();
         setContentView(R.layout.todo_square);
         ts = this;
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Data From Main
         Intent intent = getIntent();
@@ -131,6 +133,12 @@ public class TodoSquare extends DreamyActivity {
                 }
         );
 
+        //long dream = intent.getLongExtra("key",0);
+        // Todo code
+        // find Index of dream from the key
+        // and set it as the selected item in the spinner
+        // SpinnerDream.setSelected();
+
         layout = (LinearLayout) findViewById(R.id.listLayout);
         layout2 = (LinearLayout) findViewById(R.id.listLayout2);
 
@@ -144,7 +152,9 @@ public class TodoSquare extends DreamyActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem refreshItem = menu.findItem(R.id.action_editdream); refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS); refreshItem.setVisible(true);
+        MenuItem refreshItem = menu.findItem(R.id.action_editdream);
+        refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        refreshItem.setVisible(true);
         return true;
     }
 
@@ -171,6 +181,17 @@ public class TodoSquare extends DreamyActivity {
             intent.putExtra("key",selectedDreams);
             startActivity(intent);
             finish();
+        }
+
+        if (id == R.id.action_help) {
+            Intent intent = new Intent(this, Help2.class);
+            startActivity(intent);
+
+        }
+
+        if(id == android.R.id.home) {
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -237,11 +258,11 @@ public class TodoSquare extends DreamyActivity {
             //random color
             final int rand = random();
             if(rand == 1){
-                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor(colorPallete[rand]));//blue
+                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor(colorPalette[rand]));//blue
             }else if(rand == 2){
-                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor(colorPallete[rand]));//puspita color
+                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor(colorPalette[rand]));//puspita color
             }else{
-                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor(colorPallete[rand]));//green
+                ((GradientDrawable)tl.getBackground()).setColor(Color.parseColor(colorPalette[rand]));//green
             }
 
             if(todos.size()>=1){
@@ -290,7 +311,7 @@ public class TodoSquare extends DreamyActivity {
                     Intent intent = new Intent(TodoSquare.this, SelectedMiles.class);
                     intent.putExtra("dream", dr.getId());
                     intent.putExtra("miles", mil.getId());
-                    intent.putExtra("color", colorPallete[rand]);
+                    intent.putExtra("color", colorPalette[rand]);
                     startActivity(intent);
                     finish();
                 }
