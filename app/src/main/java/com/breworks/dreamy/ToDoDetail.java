@@ -1,5 +1,6 @@
 package com.breworks.dreamy;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
@@ -55,6 +56,10 @@ public class ToDoDetail extends DreamyActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tododetails_form);
+
+        ActionBar actionBar = getActionBar();
+        actionBar.hide();
+
         dateField = (EditText) findViewById(R.id.dateField);
         timeField = (EditText) findViewById(R.id.timeField);
         taskText = (TextView) findViewById(R.id.taskText);
@@ -133,8 +138,7 @@ public class ToDoDetail extends DreamyActivity {
                 // If the notification is turned on
                 if (isChecked) {
                     Log.e("The switch is on!", String.valueOf(isChecked));
-                    a.setDeadline(t.getDeadline(t));
-                    a.setAlarm(getApplicationContext());
+                    a.setAlarm(getApplicationContext(), t);
                 } else{
                     Log.e("The switch is off!", String.valueOf(isChecked));
                     if (a!= null) {
