@@ -49,6 +49,21 @@ public class Dream extends SugarRecord<Dream>{
         this.save();
     }
 
+    public void checkDreamStatus(){
+        List<Milestone>miles = Milestone.searchByDream(this);
+        boolean allClear = false;
+        for(Milestone mil : miles){
+            if(mil.getStatus()){
+                allClear = true;
+            } else{
+                allClear = false;
+            }
+        }
+        if(allClear){
+            this.setStatus(true);
+        }
+    }
+
     public static Dream findByDreamName(String DrName){
         List<Dream> dr = Dream.find(Dream.class, "dreamName = ?", DrName);
         if(dr.size() == 1){

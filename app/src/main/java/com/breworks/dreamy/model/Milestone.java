@@ -43,6 +43,21 @@ public class Milestone extends SugarRecord<Milestone> {
         return miles;
     }
 
+    public void checkMilestoneStatus(){
+        List<Todo>td = Todo.searchByMilestone(this);
+        boolean allClear = false;
+        for(Todo todo : td){
+            if(todo.getStatus()){
+                allClear = true;
+            } else{
+                allClear = false;
+            }
+        }
+        if(allClear){
+            this.setStatus(true);
+        }
+    }
+
     public void setName(String milesName){
         this.milesName = milesName;
         this.save();

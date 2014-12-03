@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -38,6 +39,7 @@ public class SelectedMiles extends Activity {
     EditText TodoInput;
     LinearLayout container;
     ImageButton toDetail;
+    ImageButton removeTodo;
     RelativeLayout llayout;
 
     long selectedDream = 0;
@@ -87,7 +89,9 @@ public class SelectedMiles extends Activity {
 
                             toDetail = (ImageButton) addView.findViewById(R.id.toDetail);
 
-                            CheckBox todoc = (CheckBox) addView.findViewById(R.id.cbTodo);
+                            removeTodo = (ImageButton) addView.findViewById(R.id.delTodo);
+
+                             CheckBox todoc = (CheckBox) addView.findViewById(R.id.cbTodo);
 
                             final EditText editText = (EditText) addView.findViewById(R.id.taskInput);
 
@@ -104,6 +108,15 @@ public class SelectedMiles extends Activity {
                             Calendar calendar = Calendar.getInstance();
                             Date currentDate = calendar.getTime();
                             final Todo todo = Todo.createTodo(toDoInput, false, selectedMilestone, currentDate);
+
+                             removeTodo.setOnClickListener(new View.OnClickListener() {
+
+                            @Override
+                            public void onClick(View v1) {
+                                ((LinearLayout) addView.getParent()).removeView(addView);
+                                todo.delete();
+                            }
+                        });
 
                             todoc.setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
@@ -149,7 +162,6 @@ public class SelectedMiles extends Activity {
 
     public void ToDoSetUp(final Milestone mil) {
 
-
         final List<Todo> Todos = Todo.searchByMilestone(mil);
         for (final Todo td : Todos) {
 
@@ -161,6 +173,17 @@ public class SelectedMiles extends Activity {
             toDetail = (ImageButton) addView.findViewById(R.id.toDetail);
 
             CheckBox todoc = (CheckBox) addView.findViewById(R.id.cbTodo);
+
+            removeTodo = (ImageButton) addView.findViewById(R.id.delTodo);
+
+            removeTodo.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v1) {
+                    ((LinearLayout) addView.getParent()).removeView(addView);
+                    td.delete();
+                }
+            });
 
             final EditText editText = (EditText) addView.findViewById(R.id.taskInput);
 
@@ -201,7 +224,6 @@ public class SelectedMiles extends Activity {
                     startActivity(intent);
                 }
             });
-
             container.addView(addView);
         }
     }

@@ -63,7 +63,7 @@ public class DreamyForm extends Activity {
 
                             removeMilestone = (ImageButton) addView.findViewById(R.id.delMilestone);
 
-                            CheckBox milestoneOut = (CheckBox) addView.findViewById(R.id.milestoneOut);
+                            CheckBox milestoneOut = (CheckBox) addView.findViewById(R.id.cbMilestone);
 
                             final EditText editText = (EditText) addView.findViewById(R.id.Inputted);
 

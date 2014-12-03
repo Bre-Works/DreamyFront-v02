@@ -122,6 +122,7 @@ public class Main extends DreamyActivity {
             textView.setPadding(20, 80, 20, 80);
 
             Log.e("lol", dr.getName());
+            dr.checkDreamStatus();
             if (!dr.getStatus()) {
                 textView.setText("\"" + dr.getName() + "\"" + "\n- ONGOING ");
             } else {

@@ -83,8 +83,9 @@ public class DreamyFormUpdate extends Activity{
 
                 removeMilestone = (ImageButton) addView.findViewById(R.id.delMilestone);
 
-                CheckBox milestoneOut = (CheckBox) addView.findViewById(R.id.milestoneOut);
+                CheckBox milestoneOut = (CheckBox) addView.findViewById(R.id.cbMilestone);
 
+                mil.checkMilestoneStatus();
                 if(mil.getStatus()){
                     milestoneOut.setChecked(true);
                 }
@@ -139,7 +140,7 @@ public class DreamyFormUpdate extends Activity{
 
                         removeMilestone = (ImageButton) addView.findViewById(R.id.delMilestone);
 
-                        CheckBox milestoneOut = (CheckBox) addView.findViewById(R.id.milestoneOut);
+                        CheckBox milestoneOut = (CheckBox) addView.findViewById(R.id.cbMilestone);
 
                         final EditText editText = (EditText) addView.findViewById(R.id.Inputted);
 
