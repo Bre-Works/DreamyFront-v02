@@ -46,6 +46,7 @@ public class DreamyFormUpdate extends Activity{
         setContentView(R.layout.dreamy_form);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         milestoneInput = (EditText) findViewById(R.id.milestoneInput);
         container = (LinearLayout) findViewById(R.id.container);
         dreamInput = (EditText) findViewById(R.id.dreamInput);
@@ -107,8 +108,6 @@ public class DreamyFormUpdate extends Activity{
                         if (!hasFocus) {
                             mil.setName(String.valueOf(editText.getText()));
                         }
-
-
                     }
                 });
 

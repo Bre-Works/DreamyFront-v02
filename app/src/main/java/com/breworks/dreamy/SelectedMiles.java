@@ -147,10 +147,10 @@ public class SelectedMiles extends Activity {
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
-    public void ToDoSetUp(Milestone mil) {
+    public void ToDoSetUp(final Milestone mil) {
 
 
-        List<Todo> Todos = Todo.searchByMilestone(mil);
+        final List<Todo> Todos = Todo.searchByMilestone(mil);
         for (final Todo td : Todos) {
 
             LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService
@@ -165,6 +165,14 @@ public class SelectedMiles extends Activity {
             final EditText editText = (EditText) addView.findViewById(R.id.taskInput);
 
             editText.setText(td.getText().toString());
+            editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        td.setText(String.valueOf(editText.getText()));
+                    }
+                }
+            });
 
             if (td.getStatus()) {
                 todoc.setChecked(true);
@@ -203,6 +211,7 @@ public class SelectedMiles extends Activity {
         Intent intent = new Intent(this, TodoSquare.class);
         intent.putExtra("key", selectedDream);
         startActivity(intent);
+        getCurrentFocus().clearFocus();
         finish();
     }
 

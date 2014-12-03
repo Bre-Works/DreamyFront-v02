@@ -41,10 +41,12 @@ public class Dream extends SugarRecord<Dream>{
 
     public void setName(String dreamName){
         this.dreamName = dreamName;
+        this.save();
     }
 
     public void setStatus(boolean status) {
         this.dreamStatus = status;
+        this.save();
     }
 
     public static Dream findByDreamName(String DrName){
