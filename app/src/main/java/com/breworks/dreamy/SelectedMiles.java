@@ -76,6 +76,7 @@ public class SelectedMiles extends Activity {
 
         ToDoSetUp(m);
 
+
         TodoInput.setOnKeyListener(new View.OnKeyListener() {
 
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -99,7 +100,7 @@ public class SelectedMiles extends Activity {
 
                             String toDoInput = TodoInput.getText().toString();
 
-                            Milestone selectedMilestone = Milestone.findById(Milestone.class, selectedMiles);
+                            final Milestone selectedMilestone = Milestone.findById(Milestone.class, selectedMiles);
 
                             String miles = selectedMilestone.getId().toString();
 
@@ -108,6 +109,7 @@ public class SelectedMiles extends Activity {
                             Calendar calendar = Calendar.getInstance();
                             Date currentDate = calendar.getTime();
                             final Todo todo = Todo.createTodo(toDoInput, false, selectedMilestone, currentDate);
+
 
                              removeTodo.setOnClickListener(new View.OnClickListener() {
 
@@ -128,6 +130,7 @@ public class SelectedMiles extends Activity {
                                         todo.setStatus(false);
                                         editText.setPaintFlags(editText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
                                     }
+                                    selectedMilestone.checkMilestoneStatus();
                                 }
                             });
 
@@ -207,11 +210,13 @@ public class SelectedMiles extends Activity {
                     if (((CheckBox) v).isChecked()) {
                         Log.e("lol", "wooooi");
                         td.setStatus(true);
+                        Log.e("TODO STATUS",td.getText() + " "+ td.getStatus());
                         editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     } else {
                         td.setStatus(false);
                         editText.setPaintFlags(editText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
                     }
+                    mil.checkMilestoneStatus();
                 }
             });
 

@@ -1,5 +1,7 @@
 package com.breworks.dreamy.model;
 
+import android.util.Log;
+
 import com.orm.SugarRecord;
 import com.orm.query.Condition;
 import com.orm.query.Select;
@@ -45,17 +47,16 @@ public class Milestone extends SugarRecord<Milestone> {
 
     public void checkMilestoneStatus(){
         List<Todo>td = Todo.searchByMilestone(this);
-        boolean allClear = false;
+        boolean allClear = true;
+
         for(Todo todo : td){
+            Log.e("DREAM CLEAR",todo.getText()+" "+todo.getStatus());
             if(todo.getStatus()){
-                allClear = true;
+                allClear = allClear & true;
             } else{
-                allClear = false;
+                allClear = allClear & false;
             }
-        }
-        if(allClear){
-            this.setStatus(true);
-        }
+        }this.setStatus(allClear);
     }
 
     public void setName(String milesName){

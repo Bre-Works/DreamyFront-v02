@@ -1,5 +1,7 @@
 package com.breworks.dreamy.model;
 
+import android.util.Log;
+
 import com.orm.SugarRecord;
 
 import java.util.List;
@@ -51,17 +53,15 @@ public class Dream extends SugarRecord<Dream>{
 
     public void checkDreamStatus(){
         List<Milestone>miles = Milestone.searchByDream(this);
-        boolean allClear = false;
+        boolean allClear = true;
         for(Milestone mil : miles){
+            Log.e("DREAM CLEAR",mil.getName()+" "+mil.getStatus());
             if(mil.getStatus()){
-                allClear = true;
+                allClear = allClear & true;
             } else{
-                allClear = false;
+                allClear = allClear & false;
             }
-        }
-        if(allClear){
-            this.setStatus(true);
-        }
+        }this.setStatus(allClear);
     }
 
     public static Dream findByDreamName(String DrName){

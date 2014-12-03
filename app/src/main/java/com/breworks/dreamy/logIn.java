@@ -277,11 +277,9 @@ public class logIn extends DreamyActivity {
                                     return true;
                             }
                         });
-
                         Toast.makeText(getApplicationContext(), "Username does not exist in this Device!", Toast.LENGTH_SHORT).show();
                         Looper.loop();
                         Log.e("MASUK", "MASUK1");
-
 
                     }
                     if (dr != null) {
