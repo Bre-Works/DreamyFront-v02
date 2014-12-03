@@ -124,6 +124,7 @@ public class logIn extends DreamyActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = ProgressDialog.show(logIn.this,"Please Wait...","Logging In.....");
+            progressDialog.setCancelable(true);
         }
 
         @Override
@@ -131,9 +132,29 @@ public class logIn extends DreamyActivity {
             try {
                 if(con.isConnectedToInternet()){
                 dreamyAccount dr = httphelper.findAccountByUserName(username);
-                    Log.e("TROLLi",dr.getUsername());
+
+                    if(username.equals("") || password.equals("")){
+                        progressDialog.dismiss();
+                        Looper.prepare();
+                        MessageQueue queue = Looper.myQueue();
+                        queue.addIdleHandler(new MessageQueue.IdleHandler() {
+                            int mReqCount = 0;
+
+                            @Override
+                            public boolean queueIdle() {
+                                if (++mReqCount == 2) {
+                                    // Quit looper
+                                    Looper.myLooper().quit();
+                                    return false;
+                                } else
+                                    return true;
+                            }
+                        });
+
+                        Toast.makeText(getApplicationContext(), "Enter Something Please!", Toast.LENGTH_SHORT).show();
+                        Looper.loop();
+                    }
                 if (!username.equals("") && dr == null) {
-                    Log.e("TROLLi2",dr.getUsername());
                     progressDialog.dismiss();
                     Looper.prepare();
                     MessageQueue queue = Looper.myQueue();
@@ -215,6 +236,27 @@ public class logIn extends DreamyActivity {
                     }
                 }
                 }else{
+                    if(username.equals("") || password.equals("")){
+                        progressDialog.dismiss();
+                        Looper.prepare();
+                        MessageQueue queue = Looper.myQueue();
+                        queue.addIdleHandler(new MessageQueue.IdleHandler() {
+                            int mReqCount = 0;
+
+                            @Override
+                            public boolean queueIdle() {
+                                if (++mReqCount == 2) {
+                                    // Quit looper
+                                    Looper.myLooper().quit();
+                                    return false;
+                                } else
+                                    return true;
+                            }
+                        });
+
+                        Toast.makeText(getApplicationContext(), "Enter Something Please!", Toast.LENGTH_SHORT).show();
+                        Looper.loop();
+                    }
                     dreamyAccount dr = dreamyAccount.findByUsername(username);
                     if (!username.equals("") && dr == null) {
                         this.cancel(true);
@@ -311,11 +353,15 @@ public class logIn extends DreamyActivity {
     }
 
     public void loginAccount(View vi) throws InvalidKeySpecException, NoSuchAlgorithmException {
-        username = usernameInput.getText().toString();
-        password = passwordInput.getText().toString();
-        Log.e("pip", username);
-        Log.e("pop", password);
-        new LoggingIn().execute();
+        if(usernameInput.getText().toString().equals("")||passwordInput.getText().toString().equals("")){
+            username = "";
+            password = "";
+        }else {
+            username = usernameInput.getText().toString();
+            password = passwordInput.getText().toString();
+            Log.e("pip", username);
+            Log.e("pop", password);
+        }new LoggingIn().execute();
     }
 
     public static boolean authentication(String password, String userPass) throws InvalidKeySpecException, NoSuchAlgorithmException {
