@@ -1,7 +1,9 @@
 package com.breworks.dreamy;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.os.Bundle;
@@ -9,15 +11,18 @@ import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
+import com.breworks.dreamy.model.Todo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -173,6 +178,16 @@ public class DreamyFormUpdate extends Activity{
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem refreshItem = menu.findItem(R.id.action_deletedream);
+        refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        refreshItem.setVisible(true);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == android.R.id.home) {
@@ -180,8 +195,42 @@ public class DreamyFormUpdate extends Activity{
             return true;
         }
 
+        if (id == R.id.action_deletedream) {
+            alertMessage();
+        }
+
         return super.onOptionsItemSelected(item);
     }
+
+    public void alertMessage() {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                case DialogInterface.BUTTON_POSITIVE: // Yes button clicked
+
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE: // No button clicked
+                    List<Milestone> miles = Milestone.searchByDream(dreamMain);
+                    for(Milestone mil : miles){
+                        List<Todo> todo = Todo.searchByMilestone(mil);
+                        for(Todo td : todo){
+                            td.delete();
+                        }
+                        mil.delete();
+                    }
+                    dreamMain.delete();
+                    Intent intent = new Intent(DreamyFormUpdate.this, Main.class);
+                    startActivity(intent);
+                    finish();
+                    Toast.makeText(DreamyFormUpdate.this, "Dream deleted", Toast.LENGTH_LONG).show();
+                    break; }
+            } };
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("This Dream will be Deleted, Are you sure?")
+                .setNegativeButton("Yes", dialogClickListener)
+                .setPositiveButton("No", dialogClickListener).show(); }
+
+
 
     public void saveBackToHome(View v){
         Intent intent = new Intent(this, TodoSquare.class);

@@ -18,6 +18,11 @@
         android:icon="@drawable/adddream"
         android:visible="false"/>
 
+    <item android:id="@+id/action_deletedream"
+        android:title="add dream"
+        android:icon="@drawable/deletedream"
+        android:visible="false"/>
+
     <item android:id="@+id/action_editdream"
         android:title="edit dream"
         android:icon="@drawable/mileslogo"
