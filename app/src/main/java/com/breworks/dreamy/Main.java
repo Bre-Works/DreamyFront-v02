@@ -214,14 +214,14 @@ public class Main extends DreamyActivity {
         if (id == R.id.action_help) {
             //Intent intent = new Intent(this, Help.class);
             //startActivity(intent);
-            onCoachMark();
+            HelpDialog();
 
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void onCoachMark(){
+    public void HelpDialog(){
 
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
