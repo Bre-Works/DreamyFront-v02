@@ -78,6 +78,7 @@ public class Main extends DreamyActivity {
         //bg.setScaleType(ImageView.ScaleType.CENTER_CROP);
         layout = (GridLayout) findViewById(R.id.listLayout);
         Drawable circle = getResources().getDrawable(R.drawable.circle_white);
+        Drawable circle_completed = getResources().getDrawable(R.drawable.circle_completed);
 
         // Scaling
         display = getWindowManager().getDefaultDisplay();
@@ -125,8 +126,10 @@ public class Main extends DreamyActivity {
             dr.checkDreamStatus();
             if (!dr.getStatus()) {
                 textView.setText("\"" + dr.getName() + "\"" + "\n- ONGOING ");
+                textView.setBackground(circle);
             } else {
                 textView.setText("\"" + dr.getName() + "\"" + "\n- COMPLETED");
+                textView.setBackground(circle_completed);
             }
             textView.setGravity(Gravity.CENTER);
             textView.isClickable();
@@ -158,7 +161,7 @@ public class Main extends DreamyActivity {
                 row++;
             }
             textView.setTextAppearance(this, android.R.style.TextAppearance_Small);
-            textView.setBackground(circle);
+
             GridLayout.LayoutParams param = new GridLayout.LayoutParams();
             param.height = LayoutParams.WRAP_CONTENT;
             param.width = GridLayout.LayoutParams.WRAP_CONTENT;
