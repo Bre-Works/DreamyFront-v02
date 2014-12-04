@@ -64,8 +64,7 @@ public class signUp extends DreamyActivity {
 
         @Override
         protected String doInBackground(String... str) {
-            dreamyAccount dr = http.findAccountByUserName(username);
-            Log.e("DREAM USERNAME",dr.getUsername());
+            
             if (http.findAccountByUserName(username) != null) {
                 progressDialog.dismiss();
                     Looper.prepare();
