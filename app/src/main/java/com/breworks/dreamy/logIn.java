@@ -7,11 +7,8 @@ package com.breworks.dreamy;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
@@ -30,7 +27,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Calendar;
 
-public class logIn extends DreamyActivity {
+public class LogIn extends DreamyActivity {
     EditText usernameInput, passwordInput;
     public static Activity loginpage;
     ConnectionManager con;
@@ -123,7 +120,7 @@ public class logIn extends DreamyActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(logIn.this,"Please Wait...","Logging In.....");
+            progressDialog = ProgressDialog.show(LogIn.this,"Please Wait...","Logging In.....");
             progressDialog.setCancelable(true);
         }
 
@@ -208,7 +205,7 @@ public class logIn extends DreamyActivity {
 
                         new SendLogs().execute();
 
-                        Intent intent = new Intent(logIn.this, Main.class);
+                        Intent intent = new Intent(LogIn.this, Main.class);
                         startActivity(intent);
 
                         finish();
@@ -307,7 +304,7 @@ public class logIn extends DreamyActivity {
 
                             new SendLogs().execute();
 
-                            Intent intent = new Intent(logIn.this, Main.class);
+                            Intent intent = new Intent(LogIn.this, Main.class);
                             startActivity(intent);
 
                             finish();
@@ -376,7 +373,7 @@ public class logIn extends DreamyActivity {
     }
 
     public void goToSignUp(View vi) {
-        Intent intent = new Intent(this, signUp.class);
+        Intent intent = new Intent(this, SignUp.class);
         startActivity(intent);
     }
 

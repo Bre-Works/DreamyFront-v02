@@ -1,9 +1,7 @@
 package com.breworks.dreamy;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -13,10 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
 import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,41 +20,26 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.support.v4.app.NavUtils;
-
-import com.breworks.dreamy.SessionManager;
 
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.Todo;
 import com.breworks.dreamy.model.dreamyAccount;
-import com.breworks.dreamy.tabpanel.MyTabHostProvider;
-import com.breworks.dreamy.tabpanel.TabHostProvider;
-import com.breworks.dreamy.tabpanel.TabView;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-
-import static android.widget.Toast.LENGTH_SHORT;
 
 /**
  * Created by aidifauzan on 12/11/2014.
  */
-public class TodoSquare extends DreamyActivity {
+public class Milestones extends DreamyActivity {
 
     public static Activity ts;
     SessionManager session;
@@ -77,7 +57,7 @@ public class TodoSquare extends DreamyActivity {
         super.onCreate(savedInstanceState);
         session = new SessionManager(getApplicationContext());
         dreamyAccount login = session.getUser();
-        setContentView(R.layout.todo_square);
+        setContentView(R.layout.milestones);
         ts = this;
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -306,7 +286,7 @@ public class TodoSquare extends DreamyActivity {
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(getApplicationContext(), milest.getText().toString(), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(TodoSquare.this, SelectedMiles.class);
+                    Intent intent = new Intent(Milestones.this, TaskList.class);
                     intent.putExtra("dream", dr.getId());
                     intent.putExtra("miles", mil.getId());
                     intent.putExtra("color", colorPalette[rand]);
@@ -322,12 +302,6 @@ public class TodoSquare extends DreamyActivity {
         Random generator = new Random();
         int i = generator.nextInt(3) + 1;
         return i;
-    }
-
-    public void gotoList(View v){
-        Intent intent = new Intent(this, ToDoListNew.class);
-        startActivity(intent);
-        finish();
     }
 
     public void onCoachMark(){

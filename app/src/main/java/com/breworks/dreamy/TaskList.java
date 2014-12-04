@@ -1,11 +1,9 @@
 package com.breworks.dreamy;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -18,7 +16,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
@@ -29,12 +26,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static android.widget.Toast.LENGTH_SHORT;
-
 /**
  * Created by aidifauzan on 23/11/2014.
  */
-public class SelectedMiles extends DreamyActivity {
+public class TaskList extends DreamyActivity {
 
     EditText TodoInput;
     LinearLayout container;
@@ -49,7 +44,7 @@ public class SelectedMiles extends DreamyActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.selectedmiles);
+        setContentView(R.layout.task_list);
 
         //get data from intent
         Intent intent = getIntent();
@@ -142,7 +137,7 @@ public class SelectedMiles extends DreamyActivity {
 
                                 @Override
                                 public void onClick(View v1) {
-                                    Intent intent = new Intent(SelectedMiles.this, ToDoDetail.class);
+                                    Intent intent = new Intent(TaskList.this, ToDoDetail.class);
                                     intent.putExtra("taskID", todo.getId());
                                     startActivity(intent);
                                 }
@@ -228,7 +223,7 @@ public class SelectedMiles extends DreamyActivity {
 
                 @Override
                 public void onClick(View v1) {
-                    Intent intent = new Intent(SelectedMiles.this, ToDoDetail.class);
+                    Intent intent = new Intent(TaskList.this, ToDoDetail.class);
                     intent.putExtra("taskID", td.getId());
                     startActivity(intent);
                 }
@@ -239,7 +234,7 @@ public class SelectedMiles extends DreamyActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, TodoSquare.class);
+        Intent intent = new Intent(this, Milestones.class);
         intent.putExtra("key", selectedDream);
         startActivity(intent);
         getCurrentFocus().clearFocus();

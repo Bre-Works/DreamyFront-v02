@@ -1,12 +1,7 @@
 package com.breworks.dreamy;
 
-        import android.app.ActionBar;
-        import android.app.Activity;
-        import android.app.DownloadManager;
         import android.content.Intent;
         import android.os.Bundle;
-        import android.view.MotionEvent;
-        import android.view.Window;
 
         import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 
@@ -35,7 +30,7 @@ public class Splash extends DreamyActivity {
             }
 
             //Start activity
-            Intent intent = new Intent(Splash.this, logIn.class);
+            Intent intent = new Intent(Splash.this, LogIn.class);
             Splash.this.startActivity(intent);
             Splash.this.finish();
 

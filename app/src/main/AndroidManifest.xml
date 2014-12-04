@@ -28,12 +28,12 @@
         </activity>
 
         <activity
-            android:name=".logIn">
+            android:name=".LogIn">
         </activity>
 
         <activity
             android:theme="@style/DialogWithCorners"
-            android:name=".signUp" >
+            android:name=".SignUp" >
         </activity>
 
 
@@ -77,7 +77,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SelectedMiles"
+        <activity android:name=".TaskList"
             android:label="@string/app_name"
             android:launchMode="standard">
             <intent-filter>
@@ -86,7 +86,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".TodoSquare"
+        <activity android:name=".Milestones"
             android:parentActivityName=".Main"/>
 
         <activity

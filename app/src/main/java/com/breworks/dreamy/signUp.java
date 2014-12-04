@@ -5,7 +5,6 @@ package com.breworks.dreamy;
  */
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
@@ -21,9 +20,7 @@ import android.widget.Toast;
 
 import com.breworks.dreamy.DreamyLibrary.ConnectionManager;
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
-import com.breworks.dreamy.model.Logs;
 import com.breworks.dreamy.model.dreamyAccount;
-import com.breworks.dreamy.HttpHelper;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -32,7 +29,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class signUp extends DreamyActivity {
+public class SignUp extends DreamyActivity {
     Button createAccount;
     HttpHelper http;
     EditText usernameInput, emailInput, passwordInput, passwordConfInput, fNameInput, lNameInput;
@@ -59,7 +56,7 @@ public class signUp extends DreamyActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(signUp.this, "Please Wait...", "Signing Up.....");
+            progressDialog = ProgressDialog.show(SignUp.this, "Please Wait...", "Signing Up.....");
         }
 
         @Override
