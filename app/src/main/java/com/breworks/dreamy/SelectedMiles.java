@@ -108,7 +108,7 @@ public class SelectedMiles extends DreamyActivity {
 
                             Calendar calendar = Calendar.getInstance();
                             Date currentDate = calendar.getTime();
-                            final Todo todo = Todo.createTodo(toDoInput, false, selectedMilestone, currentDate);
+                            final Todo todo = Todo.createTodo(toDoInput, false, selectedMilestone, currentDate, false);
 
 
                              removeTodo.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +116,8 @@ public class SelectedMiles extends DreamyActivity {
                             @Override
                             public void onClick(View v1) {
                                 ((LinearLayout) addView.getParent()).removeView(addView);
+                                Alarm a = new Alarm();
+                                a.cancelAlarm(getApplicationContext(), todo);
                                 todo.delete();
                             }
                         });
@@ -184,6 +186,8 @@ public class SelectedMiles extends DreamyActivity {
                 @Override
                 public void onClick(View v1) {
                     ((LinearLayout) addView.getParent()).removeView(addView);
+                    Alarm a = new Alarm();
+                    a.cancelAlarm(getApplicationContext(), td);
                     td.delete();
                 }
             });

@@ -1,5 +1,6 @@
 package com.breworks.dreamy.model;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.orm.SugarRecord;
@@ -15,6 +16,7 @@ public class Todo extends SugarRecord<Todo> {
     String todoText;
     boolean todoStatus;
     Date taskdeadline;
+    String notif;
 
     //build relationship
     String miles;
@@ -37,11 +39,12 @@ public class Todo extends SugarRecord<Todo> {
         this.save();
     }
 
-    public Todo(String name, boolean status, Milestone mil, Date taskDeadline) {
+    public Todo(String name, boolean status, Milestone mil, Date taskDeadline, Boolean notification) {
         this.todoText = name;
         this.todoStatus = status;
         this.miles = mil.getId().toString();
         this.taskdeadline = taskDeadline;
+        this.notif = String.valueOf(notification);
         this.save();
     }
 
@@ -55,8 +58,8 @@ public class Todo extends SugarRecord<Todo> {
         return this.todoStatus;
     }
 
-    public static Todo createTodo(String name, boolean status, Milestone miles, Date taskDeadline) {
-        Todo todo = new Todo(name, status, miles, taskDeadline);
+    public static Todo createTodo(String name, boolean status, Milestone miles, Date taskDeadline, Boolean notification) {
+        Todo todo = new Todo(name, status, miles, taskDeadline, notification);
         todo.save();
         return todo;
     }
@@ -65,12 +68,23 @@ public class Todo extends SugarRecord<Todo> {
         this.todoText = todoText; this.save();
     }
 
+    public void setNotifStatus(Boolean notification){
+        this.notif = String.valueOf(notification);
+        this.save();
+    }
+
+
     public void setStatus(boolean status) {
         this.todoStatus = status; this.save();
     }
 
     public static List<Todo> searchByMilestone(Milestone mil) {
         List<Todo> todo = Todo.findWithQuery(Todo.class, "Select * from Todo Where miles = ?", mil.getId().toString());
+        return todo;
+    }
+
+    public static List<Todo> searchByNotifStatus(Boolean nStat){
+        List<Todo> todo = Todo.findWithQuery(Todo.class, "Select * from Todo Where notif = ?", String.valueOf(nStat));
         return todo;
     }
 
