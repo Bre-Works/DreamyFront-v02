@@ -232,13 +232,4 @@ public class TaskList extends DreamyActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(this, Milestones.class);
-        intent.putExtra("key", selectedDream);
-        startActivity(intent);
-        getCurrentFocus().clearFocus();
-        finish();
-    }
-
 }

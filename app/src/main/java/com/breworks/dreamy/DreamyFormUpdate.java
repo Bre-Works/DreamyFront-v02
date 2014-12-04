@@ -245,6 +245,7 @@ public class DreamyFormUpdate extends DreamyActivity {
 
 
     public void saveBackToHome(View v){
+        Main.mainAct.finish();
         Intent intent = new Intent(this, Milestones.class);
         intent.putExtra("key", selectedDream);
         startActivity(intent);
@@ -252,13 +253,4 @@ public class DreamyFormUpdate extends DreamyActivity {
         finish();
     }
 
-
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(this, Main.class);
-        intent.putExtra("key", selectedDream);
-        startActivity(intent);
-        getCurrentFocus().clearFocus();
-        finish();
-    }
 }

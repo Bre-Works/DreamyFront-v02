@@ -126,6 +126,7 @@ public class DreamyForm extends DreamyActivity {
 
 
     public void saveBackToHome() {
+        Main.mainAct.finish();
         Intent intent = new Intent(this, Main.class);
         String dreamName = dreamInput.getText().toString();
 
@@ -165,13 +166,6 @@ public class DreamyForm extends DreamyActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-            Intent intent = new Intent(this, Main.class);
-            startActivity(intent);
-            finish();
     }
 
 

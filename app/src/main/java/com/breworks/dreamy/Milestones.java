@@ -43,7 +43,7 @@ import java.util.Random;
  */
 public class Milestones extends DreamyActivity {
 
-    public static Activity ts;
+    public static Activity milestoneAct;
     SessionManager session;
     int selectedDreamIndex = 0;
     LinearLayout layout;
@@ -60,20 +60,8 @@ public class Milestones extends DreamyActivity {
         session = new SessionManager(getApplicationContext());
         dreamyAccount login = session.getUser();
         setContentView(R.layout.milestones);
-        ts = this;
+        milestoneAct = this;
         getActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // force to have soft-menu button
-        try {
-            ViewConfiguration config = ViewConfiguration.get(this);
-            Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
-            if(menuKeyField != null) {
-                menuKeyField.setAccessible(true);
-                menuKeyField.setBoolean(config, false);
-            }
-        } catch (Exception ex) {
-            // Ignore
-        }
 
         // Data From Main
         Intent intent = getIntent();
@@ -339,13 +327,6 @@ public class Milestones extends DreamyActivity {
         });
 
         dialog.show();
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(this, Main.class);
-        startActivity(intent);
-        finish();
     }
 
 }

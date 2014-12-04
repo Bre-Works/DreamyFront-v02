@@ -2,6 +2,7 @@ package com.breworks.dreamy;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Point;
@@ -41,6 +42,7 @@ import java.util.List;
 
 public class Main extends DreamyActivity {
 
+    public static Activity mainAct;
     SessionManager session;
     GridLayout layout;
     dreamyAccount login;
@@ -57,7 +59,7 @@ public class Main extends DreamyActivity {
         super.onCreate(savedInstanceState);
 
         session = new SessionManager(getApplicationContext());
-
+        mainAct = this;
         ActionBar actionBar = getActionBar();
         login = session.getUser();
         Log.e("ID MASUK MAIN", String.valueOf(login.getId()));
@@ -213,7 +215,7 @@ public class Main extends DreamyActivity {
         if (id == R.id.action_createdream) {
             Intent intent = new Intent(this, DreamyForm.class);
             startActivity(intent);
-            finish();
+            //finish();
         }
 
         if (id == R.id.action_help) {
