@@ -34,7 +34,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 /**
  * Created by aidifauzan on 23/11/2014.
  */
-public class SelectedMiles extends Activity {
+public class SelectedMiles extends DreamyActivity {
 
     EditText TodoInput;
     LinearLayout container;

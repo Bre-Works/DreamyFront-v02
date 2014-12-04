@@ -10,14 +10,14 @@
 </style>
 
 <style name="AppTheme.Widget.TextView" parent="android:Widget.Holo.Light.TextView">
-    <item name="fontPath">fonts/Existence-Light/Existence-Light.otf</item>
+    <item name="fontPath">fonts/Roboto/Roboto-Light.ttf</item>
 </style>
 
 <!-- ActionBar style -->
     <style name="ActionBar"
         parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">#33000000</item>
-        <item name="fontPath">fonts/Existence-Light/Existence-Light.otf</item>
+        <item name="fontPath">fonts/Roboto/Roboto-Light.ttf</item>
     </style>
 
     <!-- Custom dialog box -->

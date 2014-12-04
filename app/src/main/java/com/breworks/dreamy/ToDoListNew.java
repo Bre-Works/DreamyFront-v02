@@ -41,7 +41,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 /**
  * Created by Ryan Avila on 12/11/2014.
  */
-public class ToDoListNew extends Activity {
+public class ToDoListNew extends DreamyActivity {
 
     SessionManager session;
     int selectedDreamIndex = 0;
