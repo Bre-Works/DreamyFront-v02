@@ -64,10 +64,13 @@ public class signUp extends DreamyActivity {
 
         @Override
         protected String doInBackground(String... str) {
+            dreamyAccount dr = http.findAccountByUserName(username);
+            Log.e("DREAM USERNAME",dr.getUsername());
             if (http.findAccountByUserName(username) != null) {
-                Looper.prepare();
-                MessageQueue queue = Looper.myQueue();
-                queue.addIdleHandler(new MessageQueue.IdleHandler() {
+                progressDialog.dismiss();
+                    Looper.prepare();
+                    MessageQueue queue = Looper.myQueue();
+                    queue.addIdleHandler(new MessageQueue.IdleHandler() {
                     int mReqCount = 0;
 
                     @Override
@@ -86,6 +89,7 @@ public class signUp extends DreamyActivity {
                 Looper.loop();
             } else {
                 if (checkPass(password) == false) {
+                    progressDialog.dismiss();
                     Looper.prepare();
                     MessageQueue queue = Looper.myQueue();
                     queue.addIdleHandler(new MessageQueue.IdleHandler() {
@@ -107,7 +111,24 @@ public class signUp extends DreamyActivity {
                     Looper.loop();
                 }else{
                     if (!password.equals(passwordConf)) {
+                        progressDialog.dismiss();
+                        Looper.prepare();
+                        MessageQueue queue = Looper.myQueue();
+                        queue.addIdleHandler(new MessageQueue.IdleHandler() {
+                            int mReqCount = 0;
+
+                            @Override
+                            public boolean queueIdle() {
+                                if (++mReqCount == 2) {
+                                    // Quit looper
+                                    Looper.myLooper().quit();
+                                    return false;
+                                } else
+                                    return true;
+                            }
+                        });
                         Toast.makeText(getApplicationContext(), "Password and password confirmation did not match!", Toast.LENGTH_SHORT).show();
+                        Looper.loop();
                     } else {
                         Calendar cal = Calendar.getInstance();
                         java.util.Date cDate = cal.getTime();
