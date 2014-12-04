@@ -75,11 +75,12 @@ public class dreamyAccount extends SugarRecord<dreamyAccount> {
         return account;
     }
 
-    public static dreamyAccount getAccount(String email, String username, String firstName, String lastName, Timestamp tsLastAccess, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
+    public static dreamyAccount getAccount(List<dreamyAccount> acc,String email, String username, String firstName, String lastName, Timestamp tsLastAccess, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
+        password = PasswordHash.createHash(password);
         dreamyAccount account = new dreamyAccount(email, username, firstName, lastName, tsLastAccess, password);
-        //http = new HttpHelper();
+        http = new HttpHelper();
         account.save();
-        //account.setId(setUniqueID(account.getId()));
+        account.setId(setUniqueID(acc,account.getId()));
         account.save();
         return account;
     }
@@ -92,12 +93,13 @@ public class dreamyAccount extends SugarRecord<dreamyAccount> {
     }
 
 
-    public static long setUniqueID(Long id){
-        if(http.findAccountByID(id)== null){
-            return id;
+    public static long setUniqueID(List<dreamyAccount> acc,Long id){
+        for(dreamyAccount dd : acc){
+            if(id == dd.getId()){
+                id ++;
+            }
         }
-        id++;
-        return setUniqueID(id);
+        return id;
     }
 
     public void updateLastAccess(dreamyAccount acc, Timestamp lastAccess){
@@ -114,22 +116,27 @@ public class dreamyAccount extends SugarRecord<dreamyAccount> {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+        this.save();
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+        this.save();
     }
 
     public void setUsername(String username) {
         this.username = username;
+        this.save();
     }
 
     public void setPassword(String password) {
         this.password = password;
+        this.save();
     }
 
     public void setEmail(String email) {
         this.email = email;
+        this.save();
     }
 
     public void setLastAccess(String lastAccess) {

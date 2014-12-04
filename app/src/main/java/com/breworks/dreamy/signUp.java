@@ -25,6 +25,7 @@ import com.breworks.dreamy.model.dreamyAccount;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Calendar;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -61,8 +62,8 @@ public class SignUp extends DreamyActivity {
 
         @Override
         protected String doInBackground(String... str) {
-            
-            if (http.findAccountByUserName(username) != null) {
+            List<dreamyAccount> allAccount = http.findAllAccount();
+            if (http.searchAccountByUsername(allAccount,username) != null) {
                 progressDialog.dismiss();
                     Looper.prepare();
                     MessageQueue queue = Looper.myQueue();
@@ -132,7 +133,7 @@ public class SignUp extends DreamyActivity {
                         Log.e("timestamp", String.valueOf(currentTimestamp));
                         dreamyAccount dc = null;
                         try {
-                            dc = dreamyAccount.createAccount(email, username, firstName, lastName, currentTimestamp, password);
+                            dc = dreamyAccount.getAccount(allAccount,email, username, firstName, lastName, currentTimestamp, password);
                         } catch (InvalidKeySpecException e) {
                             e.printStackTrace();
                         } catch (NoSuchAlgorithmException e) {
@@ -164,7 +165,6 @@ public class SignUp extends DreamyActivity {
                     }
                 }
             }
-
             return null;
         }
     }

@@ -63,7 +63,7 @@ public class HttpHelper {
             Log.e("firstName", jsonObject.getString("firstName"));
             jsonObject.accumulate("LastName", person.getLastName());
             Log.e("LastName", jsonObject.getString("LastName"));
-            jsonObject.accumulate("LastAccess", person.getLastAccess());
+            jsonObject.accumulate("LastAccess", person.getLastAccess().toString());
             Log.e("LastAccess", jsonObject.getString("LastAccess"));
             jsonObject.accumulate("id", person.getId());
             Log.e("id",jsonObject.getString("id"));
@@ -121,7 +121,7 @@ public class HttpHelper {
             // 3. build jsonObject
             JSONObject jsonObject = new JSONObject();
             jsonObject.accumulate("userID", logs.getUsername());
-            jsonObject.accumulate("accessDate", logs.getAccessDate());
+            jsonObject.accumulate("accessDate", logs.getAccessDate().toString());
             jsonObject.accumulate("id", logs.getId());
 
             // 4. convert JSONObject to JSON to String
@@ -273,6 +273,11 @@ public class HttpHelper {
     }
 
     // Usable Code
+    public List<dreamyAccount> findAllAccount(){
+        List<dreamyAccount>acc = reqAccount(AccountUrl);
+        return acc;
+    }
+
     public dreamyAccount findAccountByUserName(String username){
         List<dreamyAccount>acc = reqAccount(AccountUrl+"?filter[where][Username]="+username);
         Log.e("SIZE", String.valueOf(acc.size()));
@@ -286,6 +291,15 @@ public class HttpHelper {
         List<dreamyAccount> acc = reqAccount(AccountUrl+"?filter[where][id]="+id);
         if(acc.size() != 0){
             return acc.get(0);
+        }
+        return null;
+    }
+
+    public dreamyAccount searchAccountByUsername(List<dreamyAccount> acc,String username){
+        for(dreamyAccount dc : acc){
+            if(dc.getUsername().equals(username)){
+                return dc;
+            }
         }
         return null;
     }
