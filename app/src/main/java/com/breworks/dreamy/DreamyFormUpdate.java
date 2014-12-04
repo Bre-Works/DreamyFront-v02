@@ -14,10 +14,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
@@ -57,6 +59,16 @@ public class DreamyFormUpdate extends DreamyActivity {
         container = (LinearLayout) findViewById(R.id.container);
         dreamInput = (EditText) findViewById(R.id.dreamInput);
         milestoneInput.setHint("add a new milestone");
+
+        TextView.OnEditorActionListener DoNothingOnEnter = new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    return true;
+                }
+                return false;
+            }
+        };
+        dreamInput.setOnEditorActionListener(DoNothingOnEnter);
 
         Intent intent;
         try {

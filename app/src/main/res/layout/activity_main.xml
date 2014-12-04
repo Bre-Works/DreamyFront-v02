@@ -107,7 +107,6 @@
             android:background="@drawable/adddream"/>-->
 
         <ScrollView
-            android:layout_marginTop="50dp"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/scrolled"
@@ -115,9 +114,10 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:paddingTop="5dp">
+            android:paddingTop="0dp">
 
             <GridLayout
+                android:layout_marginTop="50dp"
                 android:id="@+id/listLayout"
                 android:orientation="vertical"
                 android:layout_width="fill_parent"

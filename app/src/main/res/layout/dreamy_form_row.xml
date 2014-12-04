@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/delMilestone"
         android:layout_alignParentRight="true"
-        android:background="@drawable/remove_form" />
+        android:background="@drawable/ic_action_remove" />
 
     <CheckBox
         android:layout_width="wrap_content"

@@ -15,17 +15,22 @@
 
     <item android:id="@+id/action_createdream"
         android:title="add dream"
-        android:icon="@drawable/adddream"
+        android:icon="@drawable/ic_action_new"
         android:visible="false"/>
 
     <item android:id="@+id/action_deletedream"
-        android:title="add dream"
-        android:icon="@drawable/deletedream"
-        android:visible="false"/>
+        android:title="Delete"
+        android:visible="false"
+        android:showAsAction="collapseActionView"/>
 
     <item android:id="@+id/action_editdream"
         android:title="edit dream"
-        android:icon="@drawable/mileslogo"
+        android:icon="@drawable/ic_action_edit"
+        android:visible="false"
+        android:showAsAction="collapseActionView"/>
+
+    <item android:id="@+id/action_savedream"
+        android:title="Save"
         android:visible="false"/>
 
 </menu>

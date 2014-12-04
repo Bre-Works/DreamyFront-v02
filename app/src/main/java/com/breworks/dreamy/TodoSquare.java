@@ -68,7 +68,7 @@ public class TodoSquare extends DreamyActivity {
     LinearLayout layout2;
 
     long selectedDreams = 0;
-    String[] colorPalette ={"#FFFFFFFF","#FFE8FAFF","#FFEDFF6E","#FFEAFFE1"};
+    String[] colorPalette ={"#FFE1EBFF","#FFFFFAF1","#FFFFF6F8","#FFFBFFF0"};
 
 
     @Override
@@ -137,12 +137,6 @@ public class TodoSquare extends DreamyActivity {
                     }
                 }
         );
-
-        //long dream = intent.getLongExtra("key",0);
-        // Todo code
-        // find Index of dream from the key
-        // and set it as the selected item in the spinner
-        // SpinnerDream.setSelected();
 
         layout = (LinearLayout) findViewById(R.id.listLayout);
         layout2 = (LinearLayout) findViewById(R.id.listLayout2);

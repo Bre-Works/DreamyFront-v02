@@ -4,14 +4,19 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
@@ -45,12 +50,22 @@ public class DreamyForm extends DreamyActivity {
 
             super.onCreate(savedInstanceState);
             setContentView(R.layout.dreamy_form);
+            getActionBar().setDisplayHomeAsUpEnabled(true);
             milestoneInput = (EditText) findViewById(R.id.milestoneInput);
             container = (LinearLayout) findViewById(R.id.container);
             dreamInput = (EditText) findViewById(R.id.dreamInput);
 
             int i = 0;
 
+            TextView.OnEditorActionListener DoNothingOnEnter = new TextView.OnEditorActionListener() {
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN) {
+                        return true;
+                    }
+                    return false;
+                }
+            };
+            dreamInput.setOnEditorActionListener(DoNothingOnEnter);
 
             milestoneInput.setOnKeyListener(new View.OnKeyListener() {
 
@@ -110,7 +125,7 @@ public class DreamyForm extends DreamyActivity {
     }
 
 
-    public void saveBackToHome(View v) {
+    public void saveBackToHome() {
         Intent intent = new Intent(this, Main.class);
         String dreamName = dreamInput.getText().toString();
 
@@ -125,6 +140,31 @@ public class DreamyForm extends DreamyActivity {
         startActivity(intent);
         finish();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem refreshItem = menu.findItem(R.id.action_savedream);
+        refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        refreshItem.setVisible(true);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.action_savedream) {
+            saveBackToHome();
+        }
+
+        if(id == android.R.id.home) {
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

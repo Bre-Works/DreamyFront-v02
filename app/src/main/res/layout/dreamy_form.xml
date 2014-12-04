@@ -23,7 +23,7 @@
             android:text="Let's Dream"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#1057CA"
+            android:textColor="#ffcabfba"
             android:textSize="30dp"
             android:id="@+id/bigUsername"
             android:layout_gravity="center"
@@ -31,18 +31,6 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/saveDreamForm"
-            android:background="@drawable/nextbutton"
-            android:layout_alignParentTop="false"
-            android:onClick="saveBackToHome"
-            android:baselineAlignBottom="false"
-            android:clickable="false"
-            android:cropToPadding="false"
-            android:layout_alignParentRight="true"
-            android:focusableInTouchMode="false" />
     </RelativeLayout>
 
     <EditText
@@ -53,7 +41,7 @@
         android:ellipsize="start"
         android:gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:hint="add your dream"
+        android:hint="name your dream"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/saveDreamForm"
         android:layout_centerHorizontal="true" />
@@ -79,7 +67,7 @@
             android:id="@+id/container"
             android:layout_alignRight="@+id/saveDream"
             android:layout_alignEnd="@+id/saveDream"
-            android:layout_below="@+id/milestoneInput"></LinearLayout>
+            android:layout_below="@+id/milestoneInput"/>
     </LinearLayout>
     </ScrollView>
 
