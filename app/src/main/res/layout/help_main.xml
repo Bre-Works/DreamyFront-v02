@@ -12,7 +12,7 @@
             android:id="@+id/imageView1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/help_main"
+            android:src="@drawable/help_main_softbutton"
             android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 </LinearLayout>

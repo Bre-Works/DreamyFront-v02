@@ -32,6 +32,7 @@ import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
 import com.breworks.dreamy.model.dreamyAccount;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -67,6 +68,18 @@ public class Main extends DreamyActivity {
         layout = (GridLayout) findViewById(R.id.listLayout);
         Drawable circle = getResources().getDrawable(R.drawable.circle_white);
         Drawable circle_completed = getResources().getDrawable(R.drawable.circle_completed);
+
+        // force to have soft-menu button
+        try {
+            ViewConfiguration config = ViewConfiguration.get(this);
+            Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
+            if(menuKeyField != null) {
+                menuKeyField.setAccessible(true);
+                menuKeyField.setBoolean(config, false);
+            }
+        } catch (Exception ex) {
+            // Ignore
+        }
 
         // Scaling
         display = getWindowManager().getDefaultDisplay();
@@ -218,40 +231,23 @@ public class Main extends DreamyActivity {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        //ImageView iv = (ImageView) findViewById(R.id.helpmainimageview);
-        if(ViewConfiguration.get(this).hasPermanentMenuKey()){
-            //iv.setImageResource(R.drawable.help_main);
-            dialog.setContentView(R.layout.help_main);
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            dialog.setCanceledOnTouchOutside(true);
-            //for dismissing anywhere you touch
-            View masterView = dialog.findViewById(R.id.coach_mark_master_view);
 
-            masterView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                }
-            });
+        //iv.setImageResource(R.drawable.help_main);
+        dialog.setContentView(R.layout.help_main);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        dialog.setCanceledOnTouchOutside(true);
+        //for dismissing anywhere you touch
+        View masterView = dialog.findViewById(R.id.coach_mark_master_view);
 
-            dialog.show();
-        }else{
-            //iv.setImageResource(R.drawable.help_main_softbutton);
-            dialog.setContentView(R.layout.help_main2);
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            dialog.setCanceledOnTouchOutside(true);
-            //for dismissing anywhere you touch
-            View masterView = dialog.findViewById(R.id.coach_mark_master_view);
+        masterView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
 
-            masterView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                }
-            });
+        dialog.show();
 
-            dialog.show();
-        }
 
     }
 

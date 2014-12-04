@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -33,6 +34,7 @@ import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.Todo;
 import com.breworks.dreamy.model.dreamyAccount;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Random;
 
@@ -60,6 +62,18 @@ public class Milestones extends DreamyActivity {
         setContentView(R.layout.milestones);
         ts = this;
         getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // force to have soft-menu button
+        try {
+            ViewConfiguration config = ViewConfiguration.get(this);
+            Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
+            if(menuKeyField != null) {
+                menuKeyField.setAccessible(true);
+                menuKeyField.setBoolean(config, false);
+            }
+        } catch (Exception ex) {
+            // Ignore
+        }
 
         // Data From Main
         Intent intent = getIntent();
@@ -163,7 +177,7 @@ public class Milestones extends DreamyActivity {
         }
 
         if (id == R.id.action_help) {
-            onCoachMark();
+            HelpDialog();
 
         }
 
@@ -304,22 +318,26 @@ public class Milestones extends DreamyActivity {
         return i;
     }
 
-    public void onCoachMark(){
+    public void HelpDialog(){
 
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.setContentView(R.layout.help_miles);
+
+        //iv.setImageResource(R.drawable.help_main);
+        dialog.setContentView(R.layout.help_main);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.setCanceledOnTouchOutside(true);
         //for dismissing anywhere you touch
-        View masterView = dialog.findViewById(R.id.coach_mark_master_view2);
+        View masterView = dialog.findViewById(R.id.coach_mark_master_view);
+
         masterView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
             }
         });
+
         dialog.show();
     }
 
