@@ -313,11 +313,11 @@ public class Milestones extends DreamyActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         //iv.setImageResource(R.drawable.help_main);
-        dialog.setContentView(R.layout.help_main);
+        dialog.setContentView(R.layout.help_miles);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.setCanceledOnTouchOutside(true);
         //for dismissing anywhere you touch
-        View masterView = dialog.findViewById(R.id.coach_mark_master_view);
+        View masterView = dialog.findViewById(R.id.coach_mark_master_view2);
 
         masterView.setOnClickListener(new View.OnClickListener() {
             @Override
