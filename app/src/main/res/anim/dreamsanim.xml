@@ -7,14 +7,4 @@
         android:interpolator="@android:anim/accelerate_interpolator"
         android:toAlpha="1.0" />
 
-    <scale
-        android:duration="15000"
-        android:fromXScale="1"
-        android:fromYScale="1"
-        android:pivotX="50%"
-        android:pivotY="50%"
-        android:toXScale="1.05"
-        android:toYScale="1.05" >
-    </scale>
-
 </set>
