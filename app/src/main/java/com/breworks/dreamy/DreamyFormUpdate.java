@@ -231,6 +231,7 @@ public class DreamyFormUpdate extends DreamyActivity {
                         mil.delete();
                     }
                     dreamMain.delete();
+                    Main.mainAct.finish();
                     Intent intent = new Intent(DreamyFormUpdate.this, Main.class);
                     startActivity(intent);
                     finish();

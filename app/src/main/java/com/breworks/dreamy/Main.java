@@ -179,6 +179,9 @@ public class Main extends DreamyActivity {
             textView.startAnimation(dreamsAnimation);
 
         }
+        if(dreams.size()<1){
+            HelpDialog();
+        }
     }
 
     @Override
@@ -188,6 +191,10 @@ public class Main extends DreamyActivity {
         MenuItem refreshItem = menu.findItem(R.id.action_createdream);
         refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         refreshItem.setVisible(true);
+        MenuItem help = menu.findItem(R.id.action_help);
+        help.setVisible(true);
+        MenuItem logout = menu.findItem(R.id.action_logout);
+        logout.setVisible(true);
         return true;
     }
 

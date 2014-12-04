@@ -136,6 +136,8 @@ public class Milestones extends DreamyActivity {
         MenuItem refreshItem = menu.findItem(R.id.action_editdream);
         refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         refreshItem.setVisible(true);
+        MenuItem help = menu.findItem(R.id.action_help);
+        help.setVisible(true);
         return true;
     }
 
