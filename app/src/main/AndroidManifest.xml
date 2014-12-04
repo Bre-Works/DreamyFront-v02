@@ -48,34 +48,11 @@
         </activity>
 
         <activity
-            android:name=".Front"
-            android:label="@string/title_activity_front" >
-        </activity>
-
-        <activity
-            android:name=".DreamyForm" />
+            android:name=".DreamyForm"
+            android:parentActivityName=".Main"/>
 
         <activity android:name=".DreamyFormUpdate"
             android:parentActivityName=".Main"/>
-
-        <activity android:name=".ToDoList"
-            android:launchMode="standard"
-            android:parentActivityName=".Main">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".ToDoListNew"
-            android:label="@string/app_name"
-            android:launchMode="standard"
-            android:parentActivityName=".Main">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
 
         <activity android:name=".TaskList"
             android:label="@string/app_name"
@@ -88,26 +65,6 @@
 
         <activity android:name=".Milestones"
             android:parentActivityName=".Main"/>
-
-        <activity
-            android:name=".Notes"
-            android:label="@string/app_name"
-            android:launchMode="standard">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".FreeTime"
-            android:label="@string/app_name"
-            android:launchMode="standard">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
 
         <activity
             android:name=".ToDoDetail"
