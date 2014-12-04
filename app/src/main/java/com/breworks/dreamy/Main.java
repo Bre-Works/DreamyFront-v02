@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -230,19 +231,41 @@ public class Main extends DreamyActivity {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.setContentView(R.layout.help_main);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        dialog.setCanceledOnTouchOutside(true);
-        //for dismissing anywhere you touch
-        View masterView = dialog.findViewById(R.id.coach_mark_master_view);
-        masterView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        //ImageView iv = (ImageView) findViewById(R.id.helpmainimageview);
+        if(ViewConfiguration.get(this).hasPermanentMenuKey()){
+            //iv.setImageResource(R.drawable.help_main);
+            dialog.setContentView(R.layout.help_main);
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            dialog.setCanceledOnTouchOutside(true);
+            //for dismissing anywhere you touch
+            View masterView = dialog.findViewById(R.id.coach_mark_master_view);
 
-        dialog.show();
+            masterView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.show();
+        }else{
+            //iv.setImageResource(R.drawable.help_main_softbutton);
+            dialog.setContentView(R.layout.help_main2);
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            dialog.setCanceledOnTouchOutside(true);
+            //for dismissing anywhere you touch
+            View masterView = dialog.findViewById(R.id.coach_mark_master_view);
+
+            masterView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.show();
+        }
+
     }
 
     public void gotoDreamyForm(View v) {

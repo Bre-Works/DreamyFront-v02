@@ -139,7 +139,7 @@ public class ToDoListNew extends DreamyActivity {
 
                             Calendar calendar = Calendar.getInstance();
                             Date currentDate = calendar.getTime();
-                            final Todo todo = Todo.createTodo(toDoInput, false, selectedMilestone, currentDate);
+                            final Todo todo = Todo.createTodo(toDoInput, false, selectedMilestone, currentDate, false);
 
                             todoc.setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
