@@ -138,11 +138,13 @@ public class ToDoDetail extends DreamyActivity {
                 // If the notification is turned on
                 if (isChecked) {
                     Log.e("The switch is on!", String.valueOf(isChecked));
+                    t.setNotifStatus(true);
                     a.setAlarm(getApplicationContext(), t);
                 } else{
                     Log.e("The switch is off!", String.valueOf(isChecked));
                     if (a!= null) {
-                        a.cancelAlarm(getApplicationContext());
+                        t.setNotifStatus(false);
+                        a.cancelAlarm(getApplicationContext(), t);
                     }
                 }
             }
@@ -153,11 +155,18 @@ public class ToDoDetail extends DreamyActivity {
     }
 
     public void updateDeadline(Todo t){
+        Log.e("Update deadline is called", "baa");
+        Alarm a = new Alarm();
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateField.setText(dateFormat.format(calendar.getTime()));
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm ");
         timeField.setText(timeFormat.format(calendar.getTime()));
+
         t.saveDeadline(taskDeadline, t);
+
+        Log.e("Deadline in update deadline after save", String.valueOf(t.getDeadline(t)));
+
     }
 
 }

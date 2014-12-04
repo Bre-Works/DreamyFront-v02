@@ -29,18 +29,23 @@ public class Alarm extends BroadcastReceiver {
 
     Date deadline;
     private PendingIntent alarmIntent;
+    int onRecID;
+    String onRecTask, onRecDeadline;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.e("The onReceive method in Alarm class is called", "Be joyful");
-        //Toast.makeText(context, "It's time", Toast.LENGTH_SHORT).show();
-        int onRecID = intent.getIntExtra("theID", 0);
-        String onRecTask = intent.getStringExtra("theTask");
-        String onRecDeadline = intent.getStringExtra("theDate");
+            Log.e("The onReceive method in Alarm class is called", "Be joyful");
+            //Toast.makeText(context, "It's time", Toast.LENGTH_SHORT).show();
+            Bundle extras = intent.getExtras();
 
-        Log.e("The ID onReceive is", String.valueOf(onRecID));
+            onRecID = extras.getInt("theID", 0);
+            onRecTask = extras.getString("theTask");
+            onRecDeadline = extras.getString("theDate");
 
-        callNotification(context, onRecID, onRecTask, onRecDeadline);
+            Log.e("The ID onReceive is", String.valueOf(onRecID));
+
+            callNotification(context, onRecID, onRecTask, onRecDeadline);
+
     }
 
     public void setAlarm(Context context, Todo t) {
@@ -67,11 +72,14 @@ public class Alarm extends BroadcastReceiver {
         a.set(AlarmManager.RTC_WAKEUP, deadline.getTime(), alarmIntent);
     }
 
-    public void cancelAlarm(Context context) {
+    public void cancelAlarm(Context context, Todo t) {
         Log.e("The cancelAlarm method in Alarm class is called", "Now smile!");
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, Alarm.class);
-        PendingIntent p = PendingIntent.getBroadcast(context, 0, i, 0);
+
+        int ID = t.getId().intValue();
+
+        PendingIntent p = PendingIntent.getBroadcast(context, ID, i, 0);
         am.cancel(p);
     }
 
