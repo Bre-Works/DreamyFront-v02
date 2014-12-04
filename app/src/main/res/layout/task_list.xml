@@ -46,7 +46,14 @@
             android:layout_marginTop="10dp"
             android:textSize="20dp" />
 
-        <RelativeLayout
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/container"
+                android:layout_below="@+id/relativeLayout"></LinearLayout>
+
+            <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -64,13 +71,6 @@
                 android:hint="Insert Task" />
 
         </RelativeLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:id="@+id/container"
-                android:layout_below="@+id/relativeLayout"></LinearLayout>
 
         </LinearLayout>
         </ScrollView>
