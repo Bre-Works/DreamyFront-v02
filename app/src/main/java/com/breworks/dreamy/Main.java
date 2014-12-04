@@ -193,6 +193,12 @@ public class Main extends DreamyActivity {
             finish();
         }
 
+        if(id == R.id.menu_settings){
+            Intent intent = new Intent(this, UserSettingsActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
