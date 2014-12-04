@@ -225,6 +225,11 @@ public class Main extends DreamyActivity {
 
         }
 
+        if(id == R.id.menu_settings){
+            Intent intent = new Intent(this, UserSettingsActivity.class);
+            startActivity(intent);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -265,5 +270,9 @@ public class Main extends DreamyActivity {
         startActivity(intent);
         finish();
     }
+
+   // public void changeUserSettings(){
+            
+    //}
 
 }
