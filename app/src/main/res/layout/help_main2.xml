@@ -3,15 +3,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/coach_mark_master_view2">
+    android:id="@+id/coach_mark_master_view">
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent" >
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageView1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true" />
+            android:src="@drawable/help_main_softbutton"
+            android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 </LinearLayout>
