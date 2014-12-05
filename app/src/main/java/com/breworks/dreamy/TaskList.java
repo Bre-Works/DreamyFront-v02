@@ -232,4 +232,11 @@ public class TaskList extends DreamyActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Milestones.milestoneAct.finish();
+        Intent intent = new Intent(this, Milestones.class);
+        startActivity(intent);
+        finish();
+    }
 }

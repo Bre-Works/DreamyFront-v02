@@ -295,7 +295,7 @@ public class Milestones extends DreamyActivity {
                     intent.putExtra("miles", mil.getId());
                     intent.putExtra("color", colorPalette[rand]);
                     startActivity(intent);
-                    finish();
+                    //finish();
                 }
             });
             incM++;
