@@ -88,6 +88,10 @@ public class ToDoDetail extends DreamyActivity {
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm ");
         timeField.setText(timeFormat.format(theDeadline));
 
+        if(t.getNotifStatus(t).equals("true")){
+            notificationSwitch.setChecked(true);
+        }
+
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -156,7 +160,6 @@ public class ToDoDetail extends DreamyActivity {
 
     public void updateDeadline(Todo t){
         Log.e("Update deadline is called", "baa");
-        Alarm a = new Alarm();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateField.setText(dateFormat.format(calendar.getTime()));
@@ -164,6 +167,11 @@ public class ToDoDetail extends DreamyActivity {
         timeField.setText(timeFormat.format(calendar.getTime()));
 
         t.saveDeadline(taskDeadline, t);
+
+        if(t.getNotifStatus(t).equals("true")){
+            Alarm a = new Alarm();
+            a.setAlarm(getApplicationContext(), t);
+        }
 
         Log.e("Deadline in update deadline after save", String.valueOf(t.getDeadline(t)));
 

@@ -46,6 +46,10 @@ public class Alarm extends BroadcastReceiver {
 
             callNotification(context, onRecID, onRecTask, onRecDeadline);
 
+            Todo t = new Todo();
+            Long longID = (long) onRecID;
+            t.findByTaskID(longID).setNotifStatus(false);
+
     }
 
     public void setAlarm(Context context, Todo t) {

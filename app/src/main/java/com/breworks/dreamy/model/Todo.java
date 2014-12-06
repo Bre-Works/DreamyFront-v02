@@ -70,6 +70,7 @@ public class Todo extends SugarRecord<Todo> {
 
     public void setNotifStatus(Boolean notification){
         this.notif = String.valueOf(notification);
+        Log.e("Notif value", String.valueOf(notification));
         this.save();
     }
 
@@ -94,6 +95,10 @@ public class Todo extends SugarRecord<Todo> {
 
     public String getTask(Todo t){
         return t.todoText;
+    }
+
+    public String getNotifStatus(Todo t){
+        return t.notif;
     }
 
     public static Todo findByTaskID(Long currentID){
