@@ -5,14 +5,27 @@ package com.breworks.dreamy;
  */
     import android.os.Bundle;
     import android.preference.PreferenceActivity;
+    import android.widget.EditText;
 
 public class UserSettingsActivity extends PreferenceActivity {
+
+    EditText firstNameForm, lastNameForm, oldPasswordForm, newPasswordForm, newPasswordConfForm;
+    
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.account_setting);
 
-        addPreferencesFromResource(R.xml.settings);
+        firstNameForm = (EditText) findViewById(R.id.setFirstName);
+        lastNameForm = (EditText) findViewById(R.id.setLastName);
+        oldPasswordForm = (EditText) findViewById(R.id.setOldPass);
+        newPasswordForm =(EditText) findViewById(R.id.setNewPass);
+        oldPasswordForm = (EditText) findViewById(R.id.setNewPassConf);
+
+
+
+
 
     }
 }

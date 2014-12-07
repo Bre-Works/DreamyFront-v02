@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:id="@+id/">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="First Name:"
+        android:id="@+id/settingTextFName"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="34dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="first name"
+        android:ems="10"
+        android:id="@+id/setFirstName"
+        android:layout_below="@+id/settingTextFName"
+        android:layout_alignLeft="@+id/settingTextFName"
+        android:layout_alignStart="@+id/settingTextFName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Last Name:"
+        android:id="@+id/settingTextLName"
+        android:layout_below="@+id/setFirstName"
+        android:layout_alignLeft="@+id/setFirstName"
+        android:layout_alignStart="@+id/setFirstName"
+        android:layout_marginTop="32dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="last name"
+        android:ems="10"
+        android:id="@+id/setLastName"
+        android:layout_below="@+id/settingTextLName"
+        android:layout_alignLeft="@+id/settingTextLName"
+        android:layout_alignStart="@+id/settingTextLName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Change Password"
+        android:id="@+id/setChangePass"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/setLastName"
+        android:layout_alignStart="@+id/setLastName" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/setOldPass"
+        android:layout_below="@+id/setChangePass"
+        android:layout_alignLeft="@+id/setChangePass"
+        android:layout_alignStart="@+id/setChangePass"
+        android:hint="old password"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/setNewPass"
+        android:layout_below="@+id/setOldPass"
+        android:layout_alignLeft="@+id/setOldPass"
+        android:layout_alignStart="@+id/setOldPass"
+        android:hint="new password"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/setNewPassConf"
+        android:layout_below="@+id/setNewPass"
+        android:layout_alignLeft="@+id/setNewPass"
+        android:layout_alignStart="@+id/setNewPass"
+        android:hint="confirm new password"/>
+</RelativeLayout>
