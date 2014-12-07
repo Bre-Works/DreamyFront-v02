@@ -15,6 +15,11 @@
         android:showAsAction="collapseActionView"
         android:visible="false"/>
 
+    <item android:id="@+id/action_accSettings"
+        android:title="Settings"
+        android:showAsAction="collapseActionView"
+        android:visible="false"/>
+
     <item android:id="@+id/action_createdream"
         android:title="add dream"
         android:icon="@drawable/ic_action_new"

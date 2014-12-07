@@ -232,7 +232,7 @@ public class Main extends DreamyActivity {
 
         }
 
-        if(id == R.id.menu_settings){
+        if(id == R.id.action_accSettings){
             Intent intent = new Intent(this, UserSettingsActivity.class);
             startActivity(intent);
         }
