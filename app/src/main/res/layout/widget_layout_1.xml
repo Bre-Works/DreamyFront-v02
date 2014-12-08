@@ -16,9 +16,11 @@
         android:text="Static Text">
     </TextView>
 
-    <SeekBar
-        android:layout_width="match_parent"
+    <Button
+        android:layout_width="38dp"
         android:layout_height="wrap_content"
-        android:id="@+id/seekBar" />
+        android:text="o"
+        android:id="@+id/button"
+        android:layout_gravity="right" />
 
 </LinearLayout>
