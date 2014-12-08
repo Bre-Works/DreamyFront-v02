@@ -15,13 +15,13 @@
         android:showAsAction="collapseActionView"
         android:visible="false"/>
 
-    <item android:id="@+id/action_createdream"
+    <item android:id="@+id/action_newDream"
         android:title="add dream"
         android:icon="@drawable/ic_action_new"
         android:visible="false"/>
 
-    <item android:id="@+id/action_deletedream"
-        android:title="Delete"
+    <item android:id="@+id/action_deleteDream"
+        android:title="Delete Dream"
         android:visible="false"
         android:showAsAction="collapseActionView"/>
 
@@ -31,8 +31,9 @@
         android:visible="false"
         android:showAsAction="collapseActionView"/>
 
-    <item android:id="@+id/action_savedream"
+    <item android:id="@+id/action_saveDream"
         android:title="Save"
+        android:icon="@drawable/ic_action_accept"
         android:visible="false"/>
 
 </menu>

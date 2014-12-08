@@ -1,5 +1,6 @@
 package com.breworks.dreamy;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -31,7 +32,7 @@ import java.util.List;
 /**
  * Created by Ryan Avila on 30/10/2014.
  */
-public class DreamyFormUpdate extends DreamyActivity {
+public class DreamyFormUpdate extends Activity {
 
     LinearLayout container;
     ImageButton addMilestone;
@@ -58,6 +59,8 @@ public class DreamyFormUpdate extends DreamyActivity {
         container = (LinearLayout) findViewById(R.id.container);
         dreamInput = (EditText) findViewById(R.id.dreamInput);
         milestoneInput.setHint("add a new milestone");
+        TextView title = (TextView) findViewById(R.id.title);
+        title.setVisibility(View.INVISIBLE);
 
         TextView.OnEditorActionListener DoNothingOnEnter = new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -193,7 +196,7 @@ public class DreamyFormUpdate extends DreamyActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem refreshItem = menu.findItem(R.id.action_deletedream);
+        MenuItem refreshItem = menu.findItem(R.id.action_deleteDream);
         refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         refreshItem.setVisible(true);
         return true;
@@ -207,7 +210,7 @@ public class DreamyFormUpdate extends DreamyActivity {
             return true;
         }
 
-        if (id == R.id.action_deletedream) {
+        if (id == R.id.action_deleteDream) {
             alertMessage();
         }
 

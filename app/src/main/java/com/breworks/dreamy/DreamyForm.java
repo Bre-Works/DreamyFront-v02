@@ -30,7 +30,7 @@ import java.util.List;
  * Created by arsianindita on 28-Sep-14.
  */
 
-public class DreamyForm extends DreamyActivity {
+public class DreamyForm extends Activity {
 
     LinearLayout container;
     ImageButton addMilestone;
@@ -147,7 +147,7 @@ public class DreamyForm extends DreamyActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem refreshItem = menu.findItem(R.id.action_savedream);
+        MenuItem refreshItem = menu.findItem(R.id.action_saveDream);
         refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         refreshItem.setVisible(true);
         return true;
@@ -156,7 +156,7 @@ public class DreamyForm extends DreamyActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.action_savedream) {
+        if(id == R.id.action_saveDream) {
             saveBackToHome();
         }
 

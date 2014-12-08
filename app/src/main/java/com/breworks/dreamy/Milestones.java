@@ -231,7 +231,8 @@ public class Milestones extends DreamyActivity {
             //set up textview and image
             final TextView milest = new TextView(this);
             milest.setText(mil.getName());
-            milest.setTypeface(null, Typeface.BOLD_ITALIC);
+            milest.setTypeface(null, Typeface.BOLD);
+            milest.setPadding(0,0,0,10);
 
             //border layout
             Drawable rect = getResources().getDrawable(R.drawable.rectangle_border);
