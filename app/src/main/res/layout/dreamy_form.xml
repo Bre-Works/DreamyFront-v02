@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:textColor="#ffcabfba"
             android:textSize="30dp"
-            android:id="@+id/bigUsername"
+            android:id="@+id/title"
             android:layout_gravity="center"
             android:layout_toStartOf="@+id/saveDream"
             android:layout_alignParentTop="true"

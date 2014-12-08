@@ -128,10 +128,10 @@ public class Main extends DreamyActivity {
             Log.e("lol", dr.getName());
             dr.checkDreamStatus();
             if (!dr.getStatus()) {
-                textView.setText("\"" + dr.getName() + "\"" + "\n- ONGOING ");
+                textView.setText("“" + dr.getName() + "”" + "\n- ONGOING ");
                 textView.setBackground(circle);
             } else {
-                textView.setText("\"" + dr.getName() + "\"" + "\n- COMPLETED");
+                textView.setText("“" + dr.getName() + "”" + "\n- COMPLETED");
                 textView.setBackground(circle_completed);
             }
             textView.setGravity(Gravity.CENTER);
@@ -188,7 +188,7 @@ public class Main extends DreamyActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem refreshItem = menu.findItem(R.id.action_createdream);
+        MenuItem refreshItem = menu.findItem(R.id.action_newDream);
         refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         refreshItem.setVisible(true);
         MenuItem help = menu.findItem(R.id.action_help);
@@ -219,7 +219,7 @@ public class Main extends DreamyActivity {
             Milestone.deleteAll(Milestone.class);*/
             finish();
         }
-        if (id == R.id.action_createdream) {
+        if (id == R.id.action_newDream) {
             Intent intent = new Intent(this, DreamyForm.class);
             startActivity(intent);
             //finish();

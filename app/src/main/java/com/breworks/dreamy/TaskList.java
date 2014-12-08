@@ -1,13 +1,17 @@
 package com.breworks.dreamy;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
@@ -29,7 +33,7 @@ import java.util.List;
 /**
  * Created by aidifauzan on 23/11/2014.
  */
-public class TaskList extends DreamyActivity {
+public class TaskList extends Activity {
 
     EditText TodoInput;
     LinearLayout container;
@@ -45,6 +49,8 @@ public class TaskList extends DreamyActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_list);
+        ActionBar actionBar = getActionBar();
+        //actionBar.setDisplayHomeAsUpEnabled(true);
 
         //get data from intent
         Intent intent = getIntent();
@@ -59,14 +65,14 @@ public class TaskList extends DreamyActivity {
         final Dream dr = Dream.findById(Dream.class, dream);
         Milestone m = Milestone.findById(Milestone.class, milest);
 
-        TextView tv1 = (TextView)findViewById(R.id.dreamtv);
-        tv1.setText(dr.getName().toString());
+        actionBar.setTitle(" “" + dr.getName().toString() + "”");
+
         TextView tv2 = (TextView)findViewById(R.id.milestv);
         tv2.setText(m.getName().toString());
         llayout = (RelativeLayout)findViewById(R.id.layoutbox);
         llayout.setBackgroundColor(Color.parseColor(color));
 
-        TodoInput = (EditText) findViewById(R.id.Inputted);
+        TodoInput = (EditText) findViewById(R.id.inputField);
         container = (LinearLayout) findViewById(R.id.container);
 
         ToDoSetUp(m);
@@ -82,23 +88,14 @@ public class TaskList extends DreamyActivity {
                                     (Context.LAYOUT_INFLATER_SERVICE);
 
                             final View addView = inflater.inflate(R.layout.todo_row, null);
-
                             toDetail = (ImageButton) addView.findViewById(R.id.toDetail);
-
                             removeTodo = (ImageButton) addView.findViewById(R.id.delTodo);
-
-                             CheckBox todoc = (CheckBox) addView.findViewById(R.id.cbTodo);
-
+                            CheckBox todoc = (CheckBox) addView.findViewById(R.id.cbTodo);
                             final EditText editText = (EditText) addView.findViewById(R.id.taskInput);
-
                             editText.setText(TodoInput.getText().toString());
-
                             String toDoInput = TodoInput.getText().toString();
-
                             final Milestone selectedMilestone = Milestone.findById(Milestone.class, selectedMiles);
-
                             String miles = selectedMilestone.getId().toString();
-
                             Log.e("current Milestone", miles);
 
                             Calendar calendar = Calendar.getInstance();
@@ -169,11 +166,8 @@ public class TaskList extends DreamyActivity {
                     (Context.LAYOUT_INFLATER_SERVICE);
 
             final View addView = inflater.inflate(R.layout.todo_row, null);
-
             toDetail = (ImageButton) addView.findViewById(R.id.toDetail);
-
             CheckBox todoc = (CheckBox) addView.findViewById(R.id.cbTodo);
-
             removeTodo = (ImageButton) addView.findViewById(R.id.delTodo);
 
             removeTodo.setOnClickListener(new View.OnClickListener() {
@@ -233,10 +227,13 @@ public class TaskList extends DreamyActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        Milestones.milestoneAct.finish();
-        Intent intent = new Intent(this, Milestones.class);
-        startActivity(intent);
-        finish();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        /*if (id == android.R.id.home) {
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
+        }*/
+        return super.onOptionsItemSelected(item);
     }
+
 }

@@ -5,17 +5,16 @@
     <style name="AppTheme" parent="android:style/Theme.Holo.Light">
         <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
         <item name="android:windowActionBarOverlay">true</item>
-    <item name="android:actionBarStyle">@style/ActionBar</item>
+        <item name="android:actionBarStyle">@style/ActionBar</item>
 
-</style>
+    </style>
 
-<style name="AppTheme.Widget.TextView" parent="android:Widget.Holo.Light.TextView">
-    <item name="fontPath">fonts/Roboto/Roboto-Light.ttf</item>
-</style>
+    <style name="AppTheme.Widget.TextView" parent="android:Widget.Holo.Light.TextView">
+        <item name="fontPath">fonts/Roboto/Roboto-Light.ttf</item>
+    </style>
 
-<!-- ActionBar style -->
-    <style name="ActionBar"
-        parent="@android:style/Widget.Holo.Light.ActionBar">
+    <!-- ActionBar style -->
+    <style name="ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">#80ffefdb</item>
         <item name="fontPath">fonts/Roboto/Roboto-Light.ttf</item>
     </style>
@@ -25,8 +24,7 @@
         <item name="android:windowBackground">@drawable/rounded_corner</item>
     </style>
 
-    <style name="NoActionBar"
-        parent="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
+    <style name="NoActionBar" parent="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
         <item name="android:background">#8fffffff</item>
     </style>
 

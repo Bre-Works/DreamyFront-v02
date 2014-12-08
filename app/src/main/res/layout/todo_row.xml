@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/delTodo"
         android:layout_alignParentRight="true"
-        android:background="@drawable/remove_form" />
+        android:background="@drawable/ic_action_remove"/>
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -39,10 +39,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/toDetail"
-        android:background="@drawable/nextbutton"
+        android:background="@drawable/ic_action_time"
         android:layout_alignBottom="@+id/cbTodo"
         android:layout_toLeftOf="@+id/delTodo"
-        android:layout_toStartOf="@+id/delTodo" />
+        android:layout_toStartOf="@+id/delTodo"/>
 
 
 </RelativeLayout>

@@ -5,77 +5,75 @@
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layoutbox">
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginRight="10dp">
-        <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:id="@+id/dreamtv"
-            android:layout_centerHorizontal="true"
-            android:textSize="30dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:id="@+id/milestv"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:textSize="20dp" />
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:id="@+id/container"
-                android:layout_below="@+id/relativeLayout"></LinearLayout>
+            android:layout_height="fill_parent">
 
             <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:id="@+id/relativeLayout">
-
-            <EditText
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/Inputted"
-                android:layout_centerInParent="true"
-                android:ellipsize="start"
-                android:gravity="center_horizontal"
-                android:singleLine="true"
-                android:autoText="true"
-                android:hint="Insert Task" />
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginRight="10dp">
 
-        </RelativeLayout>
+                <ScrollView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
 
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:id="@+id/milestv"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="40dp"
+                            android:textSize="20dp" />
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:id="@+id/container"
+                            android:layout_below="@+id/relativeLayout" />
+
+                        <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:id="@+id/relativeLayout">
+
+                            <EditText
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/inputField"
+                                android:layout_centerInParent="true"
+                                android:layout_marginLeft="40dp"
+                                android:layout_marginRight="70dp"
+                                android:ellipsize="start"
+                                android:gravity="center_horizontal"
+                                android:singleLine="true"
+                                android:autoText="true"
+                                android:hint="new task" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                </ScrollView>
+            </RelativeLayout>
         </LinearLayout>
-        </ScrollView>
-    </RelativeLayout>
-    </LinearLayout>
     </ScrollView>
 
 </RelativeLayout>
