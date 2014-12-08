@@ -7,21 +7,34 @@
     android:background="@drawable/myshape" >
 
 
-    <TextView
-        android:id="@+id/update"
-        style="@android:style/TextAppearance.Medium"
-        android:layout_width="138dp"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal|center_vertical"
-        android:layout_margin="4dip"
-        android:text="Static Text" >
-    </TextView>
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView3" >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/layoutforview">
+
+            <TextView
+            android:id="@+id/update"
+            style="@android:style/TextAppearance.Medium"
+            android:layout_width="138dp"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_margin="4dip"
+            android:text="Static Text" >
+        </TextView>
+        </LinearLayout>
+    </ScrollView>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:src="@drawable/punyaoms" />
+        android:src="@drawable/punyaom1" />
 
 
 </LinearLayout>
