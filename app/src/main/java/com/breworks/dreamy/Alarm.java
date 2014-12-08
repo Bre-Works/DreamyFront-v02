@@ -55,7 +55,6 @@ public class Alarm extends BroadcastReceiver {
     public void setAlarm(Context context, Todo t) {
         Log.e("The setAlarm method in Alarm class is called", "Hurray");
 
-
         deadline = t.getDeadline(t);
         int ID = t.getId().intValue();
 

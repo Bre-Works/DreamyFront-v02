@@ -14,6 +14,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import com.breworks.dreamy.model.Dream;
@@ -51,8 +53,16 @@ public class DreamyWidgetProvider extends AppWidgetProvider {
 
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                     R.layout.widget_layout);
+
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService
+                    (Context.LAYOUT_INFLATER_SERVICE);
+
+            View addView = inflater.inflate(R.layout.dreamy_form_row, null);
+
+
             Log.w("WidgetExample", String.valueOf(dreamSet[number]));
             // Set the text
+
             remoteViews.setTextViewText(R.id.update, dreamSet[number]);
 
             // Register an onClickListener
