@@ -14,6 +14,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
@@ -108,6 +109,68 @@ public class HttpHelper {
         return result;
     }
 
+    public String PUTtoAccount(dreamyAccount person){
+        InputStream inputStream = null;
+        String result = "";
+        JSONObject jsonObject = new JSONObject();
+        try{
+            // 3. build jsonObject
+            jsonObject = new JSONObject();
+            jsonObject.accumulate("Username", person.getUsername());
+            Log.e("username", jsonObject.getString("Username"));
+            jsonObject.accumulate("Password", person.getPassword());
+            Log.e("pass", jsonObject.getString("Password"));
+            jsonObject.accumulate("Email", person.getEmail());
+            Log.e("email", jsonObject.getString("Email"));
+            jsonObject.accumulate("firstName", person.getFirstName());
+            Log.e("firstName", jsonObject.getString("firstName"));
+            jsonObject.accumulate("LastName", person.getLastName());
+            Log.e("LastName", jsonObject.getString("LastName"));
+            jsonObject.accumulate("LastAccess", person.getLastAccess().toString());
+            Log.e("LastAccess", jsonObject.getString("LastAccess"));
+            jsonObject.accumulate("id", person.getId());
+            Log.e("id",jsonObject.getString("id"));
+
+        }catch (JSONException ex){
+            Log.e("JSON","Error when building JSON");
+        }
+        try {
+
+            // 2. make POST request to the given URL
+            HttpPut httpPut = new HttpPut(AccountUrl+"/"+person.getId());
+            String json = "";
+
+            // 4. convert JSONObject to JSON to String
+            json = jsonObject.toString();
+
+            // 5. set json to StringEntity
+            StringEntity se = new StringEntity(json);
+
+            // 6. set httpPost Entity
+            httpPut.setEntity(se);
+
+            // 7. Set some headers to inform server about the type of the content
+            httpPut.setHeader("Accept", "application/json");
+            httpPut.setHeader("Content-type", "application/json");
+
+            // 8. Execute POST request to the given URL
+            HttpResponse httpResponse = client.execute(httpPut);
+
+            // 9. receive response as inputStream
+            inputStream = httpResponse.getEntity().getContent();
+
+            // 10. convert inputstream to string
+            if(inputStream != null)
+                result = convertInputStreamToString(inputStream);
+            else
+                result = "Did not work!";
+
+        } catch (Exception e) {
+            Log.e("InputStream",e.toString());
+        }
+        return result;
+    }
+
     public String POSTtoLogs(Logs logs){
         InputStream inputStream = null;
         String Result = "";
@@ -168,6 +231,23 @@ public class HttpHelper {
 
     }
 
+    public void PUTAccount(dreamyAccount dc){
+        new PUTJson().execute(dc);
+    }
+
+    private class PUTJson extends AsyncTask<dreamyAccount,Void,String>{
+        @Override
+        protected String doInBackground(dreamyAccount... dc) {
+
+            return PUTtoAccount(dc[0]);
+        }
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(String result) {
+            Log.e("DATA GANTI","GANTI LHO YA !");
+        }
+    }
+
     public void POSTAccount(dreamyAccount dc){
         new JSONAccount().execute(dc);
     }
@@ -181,7 +261,7 @@ public class HttpHelper {
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
-            Log.e("DATA SENT","SENT LHO YA");
+            Log.e("ACCOUNT SENT","SENT LHO YA");
         }
     }
 
@@ -198,7 +278,7 @@ public class HttpHelper {
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
-            Log.e("DATA SENT","SENT LHO YA");
+            Log.e("LOGS SENT","SENT LHO YA");
         }
     }
 

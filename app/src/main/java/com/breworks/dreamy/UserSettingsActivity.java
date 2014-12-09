@@ -43,6 +43,7 @@ public class UserSettingsActivity extends DreamyActivity {
 
     SessionManager session;
     dreamyAccount login;
+    HttpHelper http;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class UserSettingsActivity extends DreamyActivity {
         setContentView(R.layout.settings_layout);
         session = new SessionManager(this);
         login = session.getUser();
+        http = new HttpHelper();
 
         ArrayList<SettingsItem> arr = new ArrayList<SettingsItem>();
         arr.add(new SettingsItem("Email","Change your Email"));
@@ -87,13 +89,13 @@ public class UserSettingsActivity extends DreamyActivity {
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if(input.getText().toString().equals("")){
+                                if (input.getText().toString().equals("")) {
                                     Toast.makeText(getApplicationContext(), "Insert your New Email please !", Toast.LENGTH_SHORT).show();
-                                }else if(checkEmail(input.getText().toString())){
+                                } else if (checkEmail(input.getText().toString())) {
                                     Toast.makeText(getApplicationContext(), "Please insert a valid email", Toast.LENGTH_SHORT).show();
-                                }
-                                else{
+                                } else {
                                     login.setEmail(input.getText().toString());
+                                    http.PUTAccount(login);
                                     Toast.makeText(getApplicationContext(), "Your Email has been changed", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -143,16 +145,17 @@ public class UserSettingsActivity extends DreamyActivity {
                                 try{
                                 if(input1.getText().toString().equals("")){
                                     Toast.makeText(getApplicationContext(), "Insert your New Password please !", Toast.LENGTH_SHORT).show();
-                                }else if(checkPass(input1.getText().toString())){
+                                }else if(checkPass(inputConf.getText().toString())){
                                     Toast.makeText(getApplicationContext(), "Password should have at least 6 character, uppercase, lowercase, and number", Toast.LENGTH_SHORT).show();
                                 }else if(!inputConf.getText().toString().equals(inputConf2)){
                                     Toast.makeText(getApplicationContext(), "Password confirmation doesn't match", Toast.LENGTH_SHORT).show();
-                                }else if(PasswordHash.validatePassword(input1.toString().toString(),login.getPassword())){
+                                }else if(PasswordHash.validatePassword(input1.getText().toString(),login.getPassword())){
                                     Toast.makeText(getApplicationContext(), "Old Password doesn't match", Toast.LENGTH_SHORT).show();
                                 }
                                 else{
                                     login.setPassword(inputConf.getText().toString());
-                                    Toast.makeText(getApplicationContext(), "Your Email is Now Changed", Toast.LENGTH_SHORT).show();
+                                    http.PUTAccount(login);
+                                    Toast.makeText(getApplicationContext(), "Your Password is Now Changed", Toast.LENGTH_SHORT).show();
                                 }
                             }catch(Exception e){
                                     Log.e("ERROR",e.toString());
@@ -189,6 +192,7 @@ public class UserSettingsActivity extends DreamyActivity {
                                     Toast.makeText(getApplicationContext(), "Insert your New FirstName please !", Toast.LENGTH_SHORT).show();
                                 }else{
                                      login.setFirstName(input2.getText().toString());
+                                     http.PUTAccount(login);
                                      Toast.makeText(getApplicationContext(), "Your First Name has been changed", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -222,6 +226,7 @@ public class UserSettingsActivity extends DreamyActivity {
                                     Toast.makeText(getApplicationContext(), "Insert your New LastName please !", Toast.LENGTH_SHORT).show();
                                 }else{
                                     login.setLastName(input3.getText().toString());
+                                    http.PUTAccount(login);
                                     Toast.makeText(getApplicationContext(), "Your Last Name has been Changed", Toast.LENGTH_SHORT).show();
                                 }
                             }
