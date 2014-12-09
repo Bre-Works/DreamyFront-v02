@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,16 +53,19 @@ public class UserSettingsActivity extends DreamyActivity {
         login = session.getUser();
 
         ArrayList<SettingsItem> arr = new ArrayList<SettingsItem>();
-        arr.add(new SettingsItem("Email","Change of your Email"));
-        arr.add(new SettingsItem("Password","Change of your Password"));
-        arr.add(new SettingsItem("First Name","Change of your First Name"));
-        arr.add(new SettingsItem("Last Name","Change of your Last Name"));
+        arr.add(new SettingsItem("Email","Change your Email"));
+        arr.add(new SettingsItem("Password","Change your Password"));
+        arr.add(new SettingsItem("First Name","Change your First Name"));
+        arr.add(new SettingsItem("Last Name","Change your Last Name"));
 
         MyAdapter adapt = new MyAdapter(this,arr);
 
         ListView lv = (ListView) findViewById(R.id.containSet);
         lv.setAdapter(adapt);
         final Context context = this.getApplicationContext();
+
+        final TableLayout.LayoutParams params = new TableLayout.LayoutParams();
+        params.setMargins(5, 5, 5, 5);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -75,7 +79,8 @@ public class UserSettingsActivity extends DreamyActivity {
                         final EditText input = new EditText(UserSettingsActivity.this);
                         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
                         input.setInputType(InputType.TYPE_CLASS_TEXT );
-                        input.setHint("Input yout new Email");
+                        input.setHint("Input your new Email");
+                        input.setLayoutParams(params);
                         builder.setView(input);
 
                         // Set up the buttons
@@ -83,13 +88,13 @@ public class UserSettingsActivity extends DreamyActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if(input.getText().toString().equals("")){
-                                    Toast.makeText(getApplicationContext(), "Input your New Email please !", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Insert your New Email please !", Toast.LENGTH_SHORT).show();
                                 }else if(checkEmail(input.getText().toString())){
-                                    Toast.makeText(getApplicationContext(), "Wrong Email Format", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Please insert a valid email", Toast.LENGTH_SHORT).show();
                                 }
                                 else{
                                     login.setEmail(input.getText().toString());
-                                    Toast.makeText(getApplicationContext(), "Your Email is Now Changed", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Your Email has been changed", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -114,15 +119,18 @@ public class UserSettingsActivity extends DreamyActivity {
                         LinearLayout lin = new LinearLayout(UserSettingsActivity.this);
                         lin.setOrientation(LinearLayout.VERTICAL);
                         input1.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                        input1.setHint("Input Old Password");
+                        input1.setHint("Insert your Old Password");
                         input1.setTransformationMethod(PasswordTransformationMethod.getInstance());
                         inputConf.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                        inputConf.setHint("Input New Password");
+                        inputConf.setHint("Insert your New Password");
                         inputConf.setTransformationMethod(PasswordTransformationMethod.getInstance());
                         inputConf2.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                        inputConf2.setHint("Input New Password Once More");
+                        inputConf2.setHint("Repeat your New Password");
                         inputConf2.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                        lin.setPadding(20,20,20,40);
+                        //lin.setPadding(20, 20, 20, 40);
+                        input1.setLayoutParams(params);
+                        inputConf.setLayoutParams(params);
+                        inputConf2.setLayoutParams(params);
                         lin.addView(input1);
                         lin.addView(inputConf);
                         lin.addView(inputConf2);
@@ -134,7 +142,7 @@ public class UserSettingsActivity extends DreamyActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 try{
                                 if(input1.getText().toString().equals("")){
-                                    Toast.makeText(getApplicationContext(), "Input your New Password please !", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Insert your New Password please !", Toast.LENGTH_SHORT).show();
                                 }else if(checkPass(input1.getText().toString())){
                                     Toast.makeText(getApplicationContext(), "Password should have at least 6 character, uppercase, lowercase, and number", Toast.LENGTH_SHORT).show();
                                 }else if(!inputConf.getText().toString().equals(inputConf2)){
@@ -168,7 +176,8 @@ public class UserSettingsActivity extends DreamyActivity {
                         final EditText input2 = new EditText(UserSettingsActivity.this);
                         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
                         input2.setInputType(InputType.TYPE_CLASS_TEXT);
-                        input2.setHint("Input yout new First Name");
+                        input2.setHint("Insert your new First Name");
+                        input2.setLayoutParams(params);
                         builder2.setView(input2);
 
 
@@ -177,10 +186,10 @@ public class UserSettingsActivity extends DreamyActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if(input2.getText().toString().equals("")){
-                                    Toast.makeText(getApplicationContext(), "Input your New FirstName please !", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Insert your New FirstName please !", Toast.LENGTH_SHORT).show();
                                 }else{
                                      login.setFirstName(input2.getText().toString());
-                                     Toast.makeText(getApplicationContext(), "Your First Name is Now Changed", Toast.LENGTH_SHORT).show();
+                                     Toast.makeText(getApplicationContext(), "Your First Name has been changed", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -201,7 +210,8 @@ public class UserSettingsActivity extends DreamyActivity {
                         final EditText input3 = new EditText(UserSettingsActivity.this);
                         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
                         input3.setInputType(InputType.TYPE_CLASS_TEXT);
-                        input3.setHint("Input yout new Last Name");
+                        input3.setHint("Insert your new Last Name");
+                        input3.setLayoutParams(params);
                         builder3.setView(input3);
 
                         // Set up the buttons
@@ -209,10 +219,10 @@ public class UserSettingsActivity extends DreamyActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if(input3.getText().toString().equals("")){
-                                    Toast.makeText(getApplicationContext(), "Input your New LastName please !", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Insert your New LastName please !", Toast.LENGTH_SHORT).show();
                                 }else{
                                     login.setLastName(input3.getText().toString());
-                                    Toast.makeText(getApplicationContext(), "Your Last Name is Now Changed", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Your Last Name has been Changed", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
