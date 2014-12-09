@@ -6,6 +6,7 @@ package com.breworks.dreamy;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
@@ -70,8 +71,12 @@ public class ListProvider implements RemoteViewsFactory {
         remoteView.setTextViewText(R.id.heading, listItem.heading);
         remoteView.setTextViewText(R.id.content, listItem.content);
 
+        Intent fillInIntent = new Intent();
+
+        remoteView.setOnClickFillInIntent(R.id.widgetInside, fillInIntent);
         return remoteView;
     }
+
 
 
     @Override

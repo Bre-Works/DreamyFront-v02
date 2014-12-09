@@ -40,6 +40,10 @@ public class DreamyWidgetProvider extends AppWidgetProvider {
         for (int i = 0; i < N; ++i) {
             RemoteViews remoteViews = updateWidgetListView(context,
                     appWidgetIds[i]);
+            Intent startActivityIntent = new Intent(context, Splash.class);
+            PendingIntent startActivityPendingIntent = PendingIntent.getActivity(context, 0, startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            remoteViews.setPendingIntentTemplate(R.id.listViewWidget, startActivityPendingIntent);
+
             appWidgetManager.updateAppWidget(appWidgetIds[i], remoteViews);
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
@@ -50,6 +54,10 @@ public class DreamyWidgetProvider extends AppWidgetProvider {
         //which layout to show on widget
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                 R.layout.widget_layout);
+
+        Intent intent = new Intent(context, Splash.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(R.id.widget, pendingIntent);
 
         //RemoteViews Service needed to provide adapter for ListView
         Intent svcIntent = new Intent(context, WidgetService.class);

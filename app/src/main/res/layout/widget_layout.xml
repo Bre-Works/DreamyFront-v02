@@ -4,7 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#B1E6F2"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:focusableInTouchMode="false"
+    android:id="@+id/widget">
 
     <TextView
         android:layout_width="wrap_content"
@@ -26,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="LOl"
+        android:text="Please Input Your Dreams"
         android:textColor="#ffffff"
         android:textSize="25sp"
         android:visibility="gone" />
