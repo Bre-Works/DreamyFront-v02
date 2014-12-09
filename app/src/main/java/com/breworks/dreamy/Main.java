@@ -64,7 +64,7 @@ public class Main extends DreamyActivity {
         login = session.getUser();
         Log.e("ID MASUK MAIN", String.valueOf(login.getId()));
         setContentView(R.layout.activity_main);
-        actionBar.setTitle("Hello, "+ login.getUsername());
+        actionBar.setTitle("Hello, "+ login.getFirstName() + " " + login.getLastName());
         //ImageView bg = (ImageView) findViewById(R.id.bg);
         //bg.setScaleType(ImageView.ScaleType.CENTER_CROP);
         layout = (GridLayout) findViewById(R.id.listLayout);
@@ -195,6 +195,8 @@ public class Main extends DreamyActivity {
         help.setVisible(true);
         MenuItem logout = menu.findItem(R.id.action_logout);
         logout.setVisible(true);
+        MenuItem settings = menu.findItem(R.id.action_settings);
+        settings.setVisible(true);
         return true;
     }
 
@@ -229,10 +231,9 @@ public class Main extends DreamyActivity {
             //Intent intent = new Intent(this, Help.class);
             //startActivity(intent);
             HelpDialog();
-
         }
 
-        if(id == R.id.menu_settings){
+        if(id == R.id.action_settings){
             Intent intent = new Intent(this, UserSettingsActivity.class);
             startActivity(intent);
         }
@@ -261,8 +262,6 @@ public class Main extends DreamyActivity {
         });
 
         dialog.show();
-
-
     }
 
     public void gotoDreamyForm(View v) {

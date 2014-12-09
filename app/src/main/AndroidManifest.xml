@@ -63,6 +63,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".UserSettingsActivity"
+            android:label="Settings"
+            android:parentActivityName=".Main"/>
+
         <activity android:name=".Milestones"
             android:parentActivityName=".Main"/>
 
