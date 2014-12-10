@@ -15,7 +15,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -26,7 +25,6 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.support.v4.app.NavUtils;
 
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
@@ -34,7 +32,6 @@ import com.breworks.dreamy.model.Milestone;
 import com.breworks.dreamy.model.Todo;
 import com.breworks.dreamy.model.dreamyAccount;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Random;
 
@@ -358,6 +355,7 @@ public class Milestones extends DreamyActivity {
 
     @Override
     public void onBackPressed() {
+        getCurrentFocus().clearFocus();
         Main.mainAct.finish();
         Intent intent = new Intent(this, Main.class);
         startActivity(intent);

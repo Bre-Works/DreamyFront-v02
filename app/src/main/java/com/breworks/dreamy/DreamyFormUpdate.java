@@ -1,16 +1,11 @@
 package com.breworks.dreamy;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -252,8 +247,6 @@ public class DreamyFormUpdate extends DreamyActivity {
                 .setNegativeButton("Yes", dialogClickListener)
                 .setPositiveButton("No", dialogClickListener).show(); }
 
-
-
     public void saveBackToHome(){
         Main.mainAct.finish();
         Intent intent = new Intent(this, Milestones.class);
@@ -261,6 +254,12 @@ public class DreamyFormUpdate extends DreamyActivity {
         startActivity(intent);
         getCurrentFocus().clearFocus();
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        getCurrentFocus().clearFocus();
+        super.onBackPressed();
     }
 
 }
