@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout"
-    android:layout_width="216dp"
-    android:layout_height="144dp"
-    android:layout_margin="8dip"
-    android:background="@drawable/myshape" >
-
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#B1E6F2"
+    android:padding="10dp"
+    android:focusableInTouchMode="false"
+    android:id="@+id/widget">
 
     <TextView
-        android:id="@+id/update"
-        style="@android:style/TextAppearance.Medium"
-        android:layout_width="138dp"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal|center_vertical"
-        android:layout_margin="4dip"
-        android:text="Static Text" >
-    </TextView>
-
-    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:src="@drawable/punyaoms" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Dreamy"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#030303"
+        android:layout_marginBottom="10dp" />
 
+    <ListView
+        android:id="@+id/listViewWidget"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Please Input Your Dreams"
+        android:textColor="#ffffff"
+        android:textSize="25sp"
+        android:visibility="gone" />
 
 </LinearLayout>

@@ -129,9 +129,15 @@ public class dreamyAccount extends SugarRecord<dreamyAccount> {
         this.save();
     }
 
-    public void setPassword(String password) {
+    public void setPassword(String password)  {
+        try{
+        password = PasswordHash.createHash(password);
         this.password = password;
         this.save();
+        }
+        catch (Exception e){
+
+        }
     }
 
     public void setEmail(String email) {

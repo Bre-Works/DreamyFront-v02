@@ -25,3 +25,5 @@ proguard/
 # Log Files
 *.log
 .idea/workspace.xml
+app/src/main/java/com/breworks/dreamy/DreamyWidgetProvider.java
+app/src/main/java/com/breworks/dreamy/DreamyWidgetProvider.java

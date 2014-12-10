@@ -236,7 +236,7 @@ public class DreamyFormUpdate extends DreamyActivity {
                     break; }
             } };
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("This Dream will be Deleted, Are you sure?")
+        builder.setMessage("Are you sure you want to remove this dream?")
                 .setNegativeButton("Yes", dialogClickListener)
                 .setPositiveButton("No", dialogClickListener).show(); }
 

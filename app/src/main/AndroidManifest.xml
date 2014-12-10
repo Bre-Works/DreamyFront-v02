@@ -28,12 +28,14 @@
         </activity>
 
         <activity
-            android:name=".LogIn">
+            android:name=".LogIn"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:theme="@style/DialogWithCorners"
-            android:name=".SignUp" >
+            android:name=".SignUp"
+            android:screenOrientation="portrait">
         </activity>
 
 
@@ -50,26 +52,40 @@
 
         <activity
             android:name=".DreamyForm"
+            android:screenOrientation="portrait"
             android:parentActivityName=".Main"/>
 
         <activity android:name=".DreamyFormUpdate"
             android:parentActivityName=".Milestones"/>
 
+
         <activity android:name=".TaskList"
             android:label="@string/app_name"
             android:launchMode="standard"
             android:parentActivityName=".Milestones">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".UserSettingsActivity"
+            android:label="Settings"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Main"/>
+
         <activity android:name=".Milestones"
+            android:screenOrientation="portrait"
             android:parentActivityName=".Main"/>
 
         <activity
             android:name=".ToDoDetail"/>
+
+        <service
+            android:name=".WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <receiver android:name="DreamyWidgetProvider" >
             <intent-filter >
@@ -82,25 +98,9 @@
                 android:resource="@xml/widget_info" />
         </receiver>
 
-        <receiver android:name="DreamyMileWidgetProvider" >
-            <intent-filter >
-                <action
-                    android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget_info_1" />
-        </receiver>
-
         <receiver android:name=".Alarm"></receiver>
 
-        <receiver
-            android:name=".OnBoot">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
+
 
 
     </application>

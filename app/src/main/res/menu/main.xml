@@ -5,6 +5,11 @@
         android:title="@string/action_settings"
         android:showAsAction="collapseActionView"/>-->
 
+    <item android:id="@+id/action_settings"
+        android:title="Settings"
+        android:visible="false"
+        android:showAsAction="collapseActionView"/>
+
     <item android:id="@+id/action_help"
         android:title="Help"
         android:showAsAction="collapseActionView"
@@ -21,7 +26,7 @@
         android:visible="false"/>
 
     <item android:id="@+id/action_deleteDream"
-        android:title="Delete Dream"
+        android:title="Delete"
         android:visible="false"
         android:showAsAction="collapseActionView"/>
 
@@ -35,5 +40,6 @@
         android:title="Save"
         android:icon="@drawable/ic_action_accept"
         android:visible="false"/>
+
 
 </menu>
