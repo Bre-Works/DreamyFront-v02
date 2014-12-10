@@ -187,6 +187,9 @@ public class Milestones extends DreamyActivity {
         }
 
         if(id == android.R.id.home) {
+            Main.mainAct.finish();
+            Intent intent = new Intent(this, Main.class);
+            startActivity(intent);
             finish();
         }
 
@@ -345,6 +348,14 @@ public class Milestones extends DreamyActivity {
         });
 
         dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Main.mainAct.finish();
+        Intent intent = new Intent(this, Main.class);
+        startActivity(intent);
+        finish();
     }
 
 }
