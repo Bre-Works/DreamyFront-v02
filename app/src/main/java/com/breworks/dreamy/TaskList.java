@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * Created by aidifauzan on 23/11/2014.
  */
-public class TaskList extends Activity {
+public class TaskList extends DreamyActivity {
 
     EditText TodoInput;
     LinearLayout container;
@@ -50,7 +50,7 @@ public class TaskList extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_list);
         ActionBar actionBar = getActionBar();
-        //actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         //get data from intent
         Intent intent = getIntent();
@@ -84,10 +84,8 @@ public class TaskList extends Activity {
 
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
                     if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                            LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService
-                                    (Context.LAYOUT_INFLATER_SERVICE);
 
-                            final View addView = inflater.inflate(R.layout.todo_row, null);
+                            final View addView = getLayoutInflater().inflate(R.layout.todo_row, null);
                             toDetail = (ImageButton) addView.findViewById(R.id.toDetail);
                             removeTodo = (ImageButton) addView.findViewById(R.id.delTodo);
                             CheckBox todoc = (CheckBox) addView.findViewById(R.id.cbTodo);
@@ -162,10 +160,7 @@ public class TaskList extends Activity {
         final List<Todo> Todos = Todo.searchByMilestone(mil);
         for (final Todo td : Todos) {
 
-            LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService
-                    (Context.LAYOUT_INFLATER_SERVICE);
-
-            final View addView = inflater.inflate(R.layout.todo_row, null);
+            final View addView = getLayoutInflater().inflate(R.layout.todo_row, null);
             toDetail = (ImageButton) addView.findViewById(R.id.toDetail);
             CheckBox todoc = (CheckBox) addView.findViewById(R.id.cbTodo);
             removeTodo = (ImageButton) addView.findViewById(R.id.delTodo);
@@ -229,10 +224,10 @@ public class TaskList extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        /*if (id == android.R.id.home) {
+        if (id == android.R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
             return true;
-        }*/
+        }
         return super.onOptionsItemSelected(item);
     }
 

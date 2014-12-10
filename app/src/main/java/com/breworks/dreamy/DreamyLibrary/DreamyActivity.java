@@ -2,6 +2,7 @@ package com.breworks.dreamy.DreamyLibrary;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -12,5 +13,6 @@ public class DreamyActivity extends Activity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(new CalligraphyContextWrapper(newBase));
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 }

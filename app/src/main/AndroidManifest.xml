@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.breworks.dreamy">
-    <uses-sdk android:minSdkVersion="14" />
+    <uses-sdk android:minSdkVersion="16" />
 
 
     <application
@@ -9,7 +9,7 @@
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:name="Dreamy"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
 
         <meta-data android:name="DATABASE" android:value="dreamyDB.db" />
         <meta-data android:name="VERSION" android:value="2" />
@@ -40,7 +40,8 @@
         <activity
             android:name=".Main"
             android:label="@string/app_name"
-            android:launchMode="standard">
+            android:launchMode="standard"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -52,11 +53,12 @@
             android:parentActivityName=".Main"/>
 
         <activity android:name=".DreamyFormUpdate"
-            android:parentActivityName=".Main"/>
+            android:parentActivityName=".Milestones"/>
 
         <activity android:name=".TaskList"
             android:label="@string/app_name"
-            android:launchMode="standard">
+            android:launchMode="standard"
+            android:parentActivityName=".Milestones">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -67,8 +69,7 @@
             android:parentActivityName=".Main"/>
 
         <activity
-            android:name=".ToDoDetail"
-            android:label="@string/app_name"/>
+            android:name=".ToDoDetail"/>
 
         <receiver android:name="DreamyWidgetProvider" >
             <intent-filter >
