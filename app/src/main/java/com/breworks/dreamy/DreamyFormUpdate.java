@@ -207,6 +207,7 @@ public class DreamyFormUpdate extends DreamyActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == android.R.id.home) {
+            getCurrentFocus().clearFocus();
             finish();
         }
 

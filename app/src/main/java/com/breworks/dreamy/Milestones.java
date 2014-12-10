@@ -57,10 +57,24 @@ public class Milestones extends DreamyActivity {
 
         super.onCreate(savedInstanceState);
         session = new SessionManager(getApplicationContext());
-        dreamyAccount login = session.getUser();
         setContentView(R.layout.milestones);
         milestoneAct = this;
         getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        setUp();
+
+        layout = (LinearLayout) findViewById(R.id.listLayout);
+        layout2 = (LinearLayout) findViewById(R.id.listLayout2);
+
+        //keyboard
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+    }
+
+    public void setUp(){
+
+        dreamyAccount login = session.getUser();
 
         // Data From Main
         Intent intent = getIntent();
@@ -118,14 +132,6 @@ public class Milestones extends DreamyActivity {
                     }
                 }
         );
-
-        layout = (LinearLayout) findViewById(R.id.listLayout);
-        layout2 = (LinearLayout) findViewById(R.id.listLayout2);
-
-        //keyboard
-        getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
     }
 
     @Override
@@ -134,6 +140,7 @@ public class Milestones extends DreamyActivity {
         if(resumeDrId != 0){
             Dream drResume = Dream.findById(Dream.class, resumeDrId);
             if(drResume != null) {
+                setUp();
                 milestonesSetUp(drResume);
             }else{
                 this.finish();
@@ -141,6 +148,7 @@ public class Milestones extends DreamyActivity {
         }else{
             Dream drResume = Dream.findById(Dream.class, selectedDreams);
             if(drResume != null) {
+                setUp();
                 milestonesSetUp(drResume);
             }else{
                 this.finish();
