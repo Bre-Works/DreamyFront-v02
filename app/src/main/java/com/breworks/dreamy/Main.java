@@ -66,12 +66,27 @@ public class Main extends DreamyActivity {
         setContentView(R.layout.activity_main);
 
         actionBar.setTitle("Hello, "+ login.getUsername());
-        ImageView bg = (ImageView) findViewById(R.id.bg);
-        bg.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+        setUp();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setUp();
+    }
+
+    public void setUp(){
 
         layout = (GridLayout) findViewById(R.id.listLayout);
         Drawable circle = getResources().getDrawable(R.drawable.circle_white);
         Drawable circle_completed = getResources().getDrawable(R.drawable.circle_completed);
+
+        layout.removeAllViewsInLayout();
+
+        ImageView bg = (ImageView) findViewById(R.id.bg);
+        bg.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         // force to have soft-menu button
         try {

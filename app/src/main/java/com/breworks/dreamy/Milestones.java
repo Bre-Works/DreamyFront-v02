@@ -136,14 +136,16 @@ public class Milestones extends DreamyActivity {
         super.onResume();
         if(resumeDrId != 0){
             Dream drResume = Dream.findById(Dream.class, resumeDrId);
-            milestonesSetUp(drResume);
+            if(drResume != null) {
+                milestonesSetUp(drResume);
+            }
         }else{
             Dream drResume = Dream.findById(Dream.class, selectedDreams);
-            milestonesSetUp(drResume);
-
+            if(drResume != null) {
+                milestonesSetUp(drResume);
+            }
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
