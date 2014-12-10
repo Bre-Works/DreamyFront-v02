@@ -126,32 +126,11 @@ public class LogIn extends DreamyActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            try {
-                if(con.isConnectedToInternet()){
-                dreamyAccount dr = httphelper.findAccountByUserName(username);
-
-                    if(username.equals("") || password.equals("")){
-                        progressDialog.dismiss();
-                        Looper.prepare();
-                        MessageQueue queue = Looper.myQueue();
-                        queue.addIdleHandler(new MessageQueue.IdleHandler() {
-                            int mReqCount = 0;
-
-                            @Override
-                            public boolean queueIdle() {
-                                if (++mReqCount == 2) {
-                                    // Quit looper
-                                    Looper.myLooper().quit();
-                                    return false;
-                                } else
-                                    return true;
-                            }
-                        });
-
-                        Toast.makeText(getApplicationContext(), "Enter Something Please!", Toast.LENGTH_SHORT).show();
-                        Looper.loop();
-                    }
-                if (!username.equals("") && dr == null) {
+            try{
+                Log.e("MASUK","0");
+                dreamyAccount dr = dreamyAccount.findByUsername(username);
+                if(username.equals("") || password.equals("")){
+                    Log.e("MASUK","1");
                     progressDialog.dismiss();
                     Looper.prepare();
                     MessageQueue queue = Looper.myQueue();
@@ -168,49 +147,82 @@ public class LogIn extends DreamyActivity {
                                 return true;
                         }
                     });
-
-                    Toast.makeText(getApplicationContext(), "Username does not exist!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter Something Please!", Toast.LENGTH_SHORT).show();
                     Looper.loop();
-                }
+                }if(dr == null){
+                    Log.e("MASUK","2");
+                    if (con.isConnectedToInternet()) {
+                        Log.e("MASUK","3");
+                        dr = httphelper.findAccountByUserName(username);
+                        dr = dreamyAccount.createAccount2(dr.getEmail(),dr.getUsername(),dr.getFirstName(),dr.getLastName(),currentTimestamp,dr.getPassword());
+                        if(dr == null){
+                            Log.e("MASUK","4");
+                            progressDialog.dismiss();
+                            Looper.prepare();
+                            MessageQueue queue = Looper.myQueue();
+                            queue.addIdleHandler(new MessageQueue.IdleHandler() {
+                                int mReqCount = 0;
 
-                if (dr != null) {
-                    dreamyAccount acc = new dreamyAccount();
-                    if(dreamyAccount.findByUsername(username) == null){
-                        acc = dreamyAccount.createAccount(dr.getEmail(), dr.getUsername(), dr.getFirstName(), dr.getLastName(), currentTimestamp, dr.getPassword());
-                        Log.e("ID BELUM MASUK & GANTI", String.valueOf(acc.getId()));
+                                @Override
+                                public boolean queueIdle() {
+                                    if (++mReqCount == 2) {
+                                        // Quit looper
+                                        Looper.myLooper().quit();
+                                        return false;
+                                    } else
+                                        return true;
+                                }
+                            });
+                            Toast.makeText(getApplicationContext(), "Username does not exist!", Toast.LENGTH_SHORT).show();
+                            Looper.loop();
+                        }
+                    }else{
+                        Log.e("MASUK","5");
+                        progressDialog.dismiss();
+                        Looper.prepare();
+                        MessageQueue queue = Looper.myQueue();
+                        queue.addIdleHandler(new MessageQueue.IdleHandler() {
+                            int mReqCount = 0;
 
+                            @Override
+                            public boolean queueIdle() {
+                                if (++mReqCount == 2) {
+                                    // Quit looper
+                                    Looper.myLooper().quit();
+                                    return false;
+                                } else
+                                    return true;
+                            }
+                        });
+                        Toast.makeText(getApplicationContext(), "Username does not exist in local machine!", Toast.LENGTH_SHORT).show();
+                        Looper.loop();
                     }
-                    else {
-                        acc = dreamyAccount.findByUsername(username);
-                    }
-
-                    String userPass = acc.getPassword();
-                    Log.e("ID DI DATABASE",String.valueOf(dreamyAccount.findByUsername(acc.getUsername()).getId()));
-                    //String userID = acc.getUsername();
-                    //String accessDate = acc.getAccessDate();
-                    //Logs log = new Logs(userID,accessDate,userID);
-
-                    //HttpHelper.POSTtoLogs(log);
-
-
-                    Log.e("lol", acc.getUsername());
+                }if(dr !=null){
+                    Log.e("MASUK","6");
+                    String userPass = dr.getPassword();
+                    Log.e("MASUK","9");
+                    Log.e("lol", dr.getUsername());
                     Log.e("pass", password);
-                    Log.e("encpass", acc.getPassword());
+                    Log.e("encpass", dr.getPassword());
+                    Log.e("MASUK","pass : "+ password);
+                    Log.e("MASUK","pass : "+ userPass);
+                    Log.e("MASUK","status : "+ authentication(password,userPass));
 
-                    if (authentication(password, userPass) == true) {
-                        acc.updateLastAccess(acc, currentTimestamp);
+                    if (authentication(password, userPass)) {
+                        Log.e("MASUK","7");
+                        dr.updateLastAccess(dr, currentTimestamp);
 
-                        session.createLoginSession(acc.getUsername(), acc.getId());
-                        Log.e("ID MASUK SESSION", String.valueOf(acc.getId()));
+                        session.createLoginSession(dr.getUsername(), dr.getId());
+                        Log.e("ID MASUK SESSION", String.valueOf(dr.getId()));
 
                         new SendLogs().execute();
-
                         Intent intent = new Intent(LogIn.this, Main.class);
                         startActivity(intent);
 
                         finish();
                     }
                     else{
+                        Log.e("MASUK","8");
                         progressDialog.dismiss();
                         Looper.prepare();
                         MessageQueue queue = Looper.myQueue();
@@ -232,110 +244,7 @@ public class LogIn extends DreamyActivity {
                         Looper.loop();
                     }
                 }
-                }else{
-                    if(username.equals("") || password.equals("")){
-                        progressDialog.dismiss();
-                        Looper.prepare();
-                        MessageQueue queue = Looper.myQueue();
-                        queue.addIdleHandler(new MessageQueue.IdleHandler() {
-                            int mReqCount = 0;
-
-                            @Override
-                            public boolean queueIdle() {
-                                if (++mReqCount == 2) {
-                                    // Quit looper
-                                    Looper.myLooper().quit();
-                                    return false;
-                                } else
-                                    return true;
-                            }
-                        });
-
-                        Toast.makeText(getApplicationContext(), "Enter Something Please!", Toast.LENGTH_SHORT).show();
-                        Looper.loop();
-                    }
-                    dreamyAccount dr = dreamyAccount.findByUsername(username);
-                    if (!username.equals("") && dr == null) {
-                        this.cancel(true);
-                        progressDialog.dismiss();
-
-                        Looper.prepare();
-                        MessageQueue queue = Looper.myQueue();
-                        queue.addIdleHandler(new MessageQueue.IdleHandler() {
-                            int mReqCount = 0;
-
-                            @Override
-                            public boolean queueIdle() {
-                                if (++mReqCount == 2) {
-                                    // Quit looper
-                                    Looper.myLooper().quit();
-                                    return false;
-                                } else
-                                    return true;
-                            }
-                        });
-                        Toast.makeText(getApplicationContext(), "Username does not exist in this Device!", Toast.LENGTH_SHORT).show();
-                        Looper.loop();
-                        Log.e("MASUK", "MASUK1");
-
-                    }
-                    if (dr != null) {
-                        dreamyAccount acc;
-                        acc = dr;
-                        Log.e("MASUK", "MASUK2");
-                        String userPass = acc.getPassword();
-                        Log.e("ID DI DATABASE", String.valueOf(dreamyAccount.findByUsername(acc.getUsername()).getId()));
-                        //String userID = acc.getUsername();
-                        //String accessDate = acc.getAccessDate();
-                        //Logs log = new Logs(userID,accessDate,userID);
-
-                        //HttpHelper.POSTtoLogs(log);
-
-
-                        Log.e("lol", acc.getUsername());
-                        Log.e("pass", password);
-                        Log.e("encpass", acc.getPassword());
-
-                        if (authentication(password, userPass) == true) {
-                            acc.updateLastAccess(acc, currentTimestamp);
-                            Log.e("MASUK","MASUK3");
-                            session.createLoginSession(acc.getUsername(), acc.getId());
-                            Log.e("ID MASUK SESSION", String.valueOf(acc.getId()));
-
-                            new SendLogs().execute();
-
-                            Intent intent = new Intent(LogIn.this, Main.class);
-                            startActivity(intent);
-
-                            finish();
-                        }
-                        else{
-                            progressDialog.dismiss();
-                            Looper.prepare();
-                            Log.e("MASUK","MASUK4");
-                            MessageQueue queue = Looper.myQueue();
-                            queue.addIdleHandler(new MessageQueue.IdleHandler() {
-                                int mReqCount = 0;
-
-                                @Override
-                                public boolean queueIdle() {
-                                    if (++mReqCount == 2) {
-                                        // Quit looper
-                                        Looper.myLooper().quit();
-                                        return false;
-                                    } else
-                                        return true;
-                                }
-                            });
-
-                            Toast.makeText(getApplicationContext(), "Invalid Password!", Toast.LENGTH_SHORT).show();
-                            Looper.loop();
-
-                        }
-                    }
-                }
-                Log.e("MASUK","MASUK5");
-            } catch (Exception e) {
+            }catch(Exception e){
                 Log.e("error", String.valueOf(e));
             }
             return null;
@@ -356,7 +265,8 @@ public class LogIn extends DreamyActivity {
             password = passwordInput.getText().toString();
             Log.e("pip", username);
             Log.e("pop", password);
-        }new LoggingIn().execute();
+        }
+        new LoggingIn().execute();
     }
 
     public static boolean authentication(String password, String userPass) throws InvalidKeySpecException, NoSuchAlgorithmException {

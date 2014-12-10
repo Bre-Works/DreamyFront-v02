@@ -1,12 +1,8 @@
 package com.breworks.dreamy.model;
 
-import android.content.Context;
-import android.util.Log;
-
+import com.breworks.dreamy.HttpHelper;
 import com.breworks.dreamy.PasswordHash;
 import com.orm.SugarRecord;
-import com.orm.query.Condition;
-import com.orm.query.Select;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -14,7 +10,6 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import com.breworks.dreamy.HttpHelper;
 
 /**
  * Created by Luck Eater on 10/4/2014.
@@ -75,21 +70,31 @@ public class dreamyAccount extends SugarRecord<dreamyAccount> {
         return account;
     }
 
-    public static dreamyAccount getAccount(List<dreamyAccount> acc,String email, String username, String firstName, String lastName, Timestamp tsLastAccess, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
-        password = PasswordHash.createHash(password);
+    public static dreamyAccount createAccount2(String email, String username, String firstName, String lastName, Timestamp tsLastAccess, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
         dreamyAccount account = new dreamyAccount(email, username, firstName, lastName, tsLastAccess, password);
-        http = new HttpHelper();
+//        http = new HttpHelper();
+//        account.save();
+//        account.setId(setUniqueID(account.getId()));
         account.save();
+        return account;
+    }
+
+    public static dreamyAccount getAccount(List<dreamyAccount> acc,String email, String username, String firstName, String lastName, Timestamp tsLastAccess, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
+        dreamyAccount account = createAccount(email, username, firstName, lastName, tsLastAccess, password);
         account.setId(setUniqueID(acc,account.getId()));
         account.save();
         return account;
     }
 
     public static dreamyAccount findByUsername(String Username) {
-        List<dreamyAccount> acc = dreamyAccount.find(dreamyAccount.class, "username = ?", Username);
-        if (acc.size() == 1) {
-            return acc.get(0);
-        } else return null;
+        try {
+            List<dreamyAccount> acc = dreamyAccount.find(dreamyAccount.class, "username = ?", Username);
+            if (acc.size() >= 0) {
+                return acc.get(0);
+            } else return null;
+        }catch (Exception e){
+            return null;
+        }
     }
 
 
