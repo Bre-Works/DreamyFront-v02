@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService.RemoteViewsFactory;
 import com.breworks.dreamy.model.Dream;
+import com.breworks.dreamy.model.dreamyAccount;
 
 /**
  * If you are familiar with Adapter of ListView,this is the same as adapter
@@ -23,9 +24,11 @@ public class ListProvider implements RemoteViewsFactory {
     private ArrayList<ListItem> listItemList = new ArrayList<ListItem>();
     private Context context = null;
     private int appWidgetId;
+    private SessionManager session;
 
     public ListProvider(Context context, Intent intent) {
         this.context = context;
+        session = new SessionManager(context);
         appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                 AppWidgetManager.INVALID_APPWIDGET_ID);
 
@@ -33,7 +36,8 @@ public class ListProvider implements RemoteViewsFactory {
     }
 
     private void populateListItem() {
-        List<Dream> dr = Dream.listAll(Dream.class);
+        dreamyAccount login = session.getUser();
+        List<Dream> dr = Dream.searchByUser(login);
         for (Dream d : dr) {
             ListItem listItem = new ListItem();
             listItem.heading = d.getName();
