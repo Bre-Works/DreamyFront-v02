@@ -138,11 +138,15 @@ public class Milestones extends DreamyActivity {
             Dream drResume = Dream.findById(Dream.class, resumeDrId);
             if(drResume != null) {
                 milestonesSetUp(drResume);
+            }else{
+                this.finish();
             }
         }else{
             Dream drResume = Dream.findById(Dream.class, selectedDreams);
             if(drResume != null) {
                 milestonesSetUp(drResume);
+            }else{
+                this.finish();
             }
         }
     }

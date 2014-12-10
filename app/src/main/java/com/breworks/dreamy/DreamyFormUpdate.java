@@ -187,7 +187,7 @@ public class DreamyFormUpdate extends DreamyActivity {
             }
         });
 
-        //deleteDream.setBackground(R.drawable.btn_white);
+        /*//deleteDream.setBackground(R.drawable.btn_white);
         deleteDream.setText("Delete Dream");
         deleteDream.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,7 +195,7 @@ public class DreamyFormUpdate extends DreamyActivity {
                 deleteDreamWithAlertMessage();
             }
         });
-        container.addView(deleteDream);
+        container.addView(deleteDream);*/
     }
 
     @Override
@@ -215,13 +215,13 @@ public class DreamyFormUpdate extends DreamyActivity {
             finish();
         }
 
-        if(id == R.id.saveDream) {
+        /*if(id == R.id.saveDream) {
             saveBackToHome();
-        }
-
-        /*if (id == R.id.action_deleteDream) {
-            alertMessage();
         }*/
+
+        if (id == R.id.action_deleteDream) {
+            deleteDreamWithAlertMessage();
+        }
 
         return super.onOptionsItemSelected(item);
     }
