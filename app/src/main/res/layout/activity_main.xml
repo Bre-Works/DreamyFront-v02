@@ -8,11 +8,18 @@
     android:focusable="false"
     android:longClickable="false">
 
+    <ImageView
+       android:id="@+id/bg"
+       android:layout_width="wrap_content"
+       android:layout_height="fill_parent"
+       android:scaleType="centerCrop"
+       android:src="@drawable/bg"/>
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/blurbg"
-        android:background="@drawable/bgportrait">
+        android:id="@+id/blurbg">
+        <!--android:background="@drawable/bgportrait"-->
 
         <ImageView
             android:layout_width="100dp"
@@ -121,18 +128,10 @@
                 android:id="@+id/listLayout"
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_centerHorizontal="true" />
+                android:layout_height="wrap_content" />
         </ScrollView>
 
 
     </RelativeLayout>
-
-    <!--<ImageView
-        android:id="@+id/bg"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg"/>-->
 
 </RelativeLayout>

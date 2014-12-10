@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * Created by Ryan Avila on 30/10/2014.
  */
-public class DreamyFormUpdate extends Activity {
+public class DreamyFormUpdate extends DreamyActivity {
 
     LinearLayout container;
     ImageButton addMilestone;
@@ -96,10 +96,7 @@ public class DreamyFormUpdate extends Activity {
             Log.e("lol1", String.valueOf(dr.getId()));
 
             for (final Milestone mil : miles) {
-                LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService
-                        (Context.LAYOUT_INFLATER_SERVICE);
-
-                final View addView = inflater.inflate(R.layout.dreamy_form_row, null);
+                final View addView = getLayoutInflater().inflate(R.layout.dreamy_form_row, null);
 
                 removeMilestone = (ImageButton) addView.findViewById(R.id.delMilestone);
 
@@ -153,10 +150,7 @@ public class DreamyFormUpdate extends Activity {
 
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
                     if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                        LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService
-                                (Context.LAYOUT_INFLATER_SERVICE);
-
-                        final View addView = inflater.inflate(R.layout.dreamy_form_row, null);
+                        final View addView = getLayoutInflater().inflate(R.layout.dreamy_form_row, null);
 
                         removeMilestone = (ImageButton) addView.findViewById(R.id.delMilestone);
 

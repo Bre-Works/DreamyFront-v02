@@ -64,9 +64,11 @@ public class Main extends DreamyActivity {
         login = session.getUser();
         Log.e("ID MASUK MAIN", String.valueOf(login.getId()));
         setContentView(R.layout.activity_main);
-        actionBar.setTitle("Hello, "+ login.getFirstName() + " " + login.getLastName());
-        //ImageView bg = (ImageView) findViewById(R.id.bg);
-        //bg.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+        actionBar.setTitle("Hello, "+ login.getUsername());
+        ImageView bg = (ImageView) findViewById(R.id.bg);
+        bg.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
         layout = (GridLayout) findViewById(R.id.listLayout);
         Drawable circle = getResources().getDrawable(R.drawable.circle_white);
         Drawable circle_completed = getResources().getDrawable(R.drawable.circle_completed);
@@ -105,7 +107,6 @@ public class Main extends DreamyActivity {
             toY = screenHeight * (-0.75f);
             randTransAnim = new TranslateAnimation(fromX, toX, fromY, toY);
             randTransAnim.setDuration(20000);
-            //randTransAnim.setRepeatMode(Animation.INFINITE);
             randTransAnim.setRepeatCount(1000);
             AnimationSet animSet = new AnimationSet(true);
             animSet.addAnimation(randTransAnim);

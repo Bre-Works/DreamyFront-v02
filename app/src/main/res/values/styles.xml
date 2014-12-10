@@ -6,17 +6,28 @@
         <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:actionBarStyle">@style/ActionBar</item>
-
     </style>
 
-    <style name="AppTheme.Widget.TextView" parent="android:Widget.Holo.Light.TextView">
+    <style name="AppTheme.Widget.TextView" parent="@style/android:Widget.Holo.Light.TextView">
         <item name="fontPath">fonts/Roboto/Roboto-Light.ttf</item>
+    </style>
+
+    <style name="EditTextStyle" parent="@style/android:Widget.Holo.Light.EditText">
+    </style>
+
+    <style name="TitleFont" parent="@android:style/TextAppearance.Large">
+        <item name="fontPath">fonts/Calligraffiti/Calligraffiti.ttf</item>
+    </style>
+
+    <style name="FontRobotoRegular">
+        <item name="fontPath">fonts/Roboto/Roboto-Regular.ttf</item>
     </style>
 
     <!-- ActionBar style -->
     <style name="ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">#80ffefdb</item>
-        <item name="fontPath">fonts/Roboto/Roboto-Light.ttf</item>
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:titleTextStyle">@style/TitleFont</item>
     </style>
 
     <!-- Custom dialog box -->
