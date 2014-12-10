@@ -50,7 +50,7 @@ public class TaskList extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_list);
         ActionBar actionBar = getActionBar();
-        //actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         //get data from intent
         Intent intent = getIntent();
@@ -229,10 +229,9 @@ public class TaskList extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        /*if (id == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
-            return true;
-        }*/
+        if (id == android.R.id.home) {
+            finish();
+        }
         return super.onOptionsItemSelected(item);
     }
 

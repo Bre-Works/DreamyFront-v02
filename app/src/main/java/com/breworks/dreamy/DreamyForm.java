@@ -140,7 +140,6 @@ public class DreamyForm extends Activity {
         }
         startActivity(intent);
         finish();
-
     }
 
     @Override
@@ -161,8 +160,7 @@ public class DreamyForm extends Activity {
         }
 
         if(id == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
-            return true;
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

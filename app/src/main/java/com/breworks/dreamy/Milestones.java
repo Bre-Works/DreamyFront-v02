@@ -48,6 +48,8 @@ public class Milestones extends DreamyActivity {
     int selectedDreamIndex = 0;
     LinearLayout layout;
     LinearLayout layout2;
+    long resumeDrId = 0;
+    boolean active = false;
 
     long selectedDreams = 0;
     String[] colorPalette ={"#FFE1EBFF","#FFFFFAF1","#FFFFF6F8","#FFFBFFF0"};
@@ -130,6 +132,19 @@ public class Milestones extends DreamyActivity {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if(resumeDrId != 0){
+            Dream drResume = Dream.findById(Dream.class, resumeDrId);
+            milestonesSetUp(drResume);
+        }else{
+            Dream drResume = Dream.findById(Dream.class, selectedDreams);
+            milestonesSetUp(drResume);
+
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -163,7 +178,7 @@ public class Milestones extends DreamyActivity {
             Intent intent = new Intent(this, DreamyFormUpdate.class);
             intent.putExtra("key",selectedDreams);
             startActivity(intent);
-            finish();
+            //finish();
         }
 
         if (id == R.id.action_help) {
@@ -172,8 +187,7 @@ public class Milestones extends DreamyActivity {
         }
 
         if(id == android.R.id.home) {
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -291,6 +305,7 @@ public class Milestones extends DreamyActivity {
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(getApplicationContext(), milest.getText().toString(), Toast.LENGTH_SHORT).show();
+                    resumeDrId = dr.getId();
                     Intent intent = new Intent(Milestones.this, TaskList.class);
                     intent.putExtra("dream", dr.getId());
                     intent.putExtra("miles", mil.getId());
