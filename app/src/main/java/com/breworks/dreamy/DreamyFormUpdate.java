@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -41,6 +42,7 @@ public class DreamyFormUpdate extends DreamyActivity {
     EditText dreamInput;
     SessionManager session;
     Dream dreamMain;
+    Button deleteDream;
 
     long selectedDream = 0;
 
@@ -184,6 +186,16 @@ public class DreamyFormUpdate extends DreamyActivity {
                 return false;
             }
         });
+
+        //deleteDream.setBackground(R.drawable.btn_white);
+        deleteDream.setText("Delete Dream");
+        deleteDream.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v1) {
+                deleteDreamWithAlertMessage();
+            }
+        });
+        container.addView(deleteDream);
     }
 
     @Override
@@ -203,14 +215,18 @@ public class DreamyFormUpdate extends DreamyActivity {
             finish();
         }
 
-        if (id == R.id.action_deleteDream) {
-            alertMessage();
+        if(id == R.id.saveDream) {
+            saveBackToHome();
         }
+
+        /*if (id == R.id.action_deleteDream) {
+            alertMessage();
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void alertMessage() {
+    public void deleteDreamWithAlertMessage() {
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
@@ -241,7 +257,7 @@ public class DreamyFormUpdate extends DreamyActivity {
 
 
 
-    public void saveBackToHome(View v){
+    public void saveBackToHome(){
         Main.mainAct.finish();
         Intent intent = new Intent(this, Milestones.class);
         intent.putExtra("key", selectedDream);

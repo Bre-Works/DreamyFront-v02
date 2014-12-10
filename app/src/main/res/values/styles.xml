@@ -15,7 +15,7 @@
     <style name="EditTextStyle" parent="@style/android:Widget.Holo.Light.EditText">
     </style>
 
-    <style name="TitleFont" parent="@android:style/TextAppearance.Large">
+    <style name="TitleFont">
         <item name="fontPath">fonts/Calligraffiti/Calligraffiti.ttf</item>
     </style>
 
@@ -27,7 +27,6 @@
     <style name="ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">#80ffefdb</item>
         <item name="android:textColor">#ffffffff</item>
-        <item name="android:titleTextStyle">@style/TitleFont</item>
     </style>
 
     <!-- Custom dialog box -->
