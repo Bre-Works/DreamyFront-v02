@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#B1E6F2"
+    android:background="#ccB1E6F2"
     android:padding="10dp"
     android:focusableInTouchMode="false"
     android:id="@+id/widget">
@@ -14,7 +14,7 @@
         android:id="@+id/refresh_button"
         android:src="@drawable/refresh"
         android:layout_gravity="right"
-        android:background="#B1E6F2"
+        android:background="#ccB1E6F2"
         android:layout_alignTop="@+id/textView"
         android:layout_alignRight="@+id/listViewWidget"
         android:layout_alignEnd="@+id/listViewWidget"
