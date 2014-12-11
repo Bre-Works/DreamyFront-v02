@@ -27,6 +27,7 @@
     <style name="ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">#80ffefdb</item>
         <item name="android:textColor">#ffffffff</item>
+        <item name="android:icon">@android:color/transparent</item>
     </style>
 
     <!-- Custom dialog box -->
