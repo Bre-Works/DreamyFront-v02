@@ -81,7 +81,7 @@ public class Main extends DreamyActivity {
 
         layout = (GridLayout) findViewById(R.id.listLayout);
         Drawable circle = getResources().getDrawable(R.drawable.circle_white);
-        Drawable circle_completed = getResources().getDrawable(R.drawable.circle_completed);
+        Drawable circle_done = getResources().getDrawable(R.drawable.circle_done);
 
         layout.removeAllViewsInLayout();
 
@@ -144,11 +144,11 @@ public class Main extends DreamyActivity {
             Log.e("lol", dr.getName());
             dr.checkDreamStatus();
             if (!dr.getStatus()) {
-                textView.setText("“" + dr.getName() + "”" + "\n- ONGOING ");
+                textView.setText("“" + dr.getName() + "”");
                 textView.setBackground(circle);
             } else {
-                textView.setText("“" + dr.getName() + "”" + "\n- COMPLETED");
-                textView.setBackground(circle_completed);
+                textView.setText("“" + dr.getName() + "”");
+                textView.setBackground(circle_done);
             }
             textView.setGravity(Gravity.CENTER);
             textView.isClickable();
@@ -179,7 +179,7 @@ public class Main extends DreamyActivity {
                 col = 0;
                 row++;
             }
-            textView.setTextAppearance(this, android.R.style.TextAppearance_Small);
+            textView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
 
             GridLayout.LayoutParams param = new GridLayout.LayoutParams();
             param.height = LayoutParams.WRAP_CONTENT;
