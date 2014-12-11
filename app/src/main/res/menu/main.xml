@@ -28,6 +28,7 @@
     <item android:id="@+id/action_deleteDream"
         android:title="Delete"
         android:visible="false"
+        android:icon="@drawable/ic_action_discard"
         android:showAsAction="collapseActionView"/>
 
     <item android:id="@+id/action_editdream"

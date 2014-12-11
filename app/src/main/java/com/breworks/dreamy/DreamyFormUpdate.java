@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -38,7 +39,8 @@ public class DreamyFormUpdate extends DreamyActivity {
     EditText dreamInput;
     SessionManager session;
     Dream dreamMain;
-    Button deleteDream;
+    ImageButton deleteDream;
+    LinearLayout dreamyform;
 
     long selectedDream = 0;
 
@@ -54,7 +56,7 @@ public class DreamyFormUpdate extends DreamyActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Edit dream");
 
-
+        dreamyform = (LinearLayout) findViewById(R.id.layoutDreamFrom);
         milestoneInput = (EditText) findViewById(R.id.milestoneInput);
         container = (LinearLayout) findViewById(R.id.container);
         dreamInput = (EditText) findViewById(R.id.dreamInput);
@@ -71,6 +73,10 @@ public class DreamyFormUpdate extends DreamyActivity {
             }
         };
         dreamInput.setOnEditorActionListener(DoNothingOnEnter);
+
+        /*Drawable img = getResources().getDrawable(R.drawable.ic_action_discard);
+        deleteDream.setImageDrawable(img);
+        dreamyform.addView(deleteDream);*/
 
         Intent intent;
         try {
@@ -186,7 +192,7 @@ public class DreamyFormUpdate extends DreamyActivity {
         });
 
         //deleteDream.setBackground(R.drawable.btn_white);
-        deleteDream.setText("Delete Dream");
+        //deleteDream.setText("Delete Dream");
         /*deleteDream.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v1) {
@@ -203,6 +209,9 @@ public class DreamyFormUpdate extends DreamyActivity {
         MenuItem refreshItem = menu.findItem(R.id.action_saveDream);
         refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         refreshItem.setVisible(true);
+        MenuItem refreshItem2 = menu.findItem(R.id.action_deleteDream);
+        refreshItem2.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        refreshItem2.setVisible(true);
         return true;
     }
 
@@ -210,17 +219,17 @@ public class DreamyFormUpdate extends DreamyActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == android.R.id.home) {
+            finish();
+        }
+
+        if(id == R.id.action_saveDream) {
             getCurrentFocus().clearFocus();
             finish();
         }
 
-        if(id == R.id.saveDream) {
-            saveBackToHome();
-        }
-
-        /*if (id == R.id.action_deleteDream) {
+        if (id == R.id.action_deleteDream) {
             deleteDreamWithAlertMessage();
-        }*/
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -260,10 +269,10 @@ public class DreamyFormUpdate extends DreamyActivity {
         finish();
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         getCurrentFocus().clearFocus();
         super.onBackPressed();
-    }
+    }*/
 
 }
