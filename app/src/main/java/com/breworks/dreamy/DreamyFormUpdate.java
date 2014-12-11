@@ -1,5 +1,6 @@
 package com.breworks.dreamy;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -49,7 +50,9 @@ public class DreamyFormUpdate extends DreamyActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dreamy_form);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Edit dream");
 
 
         milestoneInput = (EditText) findViewById(R.id.milestoneInput);
@@ -182,9 +185,9 @@ public class DreamyFormUpdate extends DreamyActivity {
             }
         });
 
-        /*//deleteDream.setBackground(R.drawable.btn_white);
+        //deleteDream.setBackground(R.drawable.btn_white);
         deleteDream.setText("Delete Dream");
-        deleteDream.setOnClickListener(new View.OnClickListener() {
+        /*deleteDream.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v1) {
                 deleteDreamWithAlertMessage();
@@ -197,7 +200,7 @@ public class DreamyFormUpdate extends DreamyActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem refreshItem = menu.findItem(R.id.action_deleteDream);
+        MenuItem refreshItem = menu.findItem(R.id.action_saveDream);
         refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         refreshItem.setVisible(true);
         return true;
@@ -211,13 +214,13 @@ public class DreamyFormUpdate extends DreamyActivity {
             finish();
         }
 
-        /*if(id == R.id.saveDream) {
+        if(id == R.id.saveDream) {
             saveBackToHome();
-        }*/
-
-        if (id == R.id.action_deleteDream) {
-            deleteDreamWithAlertMessage();
         }
+
+        /*if (id == R.id.action_deleteDream) {
+            deleteDreamWithAlertMessage();
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
