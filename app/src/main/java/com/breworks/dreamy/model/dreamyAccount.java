@@ -63,6 +63,7 @@ public class dreamyAccount extends SugarRecord<dreamyAccount> {
     public static dreamyAccount createAccount(String email, String username, String firstName, String lastName, Timestamp tsLastAccess, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
         password = PasswordHash.createHash(password);
         dreamyAccount account = new dreamyAccount(email, username, firstName, lastName, tsLastAccess, password);
+        //Log.e("CARI PASSWORD",password);
 //        http = new HttpHelper();
 //        account.save();
 //        account.setId(setUniqueID(account.getId()));
@@ -72,6 +73,7 @@ public class dreamyAccount extends SugarRecord<dreamyAccount> {
 
     public static dreamyAccount createAccount2(String email, String username, String firstName, String lastName, Timestamp tsLastAccess, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
         dreamyAccount account = new dreamyAccount(email, username, firstName, lastName, tsLastAccess, password);
+        //Log.e("CARI PASSWORD",password);
 //        http = new HttpHelper();
 //        account.save();
 //        account.setId(setUniqueID(account.getId()));
@@ -81,6 +83,7 @@ public class dreamyAccount extends SugarRecord<dreamyAccount> {
 
     public static dreamyAccount getAccount(List<dreamyAccount> acc,String email, String username, String firstName, String lastName, Timestamp tsLastAccess, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
         dreamyAccount account = createAccount(email, username, firstName, lastName, tsLastAccess, password);
+       // Log.e("CARI PASSWORD",password);
         account.setId(setUniqueID(acc,account.getId()));
         account.save();
         return account;
@@ -135,10 +138,15 @@ public class dreamyAccount extends SugarRecord<dreamyAccount> {
     }
 
     public void setPassword(String password)  {
+            this.password = password;
+            this.save();
+    }
+
+    public void setPasswordChange(String password)  {
         try{
-        password = PasswordHash.createHash(password);
-        this.password = password;
-        this.save();
+            password = PasswordHash.createHash(password);
+            this.password = password;
+            this.save();
         }
         catch (Exception e){
 

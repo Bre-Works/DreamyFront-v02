@@ -3,20 +3,15 @@ package com.breworks.dreamy;
 /**
  * Created by Gregorius Adrian on 12/4/2014.
  */
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.support.v4.app.NavUtils;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +20,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -153,7 +147,7 @@ public class UserSettingsActivity extends DreamyActivity {
                                     Toast.makeText(getApplicationContext(), "Old Password doesn't match", Toast.LENGTH_SHORT).show();
                                 }
                                 else{
-                                    login.setPassword(inputConf.getText().toString());
+                                    login.setPasswordChange(inputConf.getText().toString());
                                     http.PUTAccount(login);
                                     Toast.makeText(getApplicationContext(), "Your Password is Now Changed", Toast.LENGTH_SHORT).show();
                                 }
