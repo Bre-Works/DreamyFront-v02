@@ -11,6 +11,7 @@
     <!-- Main page theme -->
     <style name="MainTheme" parent="@style/AppTheme">
         <item name="android:actionBarStyle">@style/ActionBarNoIcon</item>
+        <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
     </style>
 
     <style name="AppTheme.Widget.TextView" parent="@style/android:Widget.Holo.Light.TextView">

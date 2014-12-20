@@ -19,7 +19,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/blurbg">
-        <!--android:background="@drawable/bgportrait"-->
 
         <ImageView
             android:layout_width="100dp"
@@ -106,12 +105,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <!--<ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/adddreamButton"
-            android:layout_marginTop="70dp"
-            android:background="@drawable/adddream"/>-->
 
         <ScrollView
             android:layout_width="fill_parent"
@@ -128,7 +121,7 @@
                 android:id="@+id/listLayout"
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
         </ScrollView>
 
 

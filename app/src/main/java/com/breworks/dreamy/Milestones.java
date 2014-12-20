@@ -50,7 +50,7 @@ public class Milestones extends DreamyActivity {
     boolean active = false;
 
     long selectedDreams = 0;
-    String[] colorPalette ={"#FFE1EBFF","#FFFFFAF1","#FFFFF6F8","#FFFBFFF0"};
+    String[] colorPalette ={"#F2D0A2","#95F2D0A2","#65F2D0A2","#50F2D0A2"};
 
 
     @Override
@@ -264,6 +264,7 @@ public class Milestones extends DreamyActivity {
             milest.setText(mil.getName());
             milest.setTypeface(null, Typeface.BOLD);
             milest.setPadding(0,0,0,10);
+            milest.setMaxLines(3);
 
             //border layout
             Drawable rect = getResources().getDrawable(R.drawable.rectangle_border);
@@ -291,7 +292,7 @@ public class Milestones extends DreamyActivity {
                 rowtd.setGravity(Gravity.CENTER);
                 TextView tdtxt = new TextView(this);
                 tdtxt.setGravity(Gravity.CENTER);
-                tdtxt.setText("No Task");
+                tdtxt.setText("No Tasks");
                 tdtxt.setTextColor(Color.parseColor("#FFCCCCCC"));
                 rowtd.addView(tdtxt);
                 tl.addView(rowtd);

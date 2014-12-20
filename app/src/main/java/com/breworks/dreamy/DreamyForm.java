@@ -1,5 +1,6 @@
 package com.breworks.dreamy;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -50,7 +51,9 @@ public class DreamyForm extends DreamyActivity {
 
             super.onCreate(savedInstanceState);
             setContentView(R.layout.dreamy_form);
-            getActionBar().setDisplayHomeAsUpEnabled(true);
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle("");
             milestoneInput = (EditText) findViewById(R.id.milestoneInput);
             container = (LinearLayout) findViewById(R.id.container);
             dreamInput = (EditText) findViewById(R.id.dreamInput);

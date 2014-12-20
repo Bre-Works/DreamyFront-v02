@@ -24,7 +24,7 @@
             android:id="@+id/bigUsername"
             android:singleLine="true"
             android:textSize="25dp"
-            android:textColor="#ff746ac9"
+            android:textColor="#fff2d0a2"
             android:layout_marginTop="10dp" />
 
         <LinearLayout
@@ -35,7 +35,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="#ff000000"
+                android:background="#fff2d0a2"
                 android:layout_marginTop="10dp" />
         </LinearLayout>
 
@@ -111,7 +111,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="#ff000000"
+                android:background="#fff2d0a2"
                 android:layout_marginTop="10dp" />
         </LinearLayout>
 
