@@ -100,7 +100,7 @@ public class Alarm extends BroadcastReceiver {
         Notification n = new Notification.Builder(context)
                 .setContentTitle(task)
                 .setContentText(deadlineString)
-                .setSmallIcon(R.drawable.dreamlogo)
+                .setSmallIcon(R.drawable.logo)
                 .setContentIntent(pIntent).build();
 
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
