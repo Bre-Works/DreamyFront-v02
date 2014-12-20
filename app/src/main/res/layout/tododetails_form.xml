@@ -1,78 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/taskText"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/buatWidget"
-        android:layout_alignStart="@+id/buatWidget"
-        android:layout_marginTop="31dp"
-        android:textStyle="bold"
-        android:layout_marginLeft="43dp"/>
+        android:orientation="vertical"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="43dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Date :"
-        android:id="@+id/bigUsername"
-        android:layout_marginTop="93dp"
-        android:layout_toStartOf="@+id/timePicker"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="43dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/taskText"
+            style="@style/FontRobotoRegular" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Time :"
-        android:id="@+id/username"
-        android:layout_toEndOf="@+id/bigUsername"
-        android:layout_below="@+id/bigUsername"
-        android:layout_alignLeft="@+id/bigUsername"
-        android:layout_alignStart="@+id/bigUsername"
-        android:layout_marginTop="93dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Date:"
+            android:id="@+id/labelDate"
+            android:layout_marginTop="40dp" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:id="@+id/dateField"
-        android:layout_toEndOf="@+id/username"
-        android:layout_below="@+id/bigUsername"
-        android:layout_alignLeft="@+id/bigUsername"
-        android:layout_alignStart="@+id/bigUsername" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/dateField"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ffffffff"
+            android:gravity="center"
+            android:background="@drawable/input"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="time"
-        android:ems="10"
-        android:id="@+id/timeField"
-        android:layout_below="@+id/username"
-        android:layout_alignLeft="@+id/username"
-        android:layout_alignStart="@+id/username" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Time:"
+            android:id="@+id/labelTime"
+            android:layout_marginTop="40dp"/>
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Notification"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/notification"
-        android:checked="false"
-        android:layout_below="@+id/timeField"
-        android:layout_alignLeft="@+id/timeField"
-        android:layout_alignStart="@+id/timeField"
-        android:layout_marginTop="39dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:inputType="time"
+            android:ems="10"
+            android:id="@+id/timeField"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ffffffff"
+            android:gravity="center"
+            android:background="@drawable/input" />
+
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notification"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/notification"
+            android:checked="false"
+            android:layout_marginTop="60dp"
+            style="@style/FontRobotoRegular" />
+    </LinearLayout>
 
 
 </RelativeLayout>

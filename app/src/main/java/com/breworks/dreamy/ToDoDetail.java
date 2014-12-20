@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -47,8 +49,8 @@ public class ToDoDetail extends DreamyActivity {
     Date theDeadline;
     long taskID;
 
-    EditText dateField;
-    EditText timeField;
+    TextView dateField;
+    TextView timeField;
     TextView taskText;
     Switch notificationSwitch;
 
@@ -58,10 +60,10 @@ public class ToDoDetail extends DreamyActivity {
         setContentView(R.layout.tododetails_form);
 
         ActionBar actionBar = getActionBar();
-        actionBar.hide();
+        actionBar.setTitle("Set deadline");
 
-        dateField = (EditText) findViewById(R.id.dateField);
-        timeField = (EditText) findViewById(R.id.timeField);
+        dateField = (TextView) findViewById(R.id.dateField);
+        timeField = (TextView) findViewById(R.id.timeField);
         taskText = (TextView) findViewById(R.id.taskText);
         notificationSwitch = (Switch) findViewById(R.id.notification);
 
@@ -175,6 +177,26 @@ public class ToDoDetail extends DreamyActivity {
 
         Log.e("Deadline in update deadline after save", String.valueOf(t.getDeadline(t)));
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem refreshItem = menu.findItem(R.id.action_saveDream);
+        refreshItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        refreshItem.setVisible(true);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.action_saveDream) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

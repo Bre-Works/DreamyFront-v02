@@ -8,6 +8,11 @@
         <item name="android:actionBarStyle">@style/ActionBar</item>
     </style>
 
+    <!-- Main page theme -->
+    <style name="MainTheme" parent="@style/AppTheme">
+        <item name="android:actionBarStyle">@style/ActionBarNoIcon</item>
+    </style>
+
     <style name="AppTheme.Widget.TextView" parent="@style/android:Widget.Holo.Light.TextView">
         <item name="fontPath">fonts/Roboto/Roboto-Light.ttf</item>
     </style>
@@ -25,6 +30,12 @@
 
     <!-- ActionBar style -->
     <style name="ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">#80ffefdb</item>
+        <item name="android:textColor">#ffffffff</item>
+    </style>
+
+    <!-- ActionBar with hidden icon -->
+    <style name="ActionBarNoIcon" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">#80ffefdb</item>
         <item name="android:textColor">#ffffffff</item>
         <item name="android:icon">@android:color/transparent</item>

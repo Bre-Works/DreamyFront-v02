@@ -1,5 +1,6 @@
 package com.breworks.dreamy;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -59,7 +60,9 @@ public class Milestones extends DreamyActivity {
         session = new SessionManager(getApplicationContext());
         setContentView(R.layout.milestones);
         milestoneAct = this;
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("");
 
         setUp();
 
