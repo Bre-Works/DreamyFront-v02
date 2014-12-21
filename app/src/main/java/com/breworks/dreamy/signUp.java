@@ -141,31 +141,24 @@ public class SignUp extends DreamyActivity {
                         }
                         http.POSTAccount(dc);
 
-                        Looper.prepare();
-                        MessageQueue queue = Looper.myQueue();
-                        queue.addIdleHandler(new MessageQueue.IdleHandler() {
-                            int mReqCount = 0;
-
-                            @Override
-                            public boolean queueIdle() {
-                                if (++mReqCount == 2) {
-                                    // Quit looper
-                                    Looper.myLooper().quit();
-                                    return false;
-                                } else
-                                    return true;
-                            }
-                        });
+                        
                         progressDialog.dismiss();
-                        Toast toast= Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                        toast.show();
-                        Looper.loop();
+
                         finish();
+                        return "CREATED";
                     }
                 }
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(String string) {
+            if (string.equals("CREATED")) {
+                Toast toast= Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                toast.show();
+            }
         }
     }
 
