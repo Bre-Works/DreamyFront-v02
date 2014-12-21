@@ -24,8 +24,8 @@
             android:id="@+id/bigUsername"
             android:singleLine="true"
             android:textSize="25dp"
-            android:textColor="#fff2d0a2"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:textColor="#fff2d0a2" />
 
         <LinearLayout
             android:orientation="vertical"

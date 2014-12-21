@@ -27,7 +27,7 @@
         android:text="Dreamy"
         android:id="@+id/textView"
         android:textColor="#030303"
-        android:layout_alignTop="@+id/imageButton"
+        android:layout_alignTop="@+id/signin"
         android:layout_centerHorizontal="true" />
 
     <ListView
