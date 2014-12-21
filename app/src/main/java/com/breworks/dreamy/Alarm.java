@@ -10,14 +10,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.breworks.dreamy.model.Todo;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -34,15 +30,12 @@ public class Alarm extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-            Log.e("The onReceive method in Alarm class is called", "Be joyful");
             //Toast.makeText(context, "It's time", Toast.LENGTH_SHORT).show();
             Bundle extras = intent.getExtras();
 
             onRecID = extras.getInt("theID", 0);
             onRecTask = extras.getString("theTask");
             onRecDeadline = extras.getString("theDate");
-
-            Log.e("The ID onReceive is", String.valueOf(onRecID));
 
             callNotification(context, onRecID, onRecTask, onRecDeadline);
 
@@ -53,13 +46,11 @@ public class Alarm extends BroadcastReceiver {
     }
 
     public void setAlarm(Context context, Todo t) {
-        Log.e("The setAlarm method in Alarm class is called", "Hurray");
+
 
         deadline = t.getDeadline(t);
         int ID = t.getId().intValue();
 
-        Log.e("The ID is:", String.valueOf(ID));
-        Log.e("The deadline is:", String.valueOf(deadline));
 
         AlarmManager a = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, Alarm.class);
@@ -76,7 +67,6 @@ public class Alarm extends BroadcastReceiver {
     }
 
     public void cancelAlarm(Context context, Todo t) {
-        Log.e("The cancelAlarm method in Alarm class is called", "Now smile!");
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, Alarm.class);
 
@@ -88,9 +78,6 @@ public class Alarm extends BroadcastReceiver {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void callNotification(Context context, int notificationID, String task, String deadlineString){
-
-        Log.e("The callNotification is called", "oh really?");
-        Log.e("The current ID in Alarm is", String.valueOf(notificationID));
 
         Intent intent = new Intent(context, NotificationR.class);
         PendingIntent pIntent = PendingIntent.getActivity(context, notificationID, intent, 0);

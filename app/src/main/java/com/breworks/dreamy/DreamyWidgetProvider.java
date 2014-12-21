@@ -6,7 +6,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 /**
@@ -26,7 +25,6 @@ public class DreamyWidgetProvider extends AppWidgetProvider {
                          int[] appWidgetIds) {
         appWidget = appWidgetIds;
         this.appWidgetManager = appWidgetManager;
-        Log.e("MASUK WIDGET",SYNC_CLICKED);
         final int N = appWidgetIds.length;
 
 		/*int[] appWidgetIds holds ids of multiple instance of your widget
@@ -49,7 +47,6 @@ public class DreamyWidgetProvider extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
         if (SYNC_CLICKED.equals(intent.getAction())) {
-            Log.e("BREWORKS", String.valueOf(appWidget.length));
 //            final int N = appWidget.length;
 //            for (int i = 0; i < N; ++i) {
 //                RemoteViews remoteViews = updateWidgetListView(context,

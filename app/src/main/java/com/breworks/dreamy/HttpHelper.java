@@ -1,9 +1,9 @@
 package com.breworks.dreamy;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.StrictMode;
-import android.util.Log;
 
 import com.breworks.dreamy.model.Logs;
 import com.breworks.dreamy.model.dreamyAccount;
@@ -27,8 +27,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import android.app.ProgressDialog;
 
 /**
  * Created by Ryan Avila on 19/11/2014.
@@ -55,22 +53,14 @@ public class HttpHelper {
             // 3. build jsonObject
             jsonObject = new JSONObject();
             jsonObject.accumulate("Username", person.getUsername());
-            Log.e("username", jsonObject.getString("Username"));
             jsonObject.accumulate("Password", person.getPassword());
-            Log.e("pass", jsonObject.getString("Password"));
             jsonObject.accumulate("Email", person.getEmail());
-            Log.e("email", jsonObject.getString("Email"));
             jsonObject.accumulate("firstName", person.getFirstName());
-            Log.e("firstName", jsonObject.getString("firstName"));
             jsonObject.accumulate("LastName", person.getLastName());
-            Log.e("LastName", jsonObject.getString("LastName"));
             jsonObject.accumulate("LastAccess", person.getLastAccess().toString());
-            Log.e("LastAccess", jsonObject.getString("LastAccess"));
             jsonObject.accumulate("id", person.getId());
-            Log.e("id",jsonObject.getString("id"));
 
         }catch (JSONException ex){
-            Log.e("JSON","Error when building JSON");
         }
         try {
 
@@ -104,7 +94,6 @@ public class HttpHelper {
                 result = "Did not work!";
 
         } catch (Exception e) {
-            Log.e("InputStream",e.toString());
         }
         return result;
     }
@@ -117,22 +106,14 @@ public class HttpHelper {
             // 3. build jsonObject
             jsonObject = new JSONObject();
             jsonObject.accumulate("Username", person.getUsername());
-            Log.e("username", jsonObject.getString("Username"));
             jsonObject.accumulate("Password", person.getPassword());
-            Log.e("pass", jsonObject.getString("Password"));
             jsonObject.accumulate("Email", person.getEmail());
-            Log.e("email", jsonObject.getString("Email"));
             jsonObject.accumulate("firstName", person.getFirstName());
-            Log.e("firstName", jsonObject.getString("firstName"));
             jsonObject.accumulate("LastName", person.getLastName());
-            Log.e("LastName", jsonObject.getString("LastName"));
             jsonObject.accumulate("LastAccess", person.getLastAccess().toString());
-            Log.e("LastAccess", jsonObject.getString("LastAccess"));
             jsonObject.accumulate("id", person.getId());
-            Log.e("id",jsonObject.getString("id"));
 
         }catch (JSONException ex){
-            Log.e("JSON","Error when building JSON");
         }
         try {
 
@@ -166,7 +147,6 @@ public class HttpHelper {
                 result = "Did not work!";
 
         } catch (Exception e) {
-            Log.e("InputStream",e.toString());
         }
         return result;
     }
@@ -213,7 +193,6 @@ public class HttpHelper {
                 Result = "Did not work!";
 
         } catch (Exception e) {
-            Log.d("InputStream", e.getLocalizedMessage());
         }
         // 11. return result
         return Result;
@@ -244,7 +223,7 @@ public class HttpHelper {
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
-            Log.e("DATA GANTI","GANTI LHO YA !");
+
         }
     }
 
@@ -261,7 +240,7 @@ public class HttpHelper {
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
-            Log.e("ACCOUNT SENT","SENT LHO YA");
+
         }
     }
 
@@ -278,7 +257,7 @@ public class HttpHelper {
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
-            Log.e("LOGS SENT","SENT LHO YA");
+
         }
     }
 
@@ -296,21 +275,14 @@ public class HttpHelper {
                 dreamyAccount am = new dreamyAccount();
 
                 am.setFirstName(person.getString("firstName"));
-                Log.e("firstName",person.getString("firstName"));
-
                 am.setLastName(person.getString("LastName"));
                 am.setUsername(person.getString("Username"));
-                Log.e("username",am.getUsername());
-
                 am.setPassword(person.getString("Password"));
                 am.setEmail(person.getString("Email"));
                 am.setId(person.getLong("id"));
-                Log.e("ID", String.valueOf(am.getId()));
-
                 am.setLastAccess(person.getString("LastAccess"));
 
                 param.add(am);
-                Log.e("TROLL", String.valueOf(js.get(i)));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -333,8 +305,7 @@ public class HttpHelper {
                 // A Simple JSON Response Read
                 InputStream instream = entity.getContent();
                 result = convertInputStreamToString(instream);
-                // now you have the string representation of the HTML request
-                Log.e("RESPONSE: ","this is = " + result);
+                // now you have the string representation of the HTML reques
                 instream.close();
             }
             // Headers
@@ -360,7 +331,6 @@ public class HttpHelper {
 
     public dreamyAccount findAccountByUserName(String username){
         List<dreamyAccount>acc = reqAccount(AccountUrl+"?filter[where][Username]="+username);
-        Log.e("SIZE", String.valueOf(acc.size()));
         if(acc.size() != 0){
             return acc.get(0);
         }

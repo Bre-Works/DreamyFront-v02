@@ -1,14 +1,9 @@
 package com.breworks.dreamy;
 
 import android.app.ActionBar;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -109,7 +104,6 @@ public class DreamyForm extends DreamyActivity {
                 }
             });
         } catch (Exception e) {
-            Log.e("error", String.valueOf(e));
         }
 
     }

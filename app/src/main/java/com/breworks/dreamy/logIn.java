@@ -159,7 +159,6 @@ public class LogIn extends DreamyActivity {
                     }
                 }
             }catch(Exception e){
-                Log.e("error", String.valueOf(e));
             }
             return null;
         }
@@ -185,8 +184,6 @@ public class LogIn extends DreamyActivity {
         }else {
             username = usernameInput.getText().toString();
             password = passwordInput.getText().toString();
-            Log.e("pip", username);
-            Log.e("pop", password);
         }
         new LoggingIn().execute();
     }

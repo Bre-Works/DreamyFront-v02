@@ -7,7 +7,6 @@ package com.breworks.dreamy;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
@@ -76,7 +75,6 @@ public class SignUp extends DreamyActivity {
                         Calendar cal = Calendar.getInstance();
                         java.util.Date cDate = cal.getTime();
                         java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(cDate.getTime());
-                        Log.e("timestamp", String.valueOf(currentTimestamp));
                         dreamyAccount dc = null;
                         try {
                             dc = dreamyAccount.getAccount(allAccount, email, username, firstName, lastName, currentTimestamp, password);

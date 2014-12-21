@@ -10,7 +10,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.Menu;
@@ -18,16 +17,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.GridLayout;
-import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.ImageView;
 
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
 import com.breworks.dreamy.model.Dream;
@@ -62,7 +61,6 @@ public class Main extends DreamyActivity {
         mainAct = this;
         ActionBar actionBar = getActionBar();
         login = session.getUser();
-        Log.e("ID MASUK MAIN", String.valueOf(login.getId()));
         setContentView(R.layout.activity_main);
 
         actionBar.setTitle("Hello, "+ login.getUsername());
@@ -129,7 +127,6 @@ public class Main extends DreamyActivity {
             blur.startAnimation(animSet);
         }
 
-        Log.d("Reading: ", "Reading all contacts..");
         List<Dream> dreams = Dream.searchByUser(login);
         int col = 0, row = 0;
         int colCount = 2;
@@ -141,7 +138,6 @@ public class Main extends DreamyActivity {
             textView.setHeight(radius);
             textView.setPadding(20, 20, 20, 20);
 
-            Log.e("lol", dr.getName());
             dr.checkDreamStatus();
             if (!dr.getStatus()) {
                 String length2[] = dr.getName().split("");

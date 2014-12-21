@@ -4,15 +4,12 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -83,7 +80,6 @@ public class DreamyFormUpdate extends DreamyActivity {
             intent = getIntent();
             long dream = intent.getLongExtra("key",0);
             selectedDream = dream;
-            Log.e("lol", String.valueOf(dream));
             final Dream dr = Dream.findById(Dream.class,dream);
             dreamInput.setText(dr.getName());
             dreamMain = dr;
@@ -98,8 +94,6 @@ public class DreamyFormUpdate extends DreamyActivity {
             });
 
             List<Milestone> miles = Milestone.searchByDream(dr);
-
-            Log.e("lol1", String.valueOf(dr.getId()));
 
             for (final Milestone mil : miles) {
                 final View addView = getLayoutInflater().inflate(R.layout.dreamy_form_row, null);
@@ -147,7 +141,6 @@ public class DreamyFormUpdate extends DreamyActivity {
             }
         }
         catch (Exception e){
-            Log.e("error", String.valueOf(e));
         }
 
         milestoneInput.setOnKeyListener(new View.OnKeyListener() {
