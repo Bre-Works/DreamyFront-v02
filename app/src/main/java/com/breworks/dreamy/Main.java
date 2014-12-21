@@ -139,15 +139,15 @@ public class Main extends DreamyActivity {
             TextView textView = new TextView(this);
             textView.setWidth(radius);
             textView.setHeight(radius);
-            textView.setPadding(20, 80, 20, 80);
+            textView.setPadding(20, 20, 20, 20);
 
             Log.e("lol", dr.getName());
             dr.checkDreamStatus();
             if (!dr.getStatus()) {
                 String length2[] = dr.getName().split("");
-                if(length2.length >= 10){
+                if(length2.length >= 35){
                     String temp = "“";
-                    for(int i = 0; i < 9; i++){
+                    for(int i = 0; i < 30; i++){
                         temp += length2[i];
                     }
                     temp += "...";
@@ -158,9 +158,9 @@ public class Main extends DreamyActivity {
                 textView.setBackground(circle);
             } else {
                 String length2[] = dr.getName().split("");
-                if(length2.length >= 10){
+                if(length2.length >= 35){
                     String temp = "“";
-                    for(int i = 0; i < 9; i++){
+                    for(int i = 0; i < 30; i++){
                         temp += length2[i];
                     }
                     temp += "...";
