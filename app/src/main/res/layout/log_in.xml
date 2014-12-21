@@ -33,7 +33,9 @@
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
         android:padding="30dp"
-        android:id="@+id/relativeLayout2" >
+        android:id="@+id/relativeLayout2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
 
     </RelativeLayout>
 
