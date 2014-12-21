@@ -146,7 +146,6 @@ public class LogIn extends DreamyActivity {
                         dr.updateLastAccess(dr, currentTimestamp);
 
                         session.createLoginSession(dr.getUsername(), dr.getId());
-                        Log.e("ID MASUK SESSION", String.valueOf(dr.getId()));
 
                         new SendLogs().execute();
                         Intent intent = new Intent(LogIn.this, Main.class);
