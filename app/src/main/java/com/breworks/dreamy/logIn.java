@@ -8,11 +8,8 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Looper;
-import android.os.MessageQueue;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -20,8 +17,8 @@ import android.widget.Toast;
 
 import com.breworks.dreamy.DreamyLibrary.ConnectionManager;
 import com.breworks.dreamy.DreamyLibrary.DreamyActivity;
-import com.breworks.dreamy.model.dreamyAccount;
 import com.breworks.dreamy.model.Logs;
+import com.breworks.dreamy.model.dreamyAccount;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -127,89 +124,25 @@ public class LogIn extends DreamyActivity {
         @Override
         protected String doInBackground(String... params) {
             try{
-                Log.e("MASUK","0");
                 dreamyAccount dr = dreamyAccount.findByUsername(username);
                 if(username.equals("") || password.equals("")){
-                    Log.e("MASUK","1");
                     progressDialog.dismiss();
-                    Looper.prepare();
-                    MessageQueue queue = Looper.myQueue();
-                    queue.addIdleHandler(new MessageQueue.IdleHandler() {
-                        int mReqCount = 0;
-
-                        @Override
-                        public boolean queueIdle() {
-                            if (++mReqCount == 2) {
-                                // Quit looper
-                                Looper.myLooper().quit();
-                                return false;
-                            } else
-                                return true;
-                        }
-                    });
-                    Toast.makeText(getApplicationContext(), "Enter Something Please!", Toast.LENGTH_SHORT).show();
-                    Looper.loop();
+                    return "EMPTY";
                 }if(dr == null){
-                    Log.e("MASUK","2");
                     if (con.isConnectedToInternet()) {
-                        Log.e("MASUK","3");
                         dr = httphelper.findAccountByUserName(username);
                         dr = dreamyAccount.createAccount2(dr.getEmail(),dr.getUsername(),dr.getFirstName(),dr.getLastName(),currentTimestamp,dr.getPassword());
                         if(dr == null){
-                            Log.e("MASUK","4");
                             progressDialog.dismiss();
-                            Looper.prepare();
-                            MessageQueue queue = Looper.myQueue();
-                            queue.addIdleHandler(new MessageQueue.IdleHandler() {
-                                int mReqCount = 0;
-
-                                @Override
-                                public boolean queueIdle() {
-                                    if (++mReqCount == 2) {
-                                        // Quit looper
-                                        Looper.myLooper().quit();
-                                        return false;
-                                    } else
-                                        return true;
-                                }
-                            });
-                            Toast.makeText(getApplicationContext(), "Username does not exist!", Toast.LENGTH_SHORT).show();
-                            Looper.loop();
+                            return "USERNAME";
                         }
                     }else{
-                        Log.e("MASUK","5");
                         progressDialog.dismiss();
-                        Looper.prepare();
-                        MessageQueue queue = Looper.myQueue();
-                        queue.addIdleHandler(new MessageQueue.IdleHandler() {
-                            int mReqCount = 0;
-
-                            @Override
-                            public boolean queueIdle() {
-                                if (++mReqCount == 2) {
-                                    // Quit looper
-                                    Looper.myLooper().quit();
-                                    return false;
-                                } else
-                                    return true;
-                            }
-                        });
-                        Toast.makeText(getApplicationContext(), "Username does not exist in local machine!", Toast.LENGTH_SHORT).show();
-                        Looper.loop();
+                        return "USERNAMELOCAL";
                     }
                 }if(dr !=null){
-                    Log.e("MASUK","6");
                     String userPass = dr.getPassword();
-                    Log.e("MASUK","9");
-                    Log.e("lol", dr.getUsername());
-                    Log.e("pass", password);
-                    Log.e("encpass", dr.getPassword());
-                    Log.e("MASUK","pass : "+ password);
-                    Log.e("MASUK","pass : "+ userPass);
-                    Log.e("MASUK","status : "+ authentication(password,userPass));
-
                     if (authentication(password, userPass)) {
-                        Log.e("MASUK","7");
                         dr.updateLastAccess(dr, currentTimestamp);
 
                         session.createLoginSession(dr.getUsername(), dr.getId());
@@ -222,26 +155,8 @@ public class LogIn extends DreamyActivity {
                         finish();
                     }
                     else{
-                        Log.e("MASUK","8");
                         progressDialog.dismiss();
-                        Looper.prepare();
-                        MessageQueue queue = Looper.myQueue();
-                        queue.addIdleHandler(new MessageQueue.IdleHandler() {
-                            int mReqCount = 0;
-
-                            @Override
-                            public boolean queueIdle() {
-                                if (++mReqCount == 2) {
-                                    // Quit looper
-                                    Looper.myLooper().quit();
-                                    return false;
-                                } else
-                                    return true;
-                            }
-                        });
-
-                        Toast.makeText(getApplicationContext(), "Invalid Password!", Toast.LENGTH_SHORT).show();
-                        Looper.loop();
+                        return "INVALIDPASS";
                     }
                 }
             }catch(Exception e){
@@ -250,10 +165,18 @@ public class LogIn extends DreamyActivity {
             return null;
         }
 
-        protected void onPostExecute(){
-            progressDialog.dismiss();
+        @Override
+        protected void onPostExecute(String string) {
+            if (string.equals("INVALIDPASS")) {
+                Toast.makeText(getApplicationContext(), "Invalid Password!", Toast.LENGTH_SHORT).show();
+            } else if (string.equals("USERNAMELOCAL")) {
+                Toast.makeText(getApplicationContext(), "Username does not exist in local machine!", Toast.LENGTH_SHORT).show();
+            } else if (string.equals("USERNAME")) {
+                Toast.makeText(getApplicationContext(), "Username does not exist!", Toast.LENGTH_SHORT).show();
+            } else if (string.equals("EMPTY")) {
+                Toast.makeText(getApplicationContext(), "Enter Something Please!", Toast.LENGTH_SHORT).show();
+            }
         }
-
     }
 
     public void loginAccount(View vi) throws InvalidKeySpecException, NoSuchAlgorithmException {

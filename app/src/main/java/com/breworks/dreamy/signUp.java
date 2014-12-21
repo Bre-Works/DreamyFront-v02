@@ -7,8 +7,6 @@ package com.breworks.dreamy;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Looper;
-import android.os.MessageQueue;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
@@ -63,69 +61,17 @@ public class SignUp extends DreamyActivity {
         @Override
         protected String doInBackground(String... str) {
             List<dreamyAccount> allAccount = http.findAllAccount();
-            if (http.searchAccountByUsername(allAccount,username) != null) {
+            if (http.searchAccountByUsername(allAccount, username) != null) {
                 progressDialog.dismiss();
-                    Looper.prepare();
-                    MessageQueue queue = Looper.myQueue();
-                    queue.addIdleHandler(new MessageQueue.IdleHandler() {
-                    int mReqCount = 0;
-
-                    @Override
-                    public boolean queueIdle() {
-                        if (++mReqCount == 2) {
-                            // Quit looper
-                            Looper.myLooper().quit();
-                            return false;
-                        } else
-                            return true;
-                    }
-                });
-                Toast toast = Toast.makeText(getApplicationContext(), "Username is already taken.", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                toast.show();
-                Looper.loop();
+                return "USERNAMETAKEN";
             } else {
                 if (checkPass(password) == false) {
                     progressDialog.dismiss();
-                    Looper.prepare();
-                    MessageQueue queue = Looper.myQueue();
-                    queue.addIdleHandler(new MessageQueue.IdleHandler() {
-                        int mReqCount = 0;
-
-                        @Override
-                        public boolean queueIdle() {
-                            if (++mReqCount == 2) {
-                                // Quit looper
-                                Looper.myLooper().quit();
-                                return false;
-                            } else
-                                return true;
-                        }
-                    });
-                    Toast toast= Toast.makeText(getApplicationContext(), "Password should have at least 6 character, uppercase, lowercase, and number", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                    toast.show();
-                    Looper.loop();
-                }else{
+                    return "PASSWORDLONG";
+                } else {
                     if (!password.equals(passwordConf)) {
                         progressDialog.dismiss();
-                        Looper.prepare();
-                        MessageQueue queue = Looper.myQueue();
-                        queue.addIdleHandler(new MessageQueue.IdleHandler() {
-                            int mReqCount = 0;
-
-                            @Override
-                            public boolean queueIdle() {
-                                if (++mReqCount == 2) {
-                                    // Quit looper
-                                    Looper.myLooper().quit();
-                                    return false;
-                                } else
-                                    return true;
-                            }
-                        });
-                        Toast.makeText(getApplicationContext(), "Password and password confirmation did not match!", Toast.LENGTH_SHORT).show();
-                        Looper.loop();
+                        return "PASSWORDMATCH";
                     } else {
                         Calendar cal = Calendar.getInstance();
                         java.util.Date cDate = cal.getTime();
@@ -133,7 +79,7 @@ public class SignUp extends DreamyActivity {
                         Log.e("timestamp", String.valueOf(currentTimestamp));
                         dreamyAccount dc = null;
                         try {
-                            dc = dreamyAccount.getAccount(allAccount,email, username, firstName, lastName, currentTimestamp, password);
+                            dc = dreamyAccount.getAccount(allAccount, email, username, firstName, lastName, currentTimestamp, password);
                         } catch (InvalidKeySpecException e) {
                             e.printStackTrace();
                         } catch (NoSuchAlgorithmException e) {
@@ -141,7 +87,6 @@ public class SignUp extends DreamyActivity {
                         }
                         http.POSTAccount(dc);
 
-                        
                         progressDialog.dismiss();
 
                         finish();
@@ -149,13 +94,22 @@ public class SignUp extends DreamyActivity {
                     }
                 }
             }
-            return null;
         }
 
         @Override
         protected void onPostExecute(String string) {
             if (string.equals("CREATED")) {
-                Toast toast= Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), "Your account is now ready. Please login.", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                toast.show();
+            } else if (string.equals("PASSWORDMATCH")) {
+                Toast.makeText(getApplicationContext(), "Password and password confirmation did not match!", Toast.LENGTH_SHORT).show();
+            } else if (string.equals("PASSWORDLONG")) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Password should have at least 6 character, uppercase, lowercase, and number", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                toast.show();
+            } else if (string.equals("USERNAMETAKEN")) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Username is already taken.", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
             }
