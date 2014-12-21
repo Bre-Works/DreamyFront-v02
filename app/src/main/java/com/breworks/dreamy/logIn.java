@@ -152,6 +152,7 @@ public class LogIn extends DreamyActivity {
                         startActivity(intent);
 
                         finish();
+                        return "IN";
                     }
                     else{
                         progressDialog.dismiss();
@@ -165,7 +166,9 @@ public class LogIn extends DreamyActivity {
 
         @Override
         protected void onPostExecute(String string) {
-            if (string.equals("INVALIDPASS")) {
+            if(string == null){
+
+            }else if (string.equals("INVALIDPASS")) {
                 Toast.makeText(getApplicationContext(), "Invalid Password!", Toast.LENGTH_SHORT).show();
             } else if (string.equals("USERNAMELOCAL")) {
                 Toast.makeText(getApplicationContext(), "Username does not exist in local machine!", Toast.LENGTH_SHORT).show();
@@ -173,6 +176,8 @@ public class LogIn extends DreamyActivity {
                 Toast.makeText(getApplicationContext(), "Username does not exist!", Toast.LENGTH_SHORT).show();
             } else if (string.equals("EMPTY")) {
                 Toast.makeText(getApplicationContext(), "Enter Something Please!", Toast.LENGTH_SHORT).show();
+            } else if (string.equals("IN")){
+
             }
         }
     }
