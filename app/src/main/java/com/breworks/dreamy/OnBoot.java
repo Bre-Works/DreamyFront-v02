@@ -18,7 +18,6 @@ public class OnBoot extends BroadcastReceiver{
 
     @Override
     public void onReceive(Context context, Intent intent) {
-            Log.e("onBoot is called!", "...");
             List<Todo> tds = Todo.searchByNotifStatus(true);
             Alarm a = new Alarm();
             for(Todo t : tds){

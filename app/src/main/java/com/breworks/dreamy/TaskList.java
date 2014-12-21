@@ -59,7 +59,6 @@ public class TaskList extends Activity {
         selectedDream = dream;
         selectedMiles = milest;
 
-        Log.e("dream ID!!", String.valueOf(dream));
 
         final Dream dr = Dream.findById(Dream.class, dream);
         Milestone m = Milestone.findById(Milestone.class, milest);
@@ -94,7 +93,6 @@ public class TaskList extends Activity {
                             String toDoInput = TodoInput.getText().toString();
                             final Milestone selectedMilestone = Milestone.findById(Milestone.class, selectedMiles);
                             String miles = selectedMilestone.getId().toString();
-                            Log.e("current Milestone", miles);
 
                             Calendar calendar = Calendar.getInstance();
                             Date currentDate = calendar.getTime();
@@ -115,7 +113,6 @@ public class TaskList extends Activity {
                             todoc.setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
                                     if (((CheckBox) v).isChecked()) {
-                                        Log.e("lol", "wooooi");
                                         todo.setStatus(true);
                                         editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                                     } else {
@@ -126,7 +123,6 @@ public class TaskList extends Activity {
                                 }
                             });
 
-                            Log.e("Todo", todo.getText());
 
                             toDetail.setOnClickListener(new View.OnClickListener() {
 
@@ -199,9 +195,7 @@ public class TaskList extends Activity {
             todoc.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     if (((CheckBox) v).isChecked()) {
-                        Log.e("lol", "wooooi");
                         td.setStatus(true);
-                        Log.e("TODO STATUS",td.getText() + " "+ td.getStatus());
                         editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     } else {
                         td.setStatus(false);
