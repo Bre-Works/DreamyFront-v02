@@ -78,7 +78,6 @@ public class Milestones extends DreamyActivity {
     public void setUp(){
 
         dreamyAccount login = session.getUser();
-
         // Data From Main
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -261,7 +260,20 @@ public class Milestones extends DreamyActivity {
 
             //set up textview and image
             final TextView milest = new TextView(this);
-            milest.setText(mil.getName());
+
+            //check length
+            String length[] = mil.getName().split("");
+            if(length.length > 16){
+                String temp = "";
+                for(int i = 0; i < 13; i++){
+                    temp += length[i];
+                }
+                temp += "...";
+                milest.setText(temp);
+            }else{
+                milest.setText(mil.getName());
+            }
+            milest.setGravity(Gravity.CENTER);
             milest.setTypeface(null, Typeface.BOLD);
             milest.setPadding(0,0,0,10);
             milest.setMaxLines(3);
@@ -302,7 +314,20 @@ public class Milestones extends DreamyActivity {
                 rowtd.setGravity(Gravity.CENTER);
                 TextView tdtxt = new TextView(this);
                 tdtxt.setGravity(Gravity.CENTER);
-                tdtxt.setText(td.getText().toString());
+
+                //check length
+                String length2[] = td.getText().toString().split("");
+                if(length2.length > 17){
+                    String temp = "";
+                    for(int i = 0; i < 13; i++){
+                        temp += length2[i];
+                    }
+                    temp += "...";
+                    tdtxt.setText(temp);
+                }else{
+                    tdtxt.setText(td.getText().toString());
+                }
+
                 if(td.getStatus()){
                     //tdtxt.setTextColor(Color.parseColor("#FF22C133"));
                     tdtxt.setPaintFlags(tdtxt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
