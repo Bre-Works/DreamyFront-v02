@@ -144,10 +144,30 @@ public class Main extends DreamyActivity {
             Log.e("lol", dr.getName());
             dr.checkDreamStatus();
             if (!dr.getStatus()) {
-                textView.setText("“" + dr.getName() + "”");
+                String length2[] = dr.getName().split("");
+                if(length2.length >= 10){
+                    String temp = "“";
+                    for(int i = 0; i < 9; i++){
+                        temp += length2[i];
+                    }
+                    temp += "...";
+                    textView.setText(temp);
+                }else{
+                    textView.setText("“" + dr.getName() + "”");
+                }
                 textView.setBackground(circle);
             } else {
-                textView.setText("“" + dr.getName() + "”");
+                String length2[] = dr.getName().split("");
+                if(length2.length >= 10){
+                    String temp = "“";
+                    for(int i = 0; i < 9; i++){
+                        temp += length2[i];
+                    }
+                    temp += "...";
+                    textView.setText(temp);
+                }else{
+                    textView.setText("“" + dr.getName() + "”");
+                }
                 textView.setBackground(circle_done);
             }
             textView.setGravity(Gravity.CENTER);
