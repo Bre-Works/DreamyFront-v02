@@ -84,6 +84,7 @@ public class Milestones extends DreamyActivity {
         if(extras != null) {
             long dreamInput = intent.getLongExtra("key", 0);
             selectedDreams = dreamInput;
+            Log.e("dream ID!!", String.valueOf(dreamInput));
         }
 
         // DREAMS
@@ -94,6 +95,7 @@ public class Milestones extends DreamyActivity {
         int inc = 0;
 
         for (final Dream dr : dreams) {
+            Log.e("dream id", String.valueOf(dr.getId()));
             dreamId[inc] = dr.getId();
             dreamList[inc] = dr.getName();
             inc++;
@@ -112,6 +114,7 @@ public class Milestones extends DreamyActivity {
                 indexOfDream = i;
             }
         }
+        Log.e("THIS ARRAY INDEX!!", String.valueOf(indexOfDream));
         SpinnerDream.setSelection(indexOfDream);
 
         // spinner dream listener
@@ -119,12 +122,15 @@ public class Milestones extends DreamyActivity {
                 new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        Log.e("Choose dream index ", String.valueOf(i));
                         selectedDreamIndex = i;
+                        Log.e("index saved ", String.valueOf(selectedDreamIndex));
                         checkDreamIndex(dreamList, dreamId);
                     }
 
                     @Override
                     public void onNothingSelected(AdapterView<?> adapterView) {
+                        Log.e("nothing", "...");
                     }
                 }
         );
@@ -206,9 +212,11 @@ public class Milestones extends DreamyActivity {
     public void checkDreamIndex(String[] dreamList, long[] dreamId) {
         selectedDreams = dreamId[selectedDreamIndex];
         if (dreamList[selectedDreamIndex] != null) {
+            Log.e("index ", "amazingly not null");
             Dream dr = Dream.findById(Dream.class, dreamId[selectedDreamIndex]);
             milestonesSetUp(dr);
         } else {
+            Log.e("index ", "is incredibly null");
             selectedDreamIndex = 0;
             Dream dr = Dream.findById(Dream.class, dreamId[selectedDreamIndex]);
             milestonesSetUp(dr);
@@ -221,6 +229,7 @@ public class Milestones extends DreamyActivity {
 
         // MILESTONES
         // get miles from database
+        Log.e("arrive here ", "LOH");
 
         LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         llp.setMargins(10, 10, 10, 10);
@@ -235,6 +244,7 @@ public class Milestones extends DreamyActivity {
         int incM = 0;
 
         for (final Milestone mil : miles) {
+            Log.e("miles id", String.valueOf(mil.getId()));
             milesId[incM] = mil.getId();
             milesList[incM] = mil.getName();
             List<Todo> todos = Todo.searchByMilestone(mil);

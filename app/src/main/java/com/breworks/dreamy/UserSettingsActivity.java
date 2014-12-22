@@ -152,6 +152,7 @@ public class UserSettingsActivity extends DreamyActivity {
                                     Toast.makeText(getApplicationContext(), "Your Password is Now Changed", Toast.LENGTH_SHORT).show();
                                 }
                             }catch(Exception e){
+                                    Log.e("ERROR",e.toString());
                                 }
                             }
                         });

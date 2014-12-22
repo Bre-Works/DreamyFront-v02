@@ -70,6 +70,7 @@ public class ToDoDetail extends DreamyActivity {
 
         Intent intent = getIntent();
         taskID = intent.getLongExtra("taskID", 0);
+        Log.e("tududud ID!!", String.valueOf(taskID));
 
         final Todo t = Todo.findByTaskID(taskID);
 
@@ -142,9 +143,11 @@ public class ToDoDetail extends DreamyActivity {
                 Alarm a = new Alarm();
                 // If the notification is turned on
                 if (isChecked) {
+                    Log.e("The switch is on!", String.valueOf(isChecked));
                     t.setNotifStatus(true);
                     a.setAlarm(getApplicationContext(), t);
                 } else{
+                    Log.e("The switch is off!", String.valueOf(isChecked));
                     if (a!= null) {
                         t.setNotifStatus(false);
                         a.cancelAlarm(getApplicationContext(), t);
@@ -158,6 +161,7 @@ public class ToDoDetail extends DreamyActivity {
     }
 
     public void updateDeadline(Todo t){
+        Log.e("Update deadline is called", "baa");
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateField.setText(dateFormat.format(calendar.getTime()));
@@ -171,6 +175,7 @@ public class ToDoDetail extends DreamyActivity {
             a.setAlarm(getApplicationContext(), t);
         }
 
+        Log.e("Deadline in update deadline after save", String.valueOf(t.getDeadline(t)));
 
     }
 
