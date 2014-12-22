@@ -131,11 +131,10 @@ public class LogIn extends DreamyActivity {
                 }if(dr == null){
                     if (con.isConnectedToInternet()) {
                         dr = httphelper.findAccountByUserName(username);
+                        dr = dreamyAccount.createAccount2(dr.getEmail(),dr.getUsername(),dr.getFirstName(),dr.getLastName(),currentTimestamp,dr.getPassword());
                         if(dr == null){
                             progressDialog.dismiss();
                             return "USERNAME";
-                        }else{
-                            dr = dreamyAccount.createAccount2(dr.getEmail(),dr.getUsername(),dr.getFirstName(),dr.getLastName(),currentTimestamp,dr.getPassword());
                         }
                     }else{
                         progressDialog.dismiss();
@@ -145,10 +144,13 @@ public class LogIn extends DreamyActivity {
                     String userPass = dr.getPassword();
                     if (authentication(password, userPass)) {
                         dr.updateLastAccess(dr, currentTimestamp);
+
                         session.createLoginSession(dr.getUsername(), dr.getId());
+
                         new SendLogs().execute();
                         Intent intent = new Intent(LogIn.this, Main.class);
                         startActivity(intent);
+
                         finish();
                         return "IN";
                     }
